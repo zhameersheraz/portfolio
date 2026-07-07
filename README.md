@@ -1,60 +1,63 @@
-# Portfolio
+# portfolio
 
-Personal portfolio site for **Zhameer Sheraz U. Tampugao**.
+My personal site. Notes, writeups, and the small things I build while I'm
+learning security.
 
-Built with Next.js 15, TypeScript, Tailwind CSS, React Three Fiber.
-Backend runs on Next.js API routes — contact form (Resend), live GitHub
-stats, and a view counter, all in the same project.
+Live: [portfolio-rouge-five-59.vercel.app](https://portfolio-rouge-five-59.vercel.app)
+
+## What's on it
+
+- Home page with a typing role animation and a small 3D wireframe scene
+- About section with my photo and what I'm focused on right now
+- Project cards that pull live star, fork, and last-push stats from the GitHub API
+- Writeups section linking out to my CTF repos on picoCTF, TryHackMe, and CyberTalents
+- Contact form that sends to my email when an API key is configured, and just logs to stdout otherwise
 
 ## Stack
 
-- **Framework:** Next.js 15 (App Router) + TypeScript
-- **Styling:** Tailwind CSS, CSS variables, system fonts
-- **3D:** React Three Fiber + drei (wireframe icosahedron + particle field)
-- **Forms:** react-hook-form + zod
-- **Backend:** Next.js Route Handlers (Node runtime)
-- **Email:** Resend (optional; logs to stdout in dev)
+Next.js 15 (App Router) and TypeScript. Tailwind for styling. React Three Fiber
+for the hero scene. The contact form, GitHub stats, and view counter all live
+in Next.js Route Handlers, so the backend is in the same project.
 
-## Quickstart
+## Run it locally
 
 ```bash
 npm install
-cp .env.example .env.local   # then fill in keys (optional)
+cp .env.example .env.local   # fill in any keys you want to use
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open http://localhost:3000.
 
 ## Environment variables
 
-| Variable                | Required | Purpose                                            |
-| ----------------------- | -------- | -------------------------------------------------- |
-| `GITHUB_TOKEN`          | No       | Bumps GitHub API rate limit from 60 → 5000 req/hr  |
-| `RESEND_API_KEY`        | No       | Enables real email send on the contact form        |
-| `CONTACT_FROM_EMAIL`    | No       | Sender shown in the email                          |
-| `CONTACT_TO_EMAIL`      | No       | Where messages land (default: owner email)        |
-| `NEXT_PUBLIC_SITE_URL`  | No       | Used for OG / sitemap absolute URLs                |
+All optional. The site works without any of them.
 
-Everything works in dev without keys — contact form logs to stdout, GitHub
-data uses the public unauthenticated API.
+| Variable | What it does |
+| --- | --- |
+| `GITHUB_TOKEN` | Bumps GitHub API rate limit from 60 to 5000 req/hr |
+| `RESEND_API_KEY` | Turns on real email sending for the contact form |
+| `CONTACT_FROM_EMAIL` | Sender shown in the email |
+| `CONTACT_TO_EMAIL` | Where contact-form messages land (default: owner email) |
+| `NEXT_PUBLIC_SITE_URL` | Used for OG image and sitemap absolute URLs |
 
-## API
+## API routes
 
-| Method | Path                | Purpose                                             |
-| ------ | ------------------- | --------------------------------------------------- |
-| POST   | `/api/contact`      | Validate + forward contact form to email            |
-| GET    | `/api/github?repo=` | Repo stats (stars, forks, language, pushed_at)      |
-| GET    | `/api/github?user=` | List of public repos for a user                     |
-| GET    | `/api/stats`        | Aggregated GitHub stats for the portfolio owner     |
-| GET    | `/api/views?slug=`  | Read view counter for a project slug                |
-| POST   | `/api/views`        | Increment view counter for a project slug           |
+| Method | Path | What it does |
+| --- | --- | --- |
+| POST | `/api/contact` | Validate + forward contact form to email |
+| GET  | `/api/github?repo=` | Repo stats (stars, forks, language, pushed_at) |
+| GET  | `/api/github?user=` | List public repos for a user |
+| GET  | `/api/stats` | Aggregated GitHub stats for the owner |
+| GET  | `/api/views?slug=` | Read view counter for a project slug |
+| POST | `/api/views` | Increment view counter for a project slug |
 
 All routes are rate-limited per IP.
 
 ## Deploy
 
-See [DEPLOY.md](./DEPLOY.md) for a one-click Vercel deploy + GitHub Pages fallback.
+Pushed to `main` -> Vercel builds and deploys automatically. No extra config.
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT. See [LICENSE](./LICENSE).

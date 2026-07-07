@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Github, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SITE } from "@/lib/config";
@@ -14,9 +15,24 @@ const ThreeScene = dynamic(
 
 const ROLES = [
   "Computer Science student",
-  "CTF player",
-  "Pentesting learner",
+  "Self-taught security learner",
+  "Pentesting apprentice",
   "Writeup collector",
+];
+
+const PLATFORMS = [
+  { name: "picoCTF", href: "https://picoctf.org/", src: "/picoctf.svg" },
+  { name: "TryHackMe", href: "https://tryhackme.com/", src: "/tryhackme.svg" },
+  {
+    name: "CyberTalents",
+    href: "https://cybertalents.com/",
+    src: "/cybertalents.svg",
+  },
+  {
+    name: "HackTheBox",
+    href: "https://www.hackthebox.com/",
+    src: "/hackthebox.svg",
+  },
 ];
 
 export function Hero() {
@@ -81,8 +97,9 @@ export function Hero() {
         </div>
 
         <p className="mt-6 max-w-2xl text-base text-muted-foreground text-pretty md:text-lg">
-          I do CTFs on picoCTF, TryHackMe, and CyberTalents — and I write up what I learn so I can find it again later.
-          Slowly working toward being useful with a Kali box and a Python script.
+          I do CTFs on picoCTF, TryHackMe, and CyberTalents. I write up what I
+          learn so I can find it again later. Slowly working toward being useful
+          with a Kali box and a Python script.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -110,14 +127,36 @@ export function Hero() {
           </a>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 text-mono text-muted-foreground">
+        <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 text-mono text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="h-3.5 w-3.5" /> {SITE.location}
           </span>
           <span>·</span>
           <span>27 public repos</span>
           <span>·</span>
-          <span>picoCTF · TryHackMe · CyberTalents</span>
+          <span className="hidden sm:inline">Active on</span>
+          <ul className="flex flex-wrap items-center gap-3">
+            {PLATFORMS.map((p) => (
+              <li key={p.name}>
+                <a
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={p.name}
+                  title={p.name}
+                  className="group inline-flex h-7 w-7 items-center justify-center rounded-md border border-border bg-card/60 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-foreground/40 hover:text-foreground"
+                >
+                  <Image
+                    src={p.src}
+                    alt={p.name}
+                    width={16}
+                    height={16}
+                    className="h-4 w-4 opacity-70 transition-opacity group-hover:opacity-100 dark:invert"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

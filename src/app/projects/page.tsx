@@ -14,7 +14,7 @@ export default function ProjectsPage() {
         index="01"
         label="Projects"
         title="All projects"
-        description="Everything publicly visible on my GitHub — repos I own or actively maintain."
+        description="Everything publicly visible on my GitHub. Repos I own or actively maintain."
       />
       <div className="mt-10">
         <Projects />

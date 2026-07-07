@@ -77,7 +77,7 @@ export function getRepos(username: string) {
 }
 
 /**
- * Approximate repo size — GitHub exposes `size` in KB.
+ * Approximate repo size. GitHub exposes `size` in KB.
  * Converts to commits-ish proxy by combining size + recent activity.
  */
 export async function getRepoStats(owner: string, repo: string) {

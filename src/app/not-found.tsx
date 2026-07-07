@@ -10,7 +10,7 @@ export default function NotFound() {
         Nothing here.
       </h1>
       <p className="mt-4 max-w-md text-sm text-muted-foreground text-pretty">
-        That page doesn&apos;t exist — or I moved it. Either way, the front door is this way:
+        That page does not exist. Either I moved it or it never did. Either way, the front door is this way:
       </p>
       <Link
         href="/"

@@ -1,5 +1,5 @@
 /**
- * Email service — uses Resend if RESEND_API_KEY is set,
+ * Email service. Uses Resend if RESEND_API_KEY is set,
  * otherwise logs to stdout so the form is testable in dev.
  */
 
@@ -20,7 +20,7 @@ export async function sendContactEmail(payload: ContactPayload): Promise<{
   const to = process.env.CONTACT_TO_EMAIL ?? "owner@localhost";
 
   if (!apiKey) {
-    console.log("[contact] no RESEND_API_KEY — logging instead:");
+    console.log("[contact] no RESEND_API_KEY, logging instead:");
     console.log({
       from,
       to,
@@ -42,7 +42,7 @@ export async function sendContactEmail(payload: ContactPayload): Promise<{
       to,
       replyTo: payload.email,
       subject: payload.subject?.trim()
-        ? `${payload.subject} — from ${payload.name}`
+        ? `${payload.subject} from ${payload.name}`
         : `New message from ${payload.name}`,
       html,
       text,

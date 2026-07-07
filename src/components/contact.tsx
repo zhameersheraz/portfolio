@@ -76,7 +76,7 @@ export function Contact() {
           noValidate
           className="rounded-lg border border-border bg-card p-6 md:p-8"
         >
-          {/* Honeypot — keep bots busy */}
+          {/* Honeypot: keep bots busy */}
           <input
             type="text"
             tabIndex={-1}
@@ -168,7 +168,7 @@ export function Contact() {
           {status.kind === "ok" && (
             <div className="mt-5 inline-flex items-center gap-2 rounded-md border border-accent/30 bg-accent/10 px-3 py-2 text-sm text-accent">
               <Check className="h-4 w-4" />
-              Sent — I&apos;ll get back to you soon.
+              Sent. I will get back to you soon.
             </div>
           )}
           {status.kind === "error" && (

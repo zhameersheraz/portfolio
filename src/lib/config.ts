@@ -1,5 +1,5 @@
 /**
- * Site config — single source of truth for personal info, links, projects.
+ * Site config: single source of truth for personal info, links, projects.
  * Edit here, not in components.
  */
 
@@ -8,9 +8,9 @@ export const SITE = {
   handle: "zhameer",
   role: "Computer Science Student",
   tagline:
-    "I learn how systems break — then I write about it.",
+    "I learn how systems break, then I write about it.",
   description:
-    "Computer Science student. CTF writeups, pentesting notes, and small things I've built while figuring out how computers actually work.",
+    "Computer Science student. CTF writeups, pentesting notes, and small things I have built while figuring out how computers actually work.",
   location: "Philippines",
   email: "zhameersheraztampugao@gmail.com",
   url: "https://zhameersheraz.dev",
@@ -54,7 +54,7 @@ export const PROJECTS = [
     repo: "zhameersheraz/picoCTF-Writeups",
     href: "https://github.com/zhameersheraz/picoCTF-Writeups",
     summary:
-      "A growing collection of writeups for picoCTF challenges — covering forensics, web exploitation, reverse engineering, binary exploitation, cryptography, and more.",
+      "A growing collection of writeups for picoCTF challenges. Covers forensics, web exploitation, reverse engineering, binary exploitation, cryptography, and more.",
     tags: ["picoCTF", "CTF", "Writeups", "Education"],
     categories: [
       "Artificial Intelligence",
@@ -75,7 +75,7 @@ export const PROJECTS = [
     repo: "zhameersheraz/TryHackMe-Writeups",
     href: "https://github.com/zhameersheraz/TryHackMe-Writeups",
     summary:
-      "Walkthroughs and notes for TryHackMe rooms — Linux fundamentals, networking, OSINT, web, and reverse engineering tracks.",
+      "Walkthroughs and notes for TryHackMe rooms. Linux fundamentals, networking, OSINT, web, and reverse engineering tracks.",
     tags: ["TryHackMe", "CTF", "Writeups", "Linux"],
     categories: [
       "Cryptography",
@@ -95,7 +95,7 @@ export const PROJECTS = [
     repo: "zhameersheraz/CyberTalents-Writeups",
     href: "https://github.com/zhameersheraz/CyberTalents-Writeups",
     summary:
-      "Writeups for CyberTalents challenges — cryptography, digital forensics, mobile, web, and malware reverse engineering.",
+      "Writeups for CyberTalents challenges. Cryptography, digital forensics, mobile, web, and malware reverse engineering.",
     tags: ["CyberTalents", "CTF", "Writeups", "Forensics"],
     categories: [
       "Cryptography",
@@ -114,7 +114,7 @@ export const PROJECTS = [
     repo: "zhameersheraz/WIX",
     href: "https://github.com/zhameersheraz/WIX",
     summary:
-      "Originally built on Wix, then rebuilt as a plain static site — a small cybersecurity project offering risk assessment and security monitoring for individuals and small businesses.",
+      "Originally built on Wix, then rebuilt as a plain static site. A small cybersecurity project offering risk assessment and security monitoring for individuals and small businesses.",
     tags: ["HTML", "CSS", "JavaScript", "Static Site"],
     categories: ["Web", "Marketing", "Cybersecurity"],
     language: "HTML",

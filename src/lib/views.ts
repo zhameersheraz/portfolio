@@ -1,5 +1,5 @@
 /**
- * View counter — file-based persistence so it survives restarts.
+ * View counter. File-based persistence so it survives restarts.
  * For production swap with Redis/Upstash KV. The interface stays the same.
  */
 
@@ -20,7 +20,7 @@ async function ensureStorage() {
       await fs.writeFile(VIEWS_FILE, JSON.stringify({}), "utf8");
     }
   } catch (err) {
-    // .storage is gitignored and ignored in serverless — fail silently
+    // .storage is gitignored and ignored in serverless. Fail silently.
     console.warn("[views] storage init failed:", err);
   }
 }
