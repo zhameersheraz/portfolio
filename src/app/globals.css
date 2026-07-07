@@ -203,3 +203,34 @@
   right: -1px;
   border-width: 0 1px 1px 0;
 }
+
+/* v2.5 motion polish */
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 5rem; }
+
+.card-lift {
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px -12px rgb(0 0 0 / .22);
+}
+
+.nav-link { position: relative; }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 12px; right: 12px; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+.nav-link.active::after,
+.nav-link:hover::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .card-lift:hover { transform: none; }
+}
