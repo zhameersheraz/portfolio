@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" aria-label="Zhameer Sheraz">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="currentColor" stop-opacity="1"/>
+      <stop offset="1" stop-color="currentColor" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer hex frame -->
+  <path d="M60 8 L106 33 L106 87 L60 112 L14 87 L14 33 Z"
+        stroke="currentColor" stroke-opacity="0.25" stroke-width="1.5"/>
+  <!-- Inner hex -->
+  <path d="M60 22 L92 39 L92 81 L60 98 L28 81 L28 39 Z"
+        stroke="currentColor" stroke-opacity="0.5" stroke-width="1"/>
+  <!-- Z monogram -->
+  <path d="M40 46 L80 46 L40 74 L80 74"
+        stroke="url(#g)" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+  <!-- Anchor dot -->
+  <circle cx="60" cy="60" r="2.5" fill="currentColor"/>
+</svg>
