@@ -150,7 +150,7 @@ export const SKILLS = [
 ] as const;
 
 export const STATS = {
-  ctfPlatforms: ["picoCTF", "TryHackMe", "CyberTalents", "HackTheBox"],
+  ctfPlatforms: ["picoCTF", "TryHackMe", "CyberTalents"],
   repos: 27,
   githubHandle: "zhameersheraz",
 } as const;

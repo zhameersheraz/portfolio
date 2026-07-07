@@ -1,26 +1,39 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
-/**
- * Three-orbit scene:
- *  - central wireframe icosahedron with subtle pulsing
- *  - smaller octahedron orbiting around it
- *  - tilted wireframe torus ring rotating the other way
- *  - sparse twinkling particle field as a backdrop
- *
- * Renders at capped DPR so phones don't cook.
- */
+const ACCENT_LIGHT = "#22c55e";
+const ACCENT_DARK = "#10b981";
+const TINT = "#a1a1aa";
 
-function Core() {
+function useAccentColor() {
+  const ref = useRef(new THREE.Color(ACCENT_LIGHT));
+  useEffect(() => {
+    const root = document.documentElement;
+    const read = () => {
+      const isDark = root.classList.contains("dark");
+      const fallback = isDark ? ACCENT_DARK : ACCENT_LIGHT;
+      try {
+        const v = getComputedStyle(root).getPropertyValue("--accent").trim();
+        if (v) { const c = new THREE.Color(); c.set(v); ref.current.copy(c); }
+        else ref.current.set(fallback);
+      } catch { ref.current.set(fallback); }
+    };
+    read();
+    const obs = new MutationObserver(read);
+    obs.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
+  return ref;
+}
+
+function Core({ accent }: { accent: THREE.Color }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
-
   const geometry = useMemo(() => new THREE.IcosahedronGeometry(1.4, 1), []);
   const glowGeometry = useMemo(() => new THREE.IcosahedronGeometry(1.55, 1), []);
-
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     if (groupRef.current) {
@@ -30,62 +43,47 @@ function Core() {
     if (meshRef.current) {
       const mat = meshRef.current.material as THREE.MeshBasicMaterial;
       mat.opacity = 0.55 + Math.sin(t * 1.2) * 0.18;
+      mat.color.copy(accent);
     }
   });
-
   return (
     <group ref={groupRef}>
-      {/* Glow shell behind the wireframe */}
       <mesh geometry={glowGeometry}>
-        <meshBasicMaterial
-          color="#22c55e"
-          transparent
-          opacity={0.05}
-          side={THREE.BackSide}
-        />
+        <meshBasicMaterial color={accent} transparent opacity={0.05} side={THREE.BackSide} />
       </mesh>
-      {/* Main wireframe */}
       <mesh ref={meshRef} geometry={geometry}>
-        <meshBasicMaterial
-          color="#22c55e"
-          wireframe
-          transparent
-          opacity={0.6}
-        />
+        <meshBasicMaterial color={accent} wireframe transparent opacity={0.6} />
       </mesh>
     </group>
   );
 }
 
-function OrbitOcta() {
+function OrbitOcta({ accent }: { accent: THREE.Color }) {
   const ref = useRef<THREE.Group>(null);
   const geometry = useMemo(() => new THREE.OctahedronGeometry(0.32, 0), []);
-
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     if (ref.current) {
+      const r = 2.6;
+      ref.current.position.x = Math.cos(t * 0.4) * r;
+      ref.current.position.z = Math.sin(t * 0.4) * r;
+      ref.current.position.y = Math.sin(t * 0.8) * 0.4;
       ref.current.rotation.y = -t * 0.6;
       ref.current.rotation.x = t * 0.3;
-      const radius = 2.6;
-      ref.current.position.x = Math.cos(t * 0.4) * radius;
-      ref.current.position.z = Math.sin(t * 0.4) * radius;
-      ref.current.position.y = Math.sin(t * 0.8) * 0.4;
     }
   });
-
   return (
     <group ref={ref}>
       <mesh geometry={geometry}>
-        <meshBasicMaterial color="#22c55e" wireframe transparent opacity={0.7} />
+        <meshBasicMaterial color={accent} wireframe transparent opacity={0.7} />
       </mesh>
     </group>
   );
 }
 
-function OrbitRing() {
+function OrbitRing({ accent }: { accent: THREE.Color }) {
   const ref = useRef<THREE.Group>(null);
   const geometry = useMemo(() => new THREE.TorusGeometry(2.2, 0.012, 8, 96), []);
-
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     if (ref.current) {
@@ -93,11 +91,10 @@ function OrbitRing() {
       ref.current.rotation.z = t * 0.08;
     }
   });
-
   return (
     <group ref={ref}>
       <mesh geometry={geometry}>
-        <meshBasicMaterial color="#22c55e" transparent opacity={0.35} />
+        <meshBasicMaterial color={accent} transparent opacity={0.35} />
       </mesh>
     </group>
   );
@@ -105,10 +102,8 @@ function OrbitRing() {
 
 function ParticleField({ count = 280 }: { count?: number }) {
   const ref = useRef<THREE.Points>(null);
-
-  const { positions, sizes } = useMemo(() => {
+  const { positions } = useMemo(() => {
     const pos = new Float32Array(count * 3);
-    const sz = new Float32Array(count);
     for (let i = 0; i < count; i++) {
       const r = 2.4 + Math.random() * 5.5;
       const theta = Math.random() * Math.PI * 2;
@@ -116,54 +111,48 @@ function ParticleField({ count = 280 }: { count?: number }) {
       pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
       pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       pos[i * 3 + 2] = r * Math.cos(phi);
-      sz[i] = Math.random() * 0.6 + 0.2;
     }
-    return { positions: pos, sizes: sz };
+    return { positions: pos };
   }, [count]);
-
   useFrame((state) => {
     if (ref.current) {
       ref.current.rotation.y = state.clock.getElapsedTime() * 0.04;
       ref.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.1) * 0.05;
     }
   });
-
   return (
     <points ref={ref}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
-        <bufferAttribute attach="attributes-size" args={[sizes, 1]} />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial
-        size={0.02}
-        color="#a1a1aa"
-        sizeAttenuation
-        transparent
-        opacity={0.65}
-        depthWrite={false}
-      />
+      <pointsMaterial size={0.022} color={TINT} sizeAttenuation transparent opacity={0.6} depthWrite={false} />
     </points>
   );
 }
 
+function PointerCamera() {
+  const { camera, pointer } = useThree();
+  const target = useRef(new THREE.Vector3(0, 0.3, 5));
+  useFrame(() => {
+    target.current.x += (pointer.x * 0.6 - target.current.x) * 0.04;
+    target.current.y += (0.3 + pointer.y * 0.4 - target.current.y) * 0.04;
+    camera.position.x += (target.current.x - camera.position.x) * 0.04;
+    camera.position.y += (target.current.y - camera.position.y) * 0.04;
+    camera.lookAt(0, 0, 0);
+  });
+  return null;
+}
+
 export function ThreeScene() {
+  const accent = useAccentColor();
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 -z-10"
-    >
-      <Canvas
-        camera={{ position: [0, 0.3, 5], fov: 45 }}
-        dpr={[1, 1.5]}
-        gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
-      >
+    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+      <Canvas camera={{ position: [0, 0.3, 5], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}>
         <ambientLight intensity={0.6} />
-        <Core />
-        <OrbitOcta />
-        <OrbitRing />
+        <PointerCamera />
+        <Core accent={accent.current} />
+        <OrbitOcta accent={accent.current} />
+        <OrbitRing accent={accent.current} />
         <ParticleField />
       </Canvas>
     </div>

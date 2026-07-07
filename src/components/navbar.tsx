@@ -26,17 +26,11 @@ export function Navbar() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "border-b border-border bg-background/80 backdrop-blur-md"
-          : "border-b border-transparent",
+        scrolled ? "border-b border-border bg-background/80 backdrop-blur-md" : "border-b border-transparent",
       )}
     >
       <nav className="container-wide flex h-14 items-center justify-between">
-        <Link
-          href="/"
-          className="group flex items-center gap-2"
-          aria-label={`${SITE.name} home`}
-        >
+        <Link href="/" className="group flex items-center gap-2" aria-label={`${SITE.name} home`}>
           <span className="font-display text-base font-bold tracking-tight">
             <span className="text-accent">Z</span>S
             <span className="text-muted-foreground">.</span>
@@ -45,19 +39,14 @@ export function Navbar() {
 
         <ul className="hidden items-center gap-1 md:flex">
           {NAV.map((item) => {
-            const active =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.href);
+            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   className={cn(
                     "rounded-md px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors",
-                    active
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
+                    active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                   )}
                 >
                   {item.label}
@@ -69,13 +58,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <button
-            type="button"
-            className="md:hidden"
-            onClick={() => setOpen((s) => !s)}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-          >
+          <button type="button" className="md:hidden" onClick={() => setOpen((s) => !s)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
@@ -85,21 +68,10 @@ export function Navbar() {
         <div className="border-t border-border bg-background md:hidden">
           <ul className="container-wide flex flex-col py-2">
             {NAV.map((item) => {
-              const active =
-                item.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.href);
+              const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "block rounded-md px-3 py-2.5 font-mono text-xs uppercase tracking-wider",
-                      active
-                        ? "text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                  >
+                  <Link href={item.href} className={cn("block rounded-md px-3 py-2.5 font-mono text-xs uppercase tracking-wider", active ? "text-foreground" : "text-muted-foreground hover:text-foreground")}>
                     {item.label}
                   </Link>
                 </li>

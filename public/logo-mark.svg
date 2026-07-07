@@ -1,3 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-label="ZS">
-  <path d="M5 8 L27 8 L5 24 L27 24" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="ZS">
+  <path d="M32 3 L57.3 17.5 L57.3 46.5 L32 61 L6.7 46.5 L6.7 17.5 Z" fill="none" stroke="currentColor" stroke-opacity="0.18" stroke-width="1.5"/>
+  <path d="M19 22 H45 L19 42 H45" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+  <text x="48" y="50" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="700" fill="currentColor">S</text>
 </svg>

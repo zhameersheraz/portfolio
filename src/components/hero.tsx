@@ -28,11 +28,6 @@ const PLATFORMS = [
     href: "https://cybertalents.com/",
     src: "/cybertalents.svg",
   },
-  {
-    name: "HackTheBox",
-    href: "https://www.hackthebox.com/",
-    src: "/hackthebox.svg",
-  },
 ];
 
 export function Hero() {
