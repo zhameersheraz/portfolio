@@ -19,9 +19,9 @@ export function About() {
   return (
     <section id="about" className="container-wide py-24">
       <SectionHeader index="01" label="About" title="Who I am" description="A short version, in case the long version scrolls past you." />
-      <div className="relative mt-10 grid gap-8 rounded-lg border border-border bg-card/40 p-6 md:grid-cols-[auto_1fr] md:gap-10 md:p-8 bracket-corner">
+      <div className="relative mt-10 grid gap-8 rounded-lg border border-border/60 bg-card p-6 shadow-sm shadow-foreground/5 dark:bg-card/40 md:grid-cols-[auto_1fr] md:gap-10 md:p-8 bracket-corner">
         <div className="relative mx-auto md:mx-0">
-          <div aria-hidden className="absolute -inset-3 rounded-full bg-gradient-to-br from-accent/35 via-transparent to-foreground/15 blur-xl" />
+          <div aria-hidden className="absolute -inset-3 rounded-full bg-gradient-to-br from-foreground/20 via-transparent to-foreground/5 blur-xl dark:from-accent/40 dark:via-transparent dark:to-foreground/20" />
           <div className="relative h-48 w-48 overflow-hidden rounded-full ring-1 ring-foreground/10 shadow-lg shadow-foreground/5 md:h-56 md:w-56">
             <Image src="/me.png" alt="Zhameer Sheraz U. Tampugao" fill priority sizes="(min-width: 768px) 14rem, 12rem" className="object-cover object-[center_15%] saturate-[0.85] contrast-[1.05] brightness-[0.97]" />
           </div>
