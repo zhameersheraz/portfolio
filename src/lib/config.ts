@@ -13,7 +13,7 @@ export const SITE = {
     "Computer Science student. CTF writeups, pentesting notes, and small things I have built while figuring out how computers actually work.",
   location: "Philippines",
   email: "zhameersheraztampugao@gmail.com",
-  url: "https://zham-ctf-portfolio.vercel.app",
+  url: "https://zham-ctf-portfolio-PLACEHOLDER.vercel.app",
 } as const;
 
 export const SOCIAL = [
