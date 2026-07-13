@@ -1,5 +1,7 @@
 import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
+import { Currently } from "@/components/currently";
+import { StatsStrip } from "@/components/stats-strip";
 import { Skills } from "@/components/skills";
 import { Projects } from "@/components/project-card";
 import { Writeups } from "@/components/writeups";
