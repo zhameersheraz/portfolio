@@ -1,17 +1,12 @@
-import type { Metadata } from "next";
 import { About } from "@/components/about";
-import { Skills } from "@/components/skills";
-
-export const metadata: Metadata = {
-  title: "About",
-  description: "A bit more about me, my background, and what I am working on.",
+export const metadata = {
+  title: "About — Zhameer Sheraz U. Tampugao",
+  description: "A longer version of who I am, what I'm learning, and what I'm working on.",
 };
-
 export default function AboutPage() {
   return (
-    <div className="pt-14">
+    <main className="pt-24 pb-12">
       <About />
-      <Skills />
-    </div>
+    </main>
   );
 }

@@ -10,6 +10,8 @@ export default function HomePage() {
     <>
       <Hero />
       <About />
+      <Currently />
+      <StatsStrip />
       <Skills />
       <Projects />
       <Writeups />
