@@ -3,12 +3,12 @@
 My personal site. Notes, writeups, and the small things I build while I'm
 learning security.
 
-Live: [portfolio-rouge-five-59.vercel.app](https://portfolio-rouge-five-59.vercel.app)
+Live: [zham-ctf-portfolio-luqr5fnfv.vercel.app](https://zham-ctf-portfolio-luqr5fnfv.vercel.app)
 
 ## What's on it
 
 - Home page with a typing role animation and a small 3D wireframe scene
-- About section with my photo and what I'm focused on right now
+- About page at `/about` with my photo and what I'm focused on right now
 - Project cards that pull live star, fork, and last-push stats from the GitHub API
 - Writeups section linking out to my CTF repos on picoCTF, TryHackMe, and CyberTalents
 - Contact form that sends to my email when an API key is configured, and just logs to stdout otherwise
