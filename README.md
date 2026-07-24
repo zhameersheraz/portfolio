@@ -1,9 +1,9 @@
-# portfolio
+# ctf-portfolio
 
 My personal site. Notes, writeups, and the small things I build while I'm
 learning security.
 
-Live: [zham-ctf-portfolio-luqr5fnfv.vercel.app](https://zham-ctf-portfolio-luqr5fnfv.vercel.app)
+Live: [zhameersheraz-ctf-portfolio.vercel.app](https://zhameersheraz-ctf-portfolio.vercel.app)
 
 ## What's on it
 
