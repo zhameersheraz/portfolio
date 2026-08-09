@@ -205,6 +205,20 @@ export const CERTS = [
     issued: "Jul 2026",
     image: "/certs/hackerrank-problem-solving-intermediate.png",
   },
+  {
+    id: "hackerrank-nodejs-intermediate",
+    title: "Node.js (Intermediate)",
+    issuer: "HackerRank",
+    issued: "Aug 2026",
+    image: "/certs/hackerrank-nodejs-intermediate.png",
+  },
+  {
+    id: "hackerrank-frontend-react",
+    title: "Frontend Developer (React)",
+    issuer: "HackerRank",
+    issued: "Aug 2026",
+    image: "/certs/hackerrank-frontend-react.png",
+  },
 ] as const;
 
 export type Project = (typeof PROJECTS)[number];
