@@ -3,7 +3,7 @@
 My personal site. Notes, writeups, and the small things I build while I'm
 learning security.
 
-Live: [zhameersheraz-ctf-portfolio.vercel.app](https://zhameersheraz-ctf-portfolio.vercel.app)
+Live: [zhameersheraz-portfolio.vercel.app](https://zhameersheraz-portfolio.vercel.app)
 
 ## What's on it
 
