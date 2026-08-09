@@ -171,6 +171,20 @@ export const CERTS = [
     image: "/certs/cisco-ethical-hacker.png",
   },
   {
+    id: "cisco-intro-modern-ai",
+    title: "Introduction to Modern AI",
+    issuer: "Cisco Networking Academy",
+    issued: "Aug 2026",
+    image: "/certs/cisco-intro-modern-ai.png",
+  },
+  {
+    id: "ibm-ai-fundamentals",
+    title: "AI Fundamentals: Foundations for Understanding AI",
+    issuer: "IBM SkillsBuild",
+    issued: "Aug 2026",
+    image: "/certs/ibm-ai-fundamentals.png",
+  },
+  {
     id: "hackerrank-software-engineer",
     title: "Software Engineer (Role)",
     issuer: "HackerRank",
