@@ -6,7 +6,9 @@ import {
   BookOpen,
   MapPin,
   GraduationCap,
+  Award,
 } from "lucide-react";
+import { CERTS } from "@/lib/config";
 
 const HIGHLIGHTS = [
   { icon: ShieldCheck, title: "Security-first", body: "Hands-on with CTFs, network defense, and reading other people's writeups so I can write better ones." },
@@ -45,6 +47,48 @@ export function About() {
             <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{body}</p>
           </div>
         ))}
+      </div>
+
+      <div className="mt-12">
+        <div className="flex items-center gap-2 text-mono text-muted-foreground">
+          <Award className="h-3.5 w-3.5 text-accent" />
+          <span className="text-accent">02</span>
+          <span>·</span>
+          <span>Certifications</span>
+        </div>
+        <h3 className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">Course completions and role certifications</h3>
+        <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">Recent certificates from Cisco Networking Academy and HackerRank.</p>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CERTS.map((cert) => (
+            <a
+              key={cert.id}
+              href={cert.image}
+              target="_blank"
+              rel="noreferrer"
+              className="group block overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-foreground/30 hover:shadow-md hover:shadow-foreground/5"
+            >
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-foreground/5">
+                <Image
+                  src={cert.image}
+                  alt={`${cert.title} — ${cert.issuer}`}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <h4 className="text-sm font-semibold leading-tight">{cert.title}</h4>
+                </div>
+                <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{cert.issuer}</span>
+                  <span className="text-mono">{cert.issued}</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );

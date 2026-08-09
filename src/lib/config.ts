@@ -155,4 +155,42 @@ export const STATS = {
   githubHandle: "zhameersheraz",
 } as const;
 
+export const CERTS = [
+  {
+    id: "cisco-intro-cybersecurity",
+    title: "Introduction to Cybersecurity",
+    issuer: "Cisco Networking Academy",
+    issued: "Jul 2026",
+    image: "/certs/cisco-intro-cybersecurity.png",
+  },
+  {
+    id: "cisco-ethical-hacker",
+    title: "Ethical Hacker",
+    issuer: "Cisco Networking Academy",
+    issued: "Jul 2026",
+    image: "/certs/cisco-ethical-hacker.png",
+  },
+  {
+    id: "hackerrank-software-engineer",
+    title: "Software Engineer (Role)",
+    issuer: "HackerRank",
+    issued: "Jul 2026",
+    image: "/certs/hackerrank-software-engineer.png",
+  },
+  {
+    id: "hackerrank-problem-solving-basic",
+    title: "Problem Solving (Basic)",
+    issuer: "HackerRank",
+    issued: "Jul 2026",
+    image: "/certs/hackerrank-problem-solving-basic.png",
+  },
+  {
+    id: "hackerrank-problem-solving-intermediate",
+    title: "Problem Solving (Intermediate)",
+    issuer: "HackerRank",
+    issued: "Jul 2026",
+    image: "/certs/hackerrank-problem-solving-intermediate.png",
+  },
+] as const;
+
 export type Project = (typeof PROJECTS)[number];
