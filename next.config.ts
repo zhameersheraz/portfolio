@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "raw.githubusercontent.com" },
       { protocol: "https", hostname: "user-images.githubusercontent.com" },
       { protocol: "https", hostname: "cdn.freecodecamp.org" },
+      { protocol: "https", hostname: "design-style-guide.freecodecamp.org" },
     ],
   },
   experimental: {
