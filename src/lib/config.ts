@@ -163,7 +163,6 @@ export type Cert = {
   image: string;
   link?: string;
   aspect?: number;
-  featured?: boolean;
 };
 
 export const CERTS: Cert[] = [
@@ -238,7 +237,6 @@ export const CERTS: Cert[] = [
     image: "/certs/freecodecamp-python.png",
     link: "https://freecodecamp.org/certification/zshrc/python-v9",
     aspect: 1.508,
-    featured: true,
   },
 ] as const;
 
