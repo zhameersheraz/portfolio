@@ -219,6 +219,14 @@ export const CERTS = [
     issued: "Aug 2026",
     image: "/certs/hackerrank-frontend-react.png",
   },
+  {
+    id: "freecodecamp-python",
+    title: "Python (Developer Certification)",
+    issuer: "freeCodeCamp",
+    issued: "Aug 2026",
+    image: "https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg",
+    link: "https://freecodecamp.org/certification/zshrc/python-v9",
+  },
 ] as const;
 
 export type Project = (typeof PROJECTS)[number];

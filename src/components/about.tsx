@@ -63,7 +63,7 @@ export function About() {
           {CERTS.map((cert) => (
             <a
               key={cert.id}
-              href={cert.image}
+              href={cert.link ?? cert.image}
               target="_blank"
               rel="noreferrer"
               className="group block overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-foreground/30 hover:shadow-md hover:shadow-foreground/5"
@@ -75,6 +75,7 @@ export function About() {
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                  unoptimized={cert.image.startsWith("http")}
                 />
               </div>
               <div className="p-4">
