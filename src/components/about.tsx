@@ -59,7 +59,7 @@ export function About() {
         <h3 className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">Course completions and role certifications</h3>
         <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">Course completions and role certifications from Cisco, IBM, HackerRank, and freeCodeCamp.</p>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CERTS.map((cert) => (
             <a
               key={cert.id}
@@ -73,7 +73,7 @@ export function About() {
                   src={cert.image}
                   alt={`${cert.title} — ${cert.issuer}`}
                   fill
-                  sizes="(min-width: 640px) 50vw, 100vw"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
                   unoptimized={cert.image.startsWith("http") || cert.image.endsWith(".svg")}
                 />
