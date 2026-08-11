@@ -236,7 +236,7 @@ export const CERTS: Cert[] = [
     issued: "Aug 2026",
     image: "/certs/freecodecamp-python.png",
     link: "https://freecodecamp.org/certification/zshrc/python-v9",
-    aspect: 1.508,
+    aspect: 1.472,
   },
 ] as const;
 
