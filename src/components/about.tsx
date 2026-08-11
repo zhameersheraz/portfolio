@@ -68,7 +68,10 @@ export function About() {
               rel="noreferrer"
               className="group block overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-foreground/30 hover:shadow-md hover:shadow-foreground/5"
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-foreground/5">
+              <div
+                className="relative w-full overflow-hidden bg-foreground/5"
+                style={{ aspectRatio: cert.aspect ?? 4 / 3 }}
+              >
                 <Image
                   src={cert.image}
                   alt={`${cert.title} — ${cert.issuer}`}
