@@ -155,7 +155,16 @@ export const STATS = {
   githubHandle: "zhameersheraz",
 } as const;
 
-export const CERTS = [
+export type Cert = {
+  id: string;
+  title: string;
+  issuer: string;
+  issued: string;
+  image: string;
+  link?: string;
+};
+
+export const CERTS: Cert[] = [
   {
     id: "cisco-intro-cybersecurity",
     title: "Introduction to Cybersecurity",
@@ -224,7 +233,7 @@ export const CERTS = [
     title: "Python (Developer Certification)",
     issuer: "freeCodeCamp",
     issued: "Aug 2026",
-    image: "https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg",
+    image: "/certs/freecodecamp-python.png",
     link: "https://freecodecamp.org/certification/zshrc/python-v9",
   },
 ] as const;
