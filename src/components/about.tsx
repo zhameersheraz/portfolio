@@ -75,7 +75,7 @@ export function About() {
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
-                  unoptimized={cert.image.startsWith("http")}
+                  unoptimized={cert.image.startsWith("http") || cert.image.endsWith(".svg")}
                 />
               </div>
               <div className="p-4">

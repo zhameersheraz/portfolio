@@ -233,7 +233,7 @@ export const CERTS: Cert[] = [
     title: "Python (Developer Certification)",
     issuer: "freeCodeCamp",
     issued: "Aug 2026",
-    image: "https://design-style-guide.freecodecamp.org/img/fcc_primary_large.jpg",
+    image: "/certs/freecodecamp-python.svg",
     link: "https://freecodecamp.org/certification/zshrc/python-v9",
   },
 ] as const;
