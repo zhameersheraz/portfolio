@@ -238,6 +238,15 @@ export const CERTS: Cert[] = [
     link: "https://freecodecamp.org/certification/zshrc/python-v9",
     aspect: 1.472,
   },
+  {
+    id: "coursera-bigquery",
+    title: "Working with BigQuery",
+    issuer: "Coursera",
+    issued: "Aug 2026",
+    image: "/certs/coursera-bigquery.png",
+    link: "https://coursera.org/verify/FLIEFU5568QO",
+    aspect: 1.294,
+  },
 ] as const;
 
 export type Project = (typeof PROJECTS)[number];

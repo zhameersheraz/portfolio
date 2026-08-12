@@ -57,7 +57,7 @@ export function About() {
           <span>Certifications</span>
         </div>
         <h3 className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">Course completions and role certifications</h3>
-        <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">Course completions and role certifications from Cisco, IBM, HackerRank, and freeCodeCamp.</p>
+        <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">Course completions and role certifications from Cisco, IBM, HackerRank, Coursera, and freeCodeCamp.</p>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CERTS.map((cert) => (
