@@ -247,6 +247,15 @@ export const CERTS: Cert[] = [
     link: "https://coursera.org/verify/FLIEFU5568QO",
     aspect: 1.294,
   },
+  {
+    id: "coursera-azure-cv",
+    title: "Build a computer vision app with Azure Cognitive Services",
+    issuer: "Microsoft (via Coursera)",
+    issued: "Aug 2026",
+    image: "/certs/coursera-azure-cv.png",
+    link: "https://coursera.org/verify/XA1UDID7MTWQ",
+    aspect: 1.294,
+  },
 ] as const;
 
 export type Project = (typeof PROJECTS)[number];
