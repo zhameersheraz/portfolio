@@ -172,6 +172,7 @@ export const CERTS: Cert[] = [
     issuer: "Cisco Networking Academy",
     issued: "Jul 2026",
     image: "/certs/cisco-intro-cybersecurity.png",
+    aspect: 1.477,
   },
   {
     id: "cisco-ethical-hacker",
@@ -179,6 +180,7 @@ export const CERTS: Cert[] = [
     issuer: "Cisco Networking Academy",
     issued: "Jul 2026",
     image: "/certs/cisco-ethical-hacker.png",
+    aspect: 1.477,
   },
   {
     id: "cisco-intro-modern-ai",
@@ -186,6 +188,7 @@ export const CERTS: Cert[] = [
     issuer: "Cisco Networking Academy",
     issued: "Aug 2026",
     image: "/certs/cisco-intro-modern-ai.png",
+    aspect: 1.477,
   },
   {
     id: "ibm-ai-fundamentals",
