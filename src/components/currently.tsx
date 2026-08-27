@@ -1,8 +1,8 @@
 import { Sparkles, Github, Wrench } from "lucide-react";
 const NOW = [
-  { icon: Sparkles, text: "Wrapping up the picoCTF 2026 General Skills track." },
-  { icon: Wrench, text: "Building a small Go tool to parse PCAPs." },
-  { icon: Github, text: "Open-sourcing last month's writeups." },
+  { icon: Wrench, text: "Building esp32sec - ESP32 firmware analysis toolkit." },
+  { icon: Sparkles, text: "Wrapping up the Azure / BigQuery Coursera labs." },
+  { icon: Github, text: "Shipping original security tools and writeups." },
 ];
 export function Currently() {
   return (

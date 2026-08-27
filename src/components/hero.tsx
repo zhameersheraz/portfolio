@@ -16,8 +16,8 @@ const ThreeScene = dynamic(
 const ROLES = [
   "Computer Science student",
   "Self-taught security learner",
+  "Tool builder",
   "Pentesting apprentice",
-  "Writeup collector",
 ];
 
 const PLATFORMS = [

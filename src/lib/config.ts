@@ -43,30 +43,20 @@ export const NAV = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
-  { label: "Writeups", href: "/writeups" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
 export const PROJECTS = [
   {
-    slug: "picoctf-writeups",
-    title: "picoCTF Writeups",
-    repo: "zhameersheraz/picoCTF-Writeups",
-    href: "https://github.com/zhameersheraz/picoCTF-Writeups",
+    slug: "esp32sec",
+    title: "esp32sec - ESP32 Security Toolkit",
+    repo: "zhameersheraz/esp32sec",
+    href: "https://github.com/zhameersheraz/esp32sec",
     summary:
-      "A growing collection of writeups for picoCTF challenges. Covers forensics, web exploitation, reverse engineering, binary exploitation, cryptography, and more.",
-    tags: ["picoCTF", "CTF", "Writeups", "Education"],
-    categories: [
-      "Artificial Intelligence",
-      "Binary Exploitation",
-      "Blockchain",
-      "Cryptography",
-      "Forensics",
-      "General Skills",
-      "Reverse Engineering",
-      "Web Exploitation",
-    ],
-    language: "Markdown",
+      "Open-source Python toolkit for ESP32/ESP8266 firmware analysis and hardware security research. Five focused tools: flash dump over UART, boot/runtime UART sniffer, firmware inspector, partition table parser, and secure boot/flash-crypto check.",
+    tags: ["ESP32", "ESP8266", "Hardware Security", "Firmware Analysis", "IoT Security", "Python"],
+    categories: ["Hardware Security", "IoT Security", "Firmware Analysis", "Open Source"],
+    language: "Python",
     featured: true,
   },
   {
@@ -88,6 +78,7 @@ export const PROJECTS = [
     ],
     language: "Markdown",
     featured: true,
+    hidden: true,
   },
   {
     slug: "cybertalents-writeups",
@@ -107,6 +98,7 @@ export const PROJECTS = [
     ],
     language: "Shell",
     featured: true,
+    hidden: true,
   },
   {
     slug: "cloud-security",

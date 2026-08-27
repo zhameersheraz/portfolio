@@ -1,7 +1,7 @@
-import { Github, FileText, Shield } from "lucide-react";
+import { Github, Award, Shield } from "lucide-react";
 const STATS = [
-  { icon: Github, value: "12+", label: "Public repos" },
-  { icon: FileText, value: "30+", label: "Writeups" },
+  { icon: Github, value: "10+", label: "Public repos" },
+  { icon: Award, value: "12", label: "Certifications" },
   { icon: Shield, value: "60+", label: "CTF challenges" },
 ];
 export function StatsStrip() {
