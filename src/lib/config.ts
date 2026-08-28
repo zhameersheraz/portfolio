@@ -253,3 +253,4 @@ export const CERTS: Cert[] = [
 ] as const;
 
 export type Project = (typeof PROJECTS)[number];
+export type ProjectEntry = Project & { hidden?: boolean };
