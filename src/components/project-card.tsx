@@ -160,7 +160,7 @@ export function Projects() {
         index="03"
         label="Projects"
         title="Real work, in public"
-        description="The repos that are actually mine. Writeups, notes, and small builds. Live stats pulled from the GitHub API."
+        description="The repos that are actually mine. Open-source tools, notes, and small builds. Live stats pulled from the GitHub API."
       />
 
       <div className="mt-10 grid gap-4 md:grid-cols-2">

@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Github, MapPin } from "lucide-react";
+import { ArrowRight, Github, MapPin, Terminal } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SITE } from "@/lib/config";
 
@@ -21,13 +21,10 @@ const ROLES = [
 ];
 
 const PLATFORMS = [
-  { name: "picoCTF", href: "https://picoctf.org/", src: "/picoctf.svg" },
-  { name: "TryHackMe", href: "https://tryhackme.com/", src: "/tryhackme.svg" },
-  {
-    name: "CyberTalents",
-    href: "https://cybertalents.com/",
-    src: "/cybertalents.svg",
-  },
+  { name: "GitHub", href: "https://github.com/zhameersheraz", src: null },
+  { name: "Kali Linux", href: "https://www.kali.org/", src: null },
+  { name: "Python", href: "https://www.python.org/", src: null },
+  { name: "ESP32", href: "https://www.espressif.com/en/products/socs/esp32", src: null },
 ];
 
 export function Hero() {
@@ -92,9 +89,9 @@ export function Hero() {
         </div>
 
         <p className="mt-6 max-w-2xl text-base text-muted-foreground text-pretty md:text-lg">
-          I do CTFs on picoCTF, TryHackMe, and CyberTalents. I write up what I
-          learn so I can find it again later. Slowly working toward being useful
-          with a Kali box and a Python script.
+          I build small security tools and poke at hardware. Currently focused on
+          ESP32 firmware analysis and writing things I can find again later.
+          Slowly working toward being useful with a Kali box and a Python script.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -129,7 +126,7 @@ export function Hero() {
           <span>·</span>
           <span>27 public repos</span>
           <span>·</span>
-          <span className="hidden sm:inline">Active on</span>
+          <span className="hidden sm:inline">Stack</span>
           <ul className="flex flex-wrap items-center gap-3">
             {PLATFORMS.map((p) => (
               <li key={p.name}>
@@ -139,15 +136,22 @@ export function Hero() {
                   rel="noopener noreferrer"
                   aria-label={p.name}
                   title={p.name}
-                  className="group inline-flex h-7 w-7 items-center justify-center rounded-md border border-border bg-card/60 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-foreground/40 hover:text-foreground"
+                  className="group inline-flex h-7 items-center gap-1.5 rounded-md border border-border bg-card/60 px-2.5 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-foreground/40 hover:text-foreground"
                 >
-                  <Image
-                    src={p.src}
-                    alt={p.name}
-                    width={16}
-                    height={16}
-                    className="h-4 w-4 opacity-70 transition-opacity group-hover:opacity-100 dark:invert"
-                  />
+                  {p.src ? (
+                    <Image
+                      src={p.src}
+                      alt={p.name}
+                      width={16}
+                      height={16}
+                      className="h-4 w-4 opacity-70 transition-opacity group-hover:opacity-100 dark:invert"
+                    />
+                  ) : (
+                    <Terminal className="h-3.5 w-3.5" />
+                  )}
+                  <span className="font-mono text-[10px] uppercase tracking-wider">
+                    {p.name}
+                  </span>
                 </a>
               </li>
             ))}

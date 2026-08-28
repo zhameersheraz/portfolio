@@ -1,8 +1,8 @@
 import { Sparkles, Github, Wrench } from "lucide-react";
 const NOW = [
-  { icon: Wrench, text: "Building esp32sec - ESP32 firmware analysis toolkit." },
+  { icon: Wrench, text: "Building esp32sec — ESP32 firmware analysis toolkit." },
   { icon: Sparkles, text: "Wrapping up the Azure / BigQuery Coursera labs." },
-  { icon: Github, text: "Shipping original security tools and writeups." },
+  { icon: Github, text: "Shipping original security tools. No AI-washing, no filler." },
 ];
 export function Currently() {
   return (
