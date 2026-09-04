@@ -1,23 +1,24 @@
-# ctf-portfolio
+# portfolio
 
-My personal site. Notes, writeups, and the small things I build while I'm
-learning security.
+My personal site. Open-source security tools, hardware research, and small things
+I build while figuring out how computers actually work.
 
 Live: [zhameersheraz-portfolio.vercel.app](https://zhameersheraz-portfolio.vercel.app)
 
 ## What's on it
 
-- Home page with a typing role animation and a small 3D wireframe scene
-- About page at `/about` with my photo and what I'm focused on right now
+- Home page with a typing role animation and a small 3D scene
+- About section with my photo and what I'm focused on right now
 - Project cards that pull live star, fork, and last-push stats from the GitHub API
-- Writeups section linking out to my CTF repos on picoCTF, TryHackMe, and CyberTalents
-- Contact form that sends to my email when an API key is configured, and just logs to stdout otherwise
+- A certifications grid (Cisco, IBM, HackerRank, Coursera, freeCodeCamp)
+- Contact form that sends to my email when an API key is configured, and logs to stdout otherwise
+- A small social bar with chips for GitHub, LinkedIn, esp32sec, and the CV
 
 ## Stack
 
 Next.js 15 (App Router) and TypeScript. Tailwind for styling. React Three Fiber
-for the hero scene. The contact form, GitHub stats, and view counter all live
-in Next.js Route Handlers, so the backend is in the same project.
+for the 3D scene. The contact form, GitHub stats, and view counter all live in
+Next.js Route Handlers, so the backend is in the same project.
 
 ## Run it locally
 
@@ -26,7 +27,6 @@ npm install
 cp .env.example .env.local   # fill in any keys you want to use
 npm run dev
 ```
-
 
 Open http://localhost:3000.
 
