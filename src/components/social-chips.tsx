@@ -1,4 +1,4 @@
-import { Github, Linkedin, Facebook, Mail, Cpu } from "lucide-react";
+import { Github, Linkedin, Facebook, Mail } from "lucide-react";
 
 type Chip = {
   label: string;
@@ -25,7 +25,7 @@ const CHIPS: Chip[] = [
   },
   {
     label: "Facebook",
-    href: "https://facebook.com/ZhameerSherazTampugao",
+    href: "https://www.facebook.com/zhameersheraz",
     bg: "#1877F2",
     Icon: Facebook,
   },
@@ -34,12 +34,6 @@ const CHIPS: Chip[] = [
     href: "mailto:zhameersheraztampugao@gmail.com",
     bg: "#EA4335",
     Icon: Mail,
-  },
-  {
-    label: "esp32sec",
-    href: "https://zhameersheraz.github.io/esp32sec/",
-    bg: "#0f172a",
-    Icon: Cpu,
   },
 ];
 

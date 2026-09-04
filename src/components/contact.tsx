@@ -144,7 +144,7 @@ export function Contact() {
 
           <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs text-muted-foreground">
-              Replies usually within 24–48h.
+              Replies usually within 24-48h.
             </p>
             <button
               type="submit"

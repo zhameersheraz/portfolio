@@ -11,8 +11,8 @@ import {
 import { CERTS } from "@/lib/config";
 
 const HIGHLIGHTS = [
-  { icon: ShieldCheck, title: "Security-first", body: "Firmware, hardware, and the small things people forget to lock down. I read other people's tools so I can write better ones." },
-  { icon: Code2, title: "Building in public", body: "Small Python tools that document what I learn. Scriptable, documented, and easy to come back to." },
+  { icon: ShieldCheck, title: "Security-first", body: "Hands-on with CTFs, network defense, and reading other people's writeups so I can write better ones." },
+  { icon: Code2, title: "Building in public", body: "Small repos that document what I learn. Scriptable, documented, and easy to come back to." },
   { icon: BookOpen, title: "Still a student", body: "CS undergrad in the Philippines. Learning fundamentals properly before chasing fancier exploits." },
   { icon: Terminal, title: "Linux + Kali", body: "Most of my work happens in a terminal. Comfortable with bash, git, networking basics, and the standard tooling." },
 ];
@@ -35,7 +35,7 @@ export function About() {
         </div>
         <div className="space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
           <p className="text-pretty">Hi, I&apos;m <span className="text-foreground">Zhameer</span>. I split most days between class, a terminal, and a notebook where I write up whatever I just figured out so I stop forgetting it.</p>
-          <p className="text-pretty">Right now I&apos;m building <span className="text-foreground">esp32sec</span> — a small Python toolkit for poking at ESP32 and ESP8266 firmware. Flash dumps, UART sniffs, partition tables, and the kind of low-cost hardware research that&apos;s useful to document even if nobody else is doing it yet.</p>
+          <p className="text-pretty">My hobby-with-delusions-of-utility is running through CTF challenges on <span className="text-foreground">picoCTF</span>, <span className="text-foreground">TryHackMe</span>, and <span className="text-foreground">CyberTalents</span>. Writeups end up on GitHub because future-me forgets everything, and someone else might be stuck on the same box.</p>
           <p className="text-pretty">Outside of security I tinker with Python and JS, try to keep a static site or two alive, and slowly work through networking fundamentals. I&apos;m not hiring myself out as a pentester yet. I&apos;m still earning the right to call myself one.</p>
         </div>
       </div>
@@ -74,7 +74,7 @@ export function About() {
               >
                 <Image
                   src={cert.image}
-                  alt={`${cert.title} — ${cert.issuer}`}
+                  alt={`${cert.title} - ${cert.issuer}`}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"

@@ -89,9 +89,8 @@ export function Hero() {
         </div>
 
         <p className="mt-6 max-w-2xl text-base text-muted-foreground text-pretty md:text-lg">
-          I build small security tools and poke at hardware. Currently focused on
-          ESP32 firmware analysis and writing things I can find again later.
-          Slowly working toward being useful with a Kali box and a Python script.
+          I do CTFs and pick up new things along the way. Slowly working toward being
+          useful with a Kali box and a Python script.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">

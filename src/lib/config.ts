@@ -10,7 +10,7 @@ export const SITE = {
   tagline:
     "I learn how systems break, then I write about it.",
   description:
-    "Computer Science student. Open-source security tools, hardware research, and small things I have built while figuring out how computers actually work.",
+    "Computer Science student. CTF writeups, pentesting notes, and small things I have built while figuring out how computers actually work.",
   location: "Philippines",
   email: "zhameersheraztampugao@gmail.com",
   url: "https://zhameersheraz-portfolio.vercel.app",
@@ -29,8 +29,8 @@ export const SOCIAL = [
   },
   {
     label: "Facebook",
-    href: "https://facebook.com/ZhameerSherazTampugao",
-    handle: "ZhameerSherazTampugao",
+    href: "https://www.facebook.com/zhameersheraz",
+    handle: "zhameersheraz",
   },
   {
     label: "Email",
