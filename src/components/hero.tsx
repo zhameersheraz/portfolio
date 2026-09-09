@@ -24,7 +24,6 @@ const PLATFORMS = [
   { name: "GitHub", href: "https://github.com/zhameersheraz", src: null },
   { name: "Kali Linux", href: "https://www.kali.org/", src: null },
   { name: "Python", href: "https://www.python.org/", src: null },
-  { name: "ESP32", href: "https://www.espressif.com/en/products/socs/esp32", src: null },
 ];
 
 export function Hero() {

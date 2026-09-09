@@ -250,6 +250,24 @@ export const CERTS: Cert[] = [
     link: "https://coursera.org/verify/XA1UDID7MTWQ",
     aspect: 1.294,
   },
+  {
+    id: "coursera-aws-s3",
+    title: "AWS S3 Basics",
+    issuer: "Coursera",
+    issued: "Sep 2026",
+    image: "/certs/coursera-aws-s3.png",
+    link: "https://coursera.org/verify/AMLVF1YQ170K",
+    aspect: 1.294,
+  },
+  {
+    id: "coursera-google-ads",
+    title: "Google Ads for Beginners",
+    issuer: "Coursera",
+    issued: "Sep 2026",
+    image: "/certs/coursera-google-ads.png",
+    link: "https://coursera.org/verify/QZQ1EOI99ZPQ",
+    aspect: 1.294,
+  },
 ] as const;
 
 export type Project = (typeof PROJECTS)[number];
