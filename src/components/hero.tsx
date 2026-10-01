@@ -1,8 +1,7 @@
 ﻿import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { SITE } from "@/lib/config";
-import { SerialConsole } from "@/components/serial-console";
-import { HeroField } from "@/components/hero-field";
+import { FaultPlate } from "@/components/fault-plate";
 
 const STACK = [
   { name: "GitHub", href: "https://github.com/zhameersheraz" },
@@ -14,8 +13,9 @@ export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
       <div className="absolute inset-0 -z-10" aria-hidden>
-        <HeroField />
+        <FaultPlate />
       </div>
+
 
       <div className="container-wide pt-28 pb-14 md:pt-40 md:pb-20">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-center lg:gap-20">
@@ -85,9 +85,7 @@ export function Hero() {
           </div>
 
           {/* Signature */}
-          <div className="min-w-0 space-y-3">
-            <SerialConsole />
-
+          <div className="flex min-w-0 flex-col justify-end">
             <ul className="flex flex-wrap items-center gap-2">
               {STACK.map((s) => (
                 <li key={s.name}>

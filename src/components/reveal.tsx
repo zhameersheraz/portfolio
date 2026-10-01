@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import {
+  createElement,
+  useEffect,
+  useRef,
+  useState,
+  type ElementType,
+  type ReactNode,
+} from "react";
 
 /**
  * Reveals its children once, when they enter the viewport.
@@ -53,18 +60,19 @@ export function Reveal({
     return () => io.disconnect();
   }, []);
 
-  return (
-    <Tag
-      ref={ref}
-      data-reveal={shown ? "in" : "out"}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
-      className={`[transition:opacity_.6s_cubic-bezier(.22,.61,.36,1),transform_.6s_cubic-bezier(.22,.61,.36,1)] ${
-        shown
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-3"
-      } ${className}`}
-    >
-      {children}
-    </Tag>
+  // createElement instead of <Tag ...>. A dynamic tag typed as ElementType
+  // collapses its JSX props to `never` under this TS config, so JSX fails to
+  // type-check. createElement carries the props through without that.
+  return createElement(
+    Tag,
+    {
+      ref,
+      "data-reveal": shown ? "in" : "out",
+      style: delay ? { transitionDelay: `${delay}ms` } : undefined,
+      className: `[transition:opacity_.6s_cubic-bezier(.22,.61,.36,1),transform_.6s_cubic-bezier(.22,.61,.36,1)] ${
+        shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+      } ${className}`,
+    },
+    children,
   );
 }
