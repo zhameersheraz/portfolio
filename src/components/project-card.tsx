@@ -70,7 +70,23 @@ function ProjectCard({
   const views = useViews(project.slug);
 
   return (
-    <article className="panel panel-hover group relative flex flex-col p-7">
+    <article className="panel panel-hover group relative flex flex-col overflow-hidden">
+      {"art" in project && project.art ? (
+        <div className="relative h-48 overflow-hidden bg-background">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={project.art as string}
+            alt=""
+            width={1800}
+            height={928}
+            decoding="async"
+            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-card from-55% to-transparent" />
+        </div>
+      ) : null}
+
+      <div className="flex flex-1 flex-col p-7">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-2">
           <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
@@ -106,7 +122,7 @@ function ProjectCard({
         {project.summary}
       </p>
 
-      <ul className="mt-4 flex flex-wrap gap-1.5">
+      <ul className="mt-4 mb-6 flex flex-wrap gap-1.5">
         {project.categories.slice(0, 4).map((c) => (
           <li
             key={c}
@@ -122,7 +138,10 @@ function ProjectCard({
         )}
       </ul>
 
-      <div className="mt-6 flex items-center gap-4 border-t border-border pt-4 font-mono text-xs text-muted-foreground">
+      {/* mt-auto pins the footer to the bottom so it aligns across cards of
+          differing summary length, instead of floating mid-card with a void
+          under it. The article is a flex column, so auto margin wins. */}
+      <div className="mt-auto flex items-center gap-4 border-t border-border pt-4 font-mono text-xs text-muted-foreground">
         <span className="inline-flex items-center gap-1.5">
           <Star className="h-3.5 w-3.5" />
           {formatNumber(stats?.stars ?? 0)}
@@ -149,6 +168,7 @@ function ProjectCard({
             : "recent"}
         </span>
       </div>
+      </div>
     </article>
   );
 }
@@ -157,7 +177,7 @@ export function Projects({ bare = false }: { bare?: boolean }) {
   return (
     <section
       id="projects"
-      className={bare ? "pb-4" : "container-wide section-pad"}
+      className={bare ? "pb-8" : "container-wide pt-24 pb-16 md:pt-32 md:pb-20"}
     >
       {!bare && (
         <SectionHeader

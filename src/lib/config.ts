@@ -58,6 +58,7 @@ export const PROJECTS = [
     categories: ["Hardware Security", "IoT Security", "Firmware Analysis", "Open Source"],
     language: "Python",
     featured: true,
+    art: "/art/circuit.jpg",
   },
   {
     slug: "cloud-security",
@@ -70,6 +71,7 @@ export const PROJECTS = [
     categories: ["Cloud Security", "Cybersecurity", "Cheatsheet"],
     language: "HTML",
     featured: true,
+    art: "/art/cloud.jpg",
   },
 ] as const;
 
@@ -245,7 +247,7 @@ export const COMPETITIONS: Competition[] = [
     event: "Syborg CTF 2026",
     placement: "Champion",
     role: "Top Scorer",
-    org: "Team Digital Abyss, Syborg Cup",
+    org: "Team Digital Abyss, Syborg CTF",
     date: "Mar 29, 2026",
     photos: [
       { src: "/awards/syborg.jpg", href: "https://www.facebook.com/share/p/1CF76HX7K5/" },
