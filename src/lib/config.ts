@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Site config: single source of truth for personal info, links, projects.
  * Edit here, not in components.
  */
@@ -71,6 +71,7 @@ export const PROJECTS = [
     categories: ["Cloud Security", "Cybersecurity", "Cheatsheet"],
     language: "HTML",
     featured: true,
+    media: "/media/cloud-security-scan.gif",
   },
 ] as const;
 
