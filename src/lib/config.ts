@@ -61,6 +61,25 @@ export const PROJECTS = [
     art: "/art/circuit.jpg",
   },
   {
+    slug: "noctis",
+    title: "Noctis: Lunar Grand Prix",
+    repo: "zhameersheraz/Noctis-GP",
+    href: "https://github.com/zhameersheraz/Noctis-GP",
+    demo: "https://zhameersheraz.github.io/Noctis-GP/",
+    summary:
+      "Three.js and TypeScript racing game set on the Moon. Procedural terrain, vehicle physics, AI opponents, and a Python verification harness that catches regressions headlessly.",
+    tags: ["TypeScript", "Three.js", "Game Dev", "Testing"],
+    categories: [
+      "Game Development",
+      "3D Graphics",
+      "WebGL",
+      "TypeScript",
+      "Automated Testing",
+    ],
+    language: "TypeScript",
+    featured: true,
+  },
+  {
     slug: "cloud-security",
     title: "Cloud Security",
     repo: "zhameersheraz/cloud-security",

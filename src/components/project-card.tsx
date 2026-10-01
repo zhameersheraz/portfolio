@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useState } from "react";
-import { Star, GitFork, Eye } from "lucide-react";
+import { Star, GitFork, Eye, ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/about";
 import { PROJECTS } from "@/lib/config";
 import { formatNumber, cn } from "@/lib/utils";
@@ -97,14 +97,26 @@ function ProjectCard({
             {project.language}
           </span>
         </div>
-        <a
-          href={project.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
-        >
-          ↗ GitHub
-        </a>
+        <div className="flex items-center gap-4">
+          {"demo" in project && project.demo ? (
+            <a
+              href={project.demo as string}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-background transition-opacity hover:opacity-90"
+            >
+              Play <ArrowUpRight className="h-3 w-3" aria-hidden />
+            </a>
+          ) : null}
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            ↗ GitHub
+          </a>
+        </div>
       </div>
 
       <h3 className="text-display-sm mt-4 text-lg leading-snug">
