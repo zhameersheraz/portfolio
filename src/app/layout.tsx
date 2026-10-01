@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
@@ -18,15 +18,12 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-// Display face. Archivo is variable on a WIDTH axis (62-125), which is the
-// whole point: the headline is set condensed and heavy so it reads engineered
-// rather than editorial-fashion. Body stays humanist, utility stays mono.
-const archivo = Archivo({
-  subsets: ["latin"],
-  variable: "--font-archivo",
-  display: "swap",
-  axes: ["wdth"],
-});
+// Two faces, both load-bearing.
+// JetBrains Mono is the display: stark, technical, and it reads as a headline
+// because the palette is high contrast and the tracking is tight. It only
+// failed before because it sat at huge size on cool near-black behind a 3D
+// blob with a coloured accent fighting it. Composition, not the face.
+// Inter handles reading. Nothing else is loaded.
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -80,7 +77,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${jetbrains.variable} ${archivo.variable}`}
+      className={`${inter.variable} ${jetbrains.variable}`}
     >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <ThemeProvider>

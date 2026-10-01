@@ -169,32 +169,28 @@
     mix-blend-mode: overlay;
   }
 
-  /* Display face carries the voice.
-     Archivo is variable on a width axis. Setting it condensed (wdth 78) at a
-     heavy weight is what makes it read engineered instead of like a
-     fashion-serif hero. Tracking tightens further as size grows. */
+  /* Display face: mono, set like Sentinel's "See Risk. Stop Spread."
+     Tight tracking and short leading are what stop it reading as a terminal
+     dump. Size does the rest. */
   .text-display {
     @apply font-display;
-    font-variation-settings: "wdth" 78, "wght" 700;
-    letter-spacing: -0.03em;
-    line-height: 0.98;
-  }
-
-  /* Mid-weight display for section headings: wider, so the change in width
-     axis between H1 and H2 is doing real work rather than just size. */
-  .text-section {
-    @apply font-display;
-    font-variation-settings: "wdth" 88, "wght" 650;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.045em;
     line-height: 1.04;
   }
 
-  /* Small display use: near-full width, for inline numbers and labels that
-     sit next to mono text and must not look squeezed. */
+  /* Mid-weight display for section headings: slightly open so the step down
+     from the H1 is a change of texture, not just size. */
+  .text-section {
+    @apply font-display;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  /* Small display use: near-normal tracking, for inline numbers and labels
+     sitting next to body text where tight tracking would look cramped. */
   .text-display-sm {
     @apply font-display;
-    font-variation-settings: "wdth" 100, "wght" 650;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
   }
 
   /* Utility face for paths, tool names, captured output. */
@@ -205,6 +201,20 @@
   /* Section eyebrow. Reads as instrument labelling, not decoration. */
   .eyebrow {
     @apply font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground;
+  }
+
+  /* Inverted band. One per page, used where the content deserves the shift
+     from paper to ink. Mirrors the reference sites' dark/light scroll move. */
+  .band-ink {
+    background: hsl(222 16% 6%);
+    color: hsl(40 12% 96%);
+  }
+  .band-ink .eyebrow,
+  .band-ink .text-muted-foreground {
+    color: hsl(220 8% 62%);
+  }
+  .band-ink .border-border {
+    border-color: hsl(220 10% 20%);
   }
 
   .link-underline {
@@ -302,11 +312,18 @@ section[id] {
   .card-lift:hover {
     transform: none;
   }
-  .console-line {
-    animation: none !important;
-    opacity: 1 !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
-  .console-cursor {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .console-caret {
     animation: none !important;
     opacity: 1 !important;
   }

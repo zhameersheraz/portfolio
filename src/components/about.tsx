@@ -9,6 +9,7 @@ import {
   Award,
 } from "lucide-react";
 import { CERTS } from "@/lib/config";
+import { Reveal } from "@/components/reveal";
 
 const HIGHLIGHTS = [
   { icon: ShieldCheck, title: "Security-first", body: "Hands-on with CTFs, network defense, and reading other people's writeups so I can write better ones." },
@@ -100,12 +101,12 @@ export function About() {
 
 export function SectionHeader({ index, label, title, description }: { index: string; label: string; title: string; description?: string }) {
   return (
-    <div className="flex flex-col gap-2">
+    <Reveal className="flex flex-col gap-2">
       <div className="flex items-center gap-3 text-mono text-muted-foreground">
         <span className="text-accent">{index}</span><span>·</span><span className="uppercase tracking-[0.14em]">{label}</span>
       </div>
-      <h2 className="text-section mt-2 text-3xl text-foreground md:text-5xl">{title}</h2>
-      {description && <p className="mt-2 max-w-2xl text-sm text-muted-foreground text-pretty md:text-base">{description}</p>}
-    </div>
+      <h2 className="text-section mt-2 text-3xl font-bold text-foreground md:text-4xl">{title}</h2>
+      {description && <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground text-pretty md:text-base">{description}</p>}
+    </Reveal>
   );
 }

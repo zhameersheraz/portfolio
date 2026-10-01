@@ -15,7 +15,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
-        display: ["var(--font-archivo)", "var(--font-inter)", "sans-serif"],
+        display: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Line = {
   mark: "ok" | "warn" | "fail" | "info";
@@ -10,9 +10,9 @@ type Line = {
 };
 
 /**
- * A serial console readout in the shape esp32sec actually prints.
- * This is the artifact he builds, so it earns the hero slot that a
- * stock wireframe blob used to occupy.
+ * A serial console that writes itself, character by character, the way
+ * esp32sec actually prints. This is the page's one orchestrated moment.
+ * Everything else on the site stays still.
  */
 const SCRIPT: Line[] = [
   { mark: "info", label: "port", value: "/dev/ttyUSB0", note: "115200 8N1" },
@@ -24,6 +24,8 @@ const SCRIPT: Line[] = [
   { mark: "info", label: "firmware", value: "v1.7.3", note: "0x1a2c00" },
 ];
 
+const PROMPT = "zham@kali:~/esp32sec$ python flash_crypto.py";
+
 const MARK: Record<Line["mark"], { glyph: string; className: string }> = {
   ok: { glyph: "✓", className: "text-accent" },
   warn: { glyph: "!", className: "text-accent/80" },
@@ -31,12 +33,22 @@ const MARK: Record<Line["mark"], { glyph: string; className: string }> = {
   info: { glyph: "·", className: "text-muted-foreground" },
 };
 
-const STAGGER_MS = 260;
+const CHAR_MS = 16;
+const LINE_PAUSE_MS = 90;
 
 export function SerialConsole() {
-  const [shown, setShown] = useState(0);
+  const [chars, setChars] = useState(0);
   const [reduced, setReduced] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Flatten the script into one stream so it types as a single continuous
+  // feed, exactly like a real run. A \n advances to the next line.
+  const stream = useMemo(
+    () => SCRIPT.map((l) => `${l.mark}|${l.label}|${l.value}|${l.note ?? ""}\n`).join(""),
+    [],
+  );
+
+  const total = PROMPT.length + stream.length;
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -48,17 +60,26 @@ export function SerialConsole() {
 
   useEffect(() => {
     if (reduced) {
-      setShown(SCRIPT.length);
+      setChars(total);
       return;
     }
-    if (shown >= SCRIPT.length) return;
-    timer.current = setTimeout(() => setShown((n) => n + 1), STAGGER_MS);
+    if (chars >= total) return;
+    const delay = stream[chars] === "\n" ? LINE_PAUSE_MS : CHAR_MS;
+    timer.current = setTimeout(() => setChars((c) => c + 1), delay);
     return () => {
       if (timer.current) clearTimeout(timer.current);
     };
-  }, [shown, reduced]);
+  }, [chars, reduced, stream, total]);
 
-  const done = shown >= SCRIPT.length;
+  // Slice the typed stream back into complete lines.
+  const typedPrompt = PROMPT.slice(0, Math.min(chars, PROMPT.length));
+  const bodyTyped = chars <= PROMPT.length ? "" : stream.slice(0, chars - PROMPT.length);
+
+  const done = chars >= total;
+  const partial = bodyTyped.split("\n").pop() ?? "";
+  const [pmark, plabel, pvalue, pnote] = partial.split("|");
+
+  const complete = bodyTyped.split("\n").slice(0, -1).filter(Boolean);
 
   return (
     <div className="noise overflow-hidden rounded-lg border border-border bg-card">
@@ -83,41 +104,59 @@ export function SerialConsole() {
           <span className="text-muted-foreground/60">:</span>
           <span className="text-foreground/80">~/esp32sec</span>
           <span className="text-muted-foreground/60">$</span>{" "}
-          <span className="text-foreground">python flash_crypto.py</span>
+          <span className="text-foreground">{typedPrompt.slice(PROMPT.indexOf("python"))}</span>
+          {chars < PROMPT.length && (
+            <span className="console-caret ml-px inline-block h-4 w-[7px] translate-y-0.5 bg-accent animate-blink" />
+          )}
         </p>
 
-        <ul>
-          {SCRIPT.slice(0, shown).map((line, i) => {
-            const m = MARK[line.mark];
+        <ul className="min-h-[9.5rem]">
+          {complete.map((raw, i) => {
+            const [mark, label, value, note] = raw.split("|");
+            const m = MARK[mark as Line["mark"]];
             return (
-              <li
-                key={line.label}
-                className="console-line flex items-baseline gap-2 animate-fade-in"
-                style={{ animationDelay: reduced ? "0ms" : `${i * 40}ms` }}
-              >
+              <li key={`${label}-${i}`} className="flex items-baseline gap-2">
                 <span className={`w-3 shrink-0 ${m.className}`}>{m.glyph}</span>
                 <span className="w-28 shrink-0 text-muted-foreground sm:w-[9.5rem]">
-                  {line.label}
+                  {label}
                 </span>
-                <span className="min-w-0 text-foreground">{line.value}</span>
-                {line.note ? (
+                <span className="min-w-0 text-foreground">{value}</span>
+                {note ? (
                   <span className="hidden shrink-0 text-muted-foreground/70 sm:inline">
-                    {line.note}
+                    {note}
                   </span>
                 ) : null}
               </li>
             );
           })}
+
+          {/* The line currently being written. */}
+          {partial && !done && (
+            <li className="flex items-baseline gap-2">
+              <span className={`w-3 shrink-0 ${MARK[pmark as Line["mark"]]?.className ?? ""}`}>
+                {MARK[pmark as Line["mark"]]?.glyph ?? " "}
+              </span>
+              <span className="w-28 shrink-0 text-muted-foreground sm:w-[9.5rem]">
+                {plabel}
+              </span>
+              <span className="text-foreground">
+                {pvalue}
+                <span className="console-caret ml-px inline-block h-4 w-[7px] translate-y-0.5 bg-accent animate-blink" />
+              </span>
+              {pnote ? (
+                <span className="hidden shrink-0 text-muted-foreground/70 sm:inline">
+                  {pnote}
+                </span>
+              ) : null}
+            </li>
+          )}
         </ul>
 
         <p className="mt-3 border-t border-border pt-3 text-muted-foreground">
           {done ? "2 findings · 0 critical" : ""}
-          <span
-            className={`console-cursor ml-0.5 inline-block h-4 w-[7px] translate-y-0.5 bg-accent ${
-              done ? "" : "animate-blink"
-            }`}
-            aria-hidden
-          />
+          {done && (
+            <span className="console-caret ml-0.5 inline-block h-4 w-[7px] translate-y-0.5 bg-accent" />
+          )}
         </p>
       </div>
     </div>

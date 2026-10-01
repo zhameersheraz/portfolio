@@ -1,4 +1,5 @@
 ﻿import { Github, Award, Shield, Trophy } from "lucide-react";
+import { Reveal } from "@/components/reveal";
 
 const STATS = [
   { icon: Trophy, value: "1st", label: "Provincial champion" },
@@ -9,27 +10,26 @@ const STATS = [
 
 export function StatsStrip() {
   return (
-    <section className="container-wide py-8">
-      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-4">
-        {STATS.map(({ icon: Icon, value, label }) => (
-          <div
-            key={label}
-            className="flex flex-col gap-1.5 bg-background p-4 md:flex-row md:items-center md:gap-3 md:p-5"
-          >
-            <Icon
-              className="h-4 w-4 shrink-0 text-accent md:h-5 md:w-5"
-              aria-hidden
-            />
-            <div>
-              <div className="text-display-sm text-2xl text-foreground md:text-3xl">
+    <section className="band-ink">
+      <div className="container-wide py-20 md:py-24">
+        <div className="flex items-center gap-3">
+          <span className="eyebrow text-accent">S/01</span>
+          <span className="eyebrow">Where things stand</span>
+        </div>
+
+        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+          {STATS.map(({ icon: Icon, value, label }, i) => (
+            <Reveal key={label} delay={i * 90}>
+              <Icon className="h-4 w-4 shrink-0 text-accent md:h-5 md:w-5" aria-hidden />
+              <div className="mt-3 font-mono text-3xl leading-none tracking-tight md:text-4xl">
                 {value}
               </div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+              <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] opacity-70">
                 {label}
               </div>
-            </div>
-          </div>
-        ))}
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

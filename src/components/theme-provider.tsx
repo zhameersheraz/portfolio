@@ -15,14 +15,15 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 const STORAGE_KEY = "zs-theme";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("system");
-  const [resolved, setResolved] = useState<"light" | "dark">("dark");
+  const [theme, setThemeState] = useState<Theme>("light");
+  const [resolved, setResolved] = useState<"light" | "dark">("light");
 
-  // Mount: read from localStorage
+  // Mount: read from localStorage. Light is the designed default, so an
+  // unset visitor sees paper first rather than whatever their OS prefers.
   useEffect(() => {
     const stored = (typeof window !== "undefined"
       ? (localStorage.getItem(STORAGE_KEY) as Theme | null)
-      : null) ?? "system";
+      : null) ?? "light";
     setThemeState(stored);
   }, []);
 

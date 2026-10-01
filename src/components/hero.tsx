@@ -27,7 +27,10 @@ export function Hero() {
               <span>Available for collab and freelance security work</span>
             </p>
 
-            <h1 className="text-display mt-7 text-balance text-[3rem] sm:text-[4.25rem] lg:text-[5.5rem]">
+            {/* No text-balance here: balanced wrapping fights a monospace
+                face and produces a ragged five-line rag. Natural wrap reads
+                cleaner. */}
+            <h1 className="text-display mt-7 text-[2.4rem] font-bold sm:text-[3rem] lg:text-[3.75rem]">
               {SITE.tagline}
             </h1>
 
