@@ -117,11 +117,41 @@
     @apply mx-auto w-full max-w-6xl px-6;
   }
 
-  /* Soft signal bloom. Replaces the hard grid overlay. */
+  /* Generous vertical rhythm. The reference sites breathe; a portfolio that
+     packs sections edge to edge reads as a template. */
+  .section-pad {
+    @apply py-24 md:py-36;
+  }
+
+  /* Ambient field. A dot matrix fading to nothing, confined to the empty
+     lower-left of the hero so it reads as texture rather than noise. Kept at
+     very low opacity: it is background, not an illustration. */
+  .stipple {
+    background-image: radial-gradient(
+      circle at center,
+      hsl(var(--accent) / 0.28) 0.9px,
+      transparent 1.05px
+    );
+    background-size: 11px 11px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 30% 34% at 24% 86%,
+      black 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      transparent 80%
+    );
+    mask-image: radial-gradient(
+      ellipse 30% 34% at 24% 86%,
+      black 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      transparent 80%
+    );
+  }
+
+  /* Soft signal bloom underneath the stipple. */
   .signal-bloom {
     background: radial-gradient(
-      ellipse 55% 45% at 78% 12%,
-      hsl(var(--accent) / 0.10),
+      ellipse 52% 44% at 76% 18%,
+      hsl(var(--accent) / 0.11),
       transparent 70%
     );
   }
@@ -139,9 +169,32 @@
     mix-blend-mode: overlay;
   }
 
-  /* Display face carries the voice. Tracking is tight, not wide. */
+  /* Display face carries the voice.
+     Archivo is variable on a width axis. Setting it condensed (wdth 78) at a
+     heavy weight is what makes it read engineered instead of like a
+     fashion-serif hero. Tracking tightens further as size grows. */
   .text-display {
-    @apply font-display tracking-tight;
+    @apply font-display;
+    font-variation-settings: "wdth" 78, "wght" 700;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+  }
+
+  /* Mid-weight display for section headings: wider, so the change in width
+     axis between H1 and H2 is doing real work rather than just size. */
+  .text-section {
+    @apply font-display;
+    font-variation-settings: "wdth" 88, "wght" 650;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+  }
+
+  /* Small display use: near-full width, for inline numbers and labels that
+     sit next to mono text and must not look squeezed. */
+  .text-display-sm {
+    @apply font-display;
+    font-variation-settings: "wdth" 100, "wght" 650;
+    letter-spacing: -0.015em;
   }
 
   /* Utility face for paths, tool names, captured output. */
@@ -151,7 +204,7 @@
 
   /* Section eyebrow. Reads as instrument labelling, not decoration. */
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground;
+    @apply font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground;
   }
 
   .link-underline {

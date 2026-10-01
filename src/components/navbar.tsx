@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -31,7 +31,7 @@ export function Navbar() {
     >
       <nav className="container-wide flex h-14 items-center justify-between">
         <Link href="/" className="group flex items-center gap-2" aria-label={`${SITE.name} home`}>
-          <span className="font-display text-base font-bold tracking-tight">
+          <span className="text-display-sm text-base">
             <span className="text-accent">Z</span>S
             <span className="text-muted-foreground">.</span>
           </span>

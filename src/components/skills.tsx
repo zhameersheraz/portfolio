@@ -1,9 +1,9 @@
-import { SKILLS } from "@/lib/config";
+﻿import { SKILLS } from "@/lib/config";
 import { SectionHeader } from "@/components/about";
 
 export function Skills() {
   return (
-    <section id="skills" className="container-wide py-24">
+    <section id="skills" className="container-wide section-pad">
       <SectionHeader
         index="01"
         label="Skills"

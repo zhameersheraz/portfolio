@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ArrowUpRight, MapPin, Trophy } from "lucide-react";
 import { SITE } from "@/lib/config";
 import { SerialConsole } from "@/components/serial-console";
@@ -13,9 +13,10 @@ export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
       <div className="signal-bloom absolute inset-0 -z-10" aria-hidden />
+      <div className="stipple absolute inset-0 -z-10" aria-hidden />
 
-      <div className="container-wide pt-28 pb-12 md:pt-36 md:pb-14">
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+      <div className="container-wide pt-28 pb-14 md:pt-40 md:pb-20">
+        <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:gap-20">
           {/* Voice */}
           <div className="min-w-0">
             <p className="eyebrow flex items-center gap-2">
@@ -26,17 +27,17 @@ export function Hero() {
               <span>Available for collab and freelance security work</span>
             </p>
 
-            <h1 className="text-display mt-6 text-balance text-[2.6rem] font-semibold leading-[1.02] text-foreground sm:text-6xl lg:text-7xl">
+            <h1 className="text-display mt-7 text-balance text-[3rem] sm:text-[4.25rem] lg:text-[5.5rem]">
               {SITE.tagline}
             </h1>
 
-            <p className="mt-7 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="mt-8 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
               Computer Science undergraduate in Pagadian City. I break things
               on Kali, write up how I did it, and turn the useful parts into
               small Python tools.
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-10 flex flex-wrap items-center gap-3">
               <Link
                 href="/projects"
                 className="group inline-flex h-10 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-90"
@@ -52,7 +53,7 @@ export function Hero() {
               </Link>
             </div>
 
-            <dl className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <dl className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-4">
               <div className="flex items-center gap-1.5">
                 <MapPin className="h-3.5 w-3.5 text-muted-foreground" aria-hidden />
                 <dd className="text-sm text-muted-foreground">
@@ -61,7 +62,7 @@ export function Hero() {
               </div>
               <div>
                 <dd className="text-sm text-muted-foreground">
-                  <span className="font-display text-base font-semibold text-foreground">
+                  <span className="text-display-sm text-base text-foreground">
                     27
                   </span>{" "}
                   public repos
@@ -69,7 +70,7 @@ export function Hero() {
               </div>
               <div>
                 <dd className="text-sm text-muted-foreground">
-                  <span className="font-display text-base font-semibold text-foreground">
+                  <span className="text-display-sm text-base text-foreground">
                     14
                   </span>{" "}
                   certifications
@@ -85,7 +86,7 @@ export function Hero() {
             <div className="flex items-start gap-3 rounded-lg border border-border bg-card p-4">
               <Trophy className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
               <div>
-                <p className="font-display text-sm font-semibold tracking-tight text-foreground">
+                <p className="text-display-sm text-[0.95rem] text-foreground">
                   Provincial Champion
                 </p>
                 <p className="mt-0.5 text-sm leading-snug text-muted-foreground">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { Star, GitFork, Eye } from "lucide-react";
@@ -91,7 +91,7 @@ function ProjectCard({
         </a>
       </div>
 
-      <h3 className="text-display mt-4 text-lg font-semibold tracking-tight">
+      <h3 className="text-display-sm mt-4 text-lg leading-snug">
         <a
           href={project.href}
           target="_blank"
@@ -157,7 +157,7 @@ export function Projects({ bare = false }: { bare?: boolean }) {
   return (
     <section
       id="projects"
-      className={bare ? "pb-4" : "container-wide py-24"}
+      className={bare ? "pb-4" : "container-wide section-pad"}
     >
       {!bare && (
         <SectionHeader

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
+import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
@@ -18,12 +18,14 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-// Display face. Precise, slightly odd letterforms, reads like an instrument
-// panel label rather than a startup hero.
-const bricolage = Bricolage_Grotesque({
+// Display face. Archivo is variable on a WIDTH axis (62-125), which is the
+// whole point: the headline is set condensed and heavy so it reads engineered
+// rather than editorial-fashion. Body stays humanist, utility stays mono.
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-bricolage",
+  variable: "--font-archivo",
   display: "swap",
+  axes: ["wdth"],
 });
 
 export const metadata: Metadata = {
@@ -78,7 +80,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${jetbrains.variable} ${bricolage.variable}`}
+      className={`${inter.variable} ${jetbrains.variable} ${archivo.variable}`}
     >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <ThemeProvider>

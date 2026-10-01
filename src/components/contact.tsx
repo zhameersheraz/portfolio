@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -62,7 +62,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="container-wide py-24">
+    <section id="contact" className="container-wide section-pad">
       <SectionHeader
         index="03"
         label="Contact"

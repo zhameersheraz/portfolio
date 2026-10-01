@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { SITE } from "@/lib/config";
 import { SocialChips } from "@/components/social-chips";
 
@@ -10,7 +10,7 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-start">
           <div>
             <Link href="/" className="inline-flex items-center gap-2">
-              <span className="font-display text-base font-bold tracking-tight">
+              <span className="text-display-sm text-base">
                 <span className="text-accent">Z</span>S<span className="text-muted-foreground">.</span>
               </span>
             </Link>

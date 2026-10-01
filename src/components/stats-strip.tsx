@@ -1,4 +1,4 @@
-import { Github, Award, Shield, Trophy } from "lucide-react";
+﻿import { Github, Award, Shield, Trophy } from "lucide-react";
 
 const STATS = [
   { icon: Trophy, value: "1st", label: "Provincial champion" },
@@ -21,7 +21,7 @@ export function StatsStrip() {
               aria-hidden
             />
             <div>
-              <div className="font-display text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+              <div className="text-display-sm text-2xl text-foreground md:text-3xl">
                 {value}
               </div>
               <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">

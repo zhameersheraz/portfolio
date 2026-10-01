@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import {
   Terminal,
   ShieldCheck,
@@ -19,7 +19,7 @@ const HIGHLIGHTS = [
 
 export function About() {
   return (
-    <section id="about" className="container-wide py-24">
+    <section id="about" className="container-wide section-pad">
       <SectionHeader index="01" label="About" title="Who I am" description="A short version, in case the long version scrolls past you." />
       <div className="relative mt-10 grid gap-8 rounded-lg border border-border/60 bg-card p-6 shadow-sm shadow-foreground/5 dark:bg-card/40 md:grid-cols-[auto_1fr] md:gap-10 md:p-8 bracket-corner">
         <div className="relative mx-auto flex flex-col items-center md:mx-0 md:items-start">
@@ -104,7 +104,7 @@ export function SectionHeader({ index, label, title, description }: { index: str
       <div className="flex items-center gap-3 text-mono text-muted-foreground">
         <span className="text-accent">{index}</span><span>·</span><span className="uppercase tracking-[0.14em]">{label}</span>
       </div>
-      <h2 className="text-display text-3xl font-semibold tracking-tight md:text-5xl">{title}</h2>
+      <h2 className="text-section mt-2 text-3xl text-foreground md:text-5xl">{title}</h2>
       {description && <p className="mt-2 max-w-2xl text-sm text-muted-foreground text-pretty md:text-base">{description}</p>}
     </div>
   );

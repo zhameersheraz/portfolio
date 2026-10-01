@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -6,7 +6,7 @@ export default function NotFound() {
       <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
         404
       </p>
-      <h1 className="text-display mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+      <h1 className="text-display mt-2 text-4xl md:text-6xl">
         Nothing here.
       </h1>
       <p className="mt-4 max-w-md text-sm text-muted-foreground text-pretty">
