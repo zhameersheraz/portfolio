@@ -12,13 +12,16 @@ export function AwardPhoto({ src, alt }: { src: string; alt: string }) {
   const [failed, setFailed] = useState(false);
 
   return (
-    <div className="relative aspect-[16/10] w-full overflow-hidden bg-secondary">
+    // Fixed height, not aspect. One photo and two photos must produce the same
+    // strip height, otherwise a one-photo card is twice as tall as a two-photo
+    // one and the row never lines up.
+    <div className="relative h-56 w-full overflow-hidden bg-secondary sm:h-64">
       {!failed && (
         <Image
           src={src}
           alt={alt}
           fill
-          sizes="(min-width: 1024px) 30vw, 92vw"
+          sizes="(min-width: 768px) 25vw, 92vw"
           className="object-cover"
           unoptimized
           onError={() => setFailed(true)}

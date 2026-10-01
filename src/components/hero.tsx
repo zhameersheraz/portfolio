@@ -18,7 +18,7 @@ export function Hero() {
       </div>
 
       <div className="container-wide pt-28 pb-14 md:pt-40 md:pb-20">
-        <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:gap-20">
+        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-center lg:gap-20">
           {/* Voice */}
           <div className="min-w-0">
             <p className="eyebrow flex items-center gap-2">
@@ -85,7 +85,7 @@ export function Hero() {
           </div>
 
           {/* Signature */}
-          <div className="min-w-0 space-y-3 lg:pt-4">
+          <div className="min-w-0 space-y-3">
             <SerialConsole />
 
             <ul className="flex flex-wrap items-center gap-2">
