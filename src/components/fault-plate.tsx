@@ -19,10 +19,10 @@ import * as THREE from "three";
  * pointer parallax, so it stays cheap.
  */
 
-const SEG_X = 56;
-const SEG_Z = 40;
-const SIZE_X = 5.0;
-const SIZE_Z = 3.4;
+const SEG_X = 48;
+const SEG_Z = 34;
+const SIZE_X = 3.0;
+const SIZE_Z = 2.1;
 
 const LINE = new THREE.Color("#9a968e");
 const LINE_DEEP = new THREE.Color("#b9b4aa");
@@ -48,10 +48,10 @@ function FaultMesh({ reduced, dark }: FaultMeshProps) {
     const faultAngle = -0.62;
     const faultOffset = 0.3;
 
-    // Light and dark need different line values: near-black lines vanish on
-    // paper, and pale lines vanish on ink.
-    const base = new THREE.Color(dark ? "#6f6b64" : "#b4afa5");
-    const deep = new THREE.Color(dark ? "#3f3c37" : "#d6d1c7");
+    // Light and dark need different line values. On paper the wireframe has to
+    // be genuinely dark or it reads as a smudge; on ink it has to stay pale.
+    const base = new THREE.Color(dark ? "#6f6b64" : "#6f6a61");
+    const deep = new THREE.Color(dark ? "#3f3c37" : "#a9a398");
 
     for (let i = 0; i < pos.count; i++) {
       const x = pos.getX(i);
@@ -110,8 +110,8 @@ function FaultMesh({ reduced, dark }: FaultMeshProps) {
     if (!g) return;
 
     if (reduced) {
-      g.rotation.set(0.86, -0.5, 0);
-      g.position.set(1.02, 0, 0.55);
+      g.rotation.set(0.82, -0.5, 0);
+      g.position.set(0, 0, 1.15);
       return;
     }
 
@@ -123,28 +123,23 @@ function FaultMesh({ reduced, dark }: FaultMeshProps) {
     // Pointer parallax, heavily damped so it reads as weight, not chasing.
     smooth.current.x += (pointer.current.x - smooth.current.x) * Math.min(1, delta * 1.6);
     smooth.current.y += (pointer.current.y - smooth.current.y) * Math.min(1, delta * 1.6);
-    g.rotation.x = 0.86 - smooth.current.y * 0.09;
-
-    // Right of centre, sitting back so it stays inside the hero rather than
-    // bleeding past the edge.
-    g.position.x = 1.02 + smooth.current.x * 0.14;
-    g.position.z = 0.55;
+    g.rotation.x = 0.82 - smooth.current.y * 0.09;
+    g.position.x = smooth.current.x * 0.1;
+    g.position.z = 1.15;
   });
 
   return (
-    <group ref={groupRef} rotation={[0.86, -0.5, 0]} position={[1.02, 0, 0.55]}>
+    <group ref={groupRef} rotation={[0.82, -0.5, 0]} position={[0, 0, 1.15]}>
       <mesh geometry={geometry}>
-        <meshBasicMaterial vertexColors transparent opacity={0.9} wireframe />
+        <meshBasicMaterial vertexColors transparent opacity={0.95} wireframe />
       </mesh>
-      {/* Faint fill beneath the wireframe so the plate reads as a mass rather
-          than a floating net. Tone follows the theme. */}
-      <mesh geometry={geometry} position={[0, -0.014, 0]}>
-        <meshBasicMaterial
-          color={dark ? "#101216" : "#efece5"}
-          transparent
-          opacity={dark ? 0.5 : 0.42}
-        />
-      </mesh>
+      {/* Fill only in dark mode. On paper a translucent slab turned the whole
+          card muddy beige; wireframe alone is cleaner there. */}
+      {dark && (
+        <mesh geometry={geometry} position={[0, -0.014, 0]}>
+          <meshBasicMaterial color="#0d0f13" transparent opacity={0.55} />
+        </mesh>
+      )}
     </group>
   );
 }
@@ -152,8 +147,8 @@ function FaultMesh({ reduced, dark }: FaultMeshProps) {
 function Rig() {
   const { camera } = useThree();
   useEffect(() => {
-    camera.position.set(0, 0.05, 4.6);
-    camera.lookAt(0, -0.15, 0);
+    camera.position.set(0, 0.05, 4.2);
+    camera.lookAt(0, -0.12, 0);
   }, [camera]);
   return null;
 }
@@ -183,29 +178,31 @@ export function FaultPlate() {
   }, []);
 
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 h-full w-full">
+    // A contained specimen, not wallpaper. Fixed height so the card does not
+    // resize as the plate turns.
+    <div
+      aria-hidden
+      className="relative h-64 w-full overflow-hidden rounded-t-2xl bg-secondary sm:h-72"
+    >
       <Canvas
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
-        camera={{ position: [0, 0.05, 4.6], fov: 40 }}
+        camera={{ position: [0, 0.05, 4.2], fov: 40 }}
       >
         <Rig />
         <FaultMesh reduced={reduced} dark={dark} />
       </Canvas>
-
-      {/* Edge fade, so the plate dissolves instead of being clipped by the
-          viewport. Radial mask, weighted to the right where the object sits. */}
+      {/* Edge fade inside the frame so the plate dissolves rather than being
+          cut off by the container. */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           WebkitMaskImage:
-            "radial-gradient(ellipse 46% 72% at 72% 46%, black 30%, rgba(0,0,0,0.55) 58%, transparent 80%)",
+            "radial-gradient(ellipse 62% 74% at 50% 48%, black 34%, rgba(0,0,0,0.6) 60%, transparent 84%)",
           maskImage:
-            "radial-gradient(ellipse 46% 72% at 72% 46%, black 30%, rgba(0,0,0,0.55) 58%, transparent 80%)",
+            "radial-gradient(ellipse 62% 74% at 50% 48%, black 34%, rgba(0,0,0,0.6) 60%, transparent 84%)",
         }}
       />
-      {/* Scrim. Keeps the headline column clear of geometry. */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent lg:from-38% lg:via-8%" />
     </div>
   );
 }

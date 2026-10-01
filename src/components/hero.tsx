@@ -12,11 +12,6 @@ const STACK = [
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
-      <div className="absolute inset-0 -z-10" aria-hidden>
-        <FaultPlate />
-      </div>
-
-
       <div className="container-wide pt-28 pb-14 md:pt-40 md:pb-20">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-center lg:gap-20">
           {/* Voice */}
@@ -85,8 +80,20 @@ export function Hero() {
           </div>
 
           {/* Signature */}
-          <div className="flex min-w-0 flex-col justify-end">
-            <ul className="flex flex-wrap items-center gap-2">
+          <div className="min-w-0">
+            <div className="panel overflow-hidden">
+              <FaultPlate />
+              <div className="border-t border-border p-6">
+                <p className="font-mono text-[11px] tracking-tight text-muted-foreground">
+                  plate boundary · fault zone
+                </p>
+                <p className="mt-2 text-sm leading-snug text-muted-foreground">
+                  Everything interesting happens where a system splits.
+                </p>
+              </div>
+            </div>
+
+            <ul className="mt-4 flex flex-wrap items-center gap-2">
               {STACK.map((s) => (
                 <li key={s.name}>
                   <a
