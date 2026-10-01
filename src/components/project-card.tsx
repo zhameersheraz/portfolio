@@ -161,7 +161,7 @@ export function Projects({ bare = false }: { bare?: boolean }) {
     >
       {!bare && (
         <SectionHeader
-          index="02"
+          index="03"
           label="Projects"
           title="Real work, in public"
           description="The repos that are actually mine. Open-source tools, notes, and small builds. Live stats pulled from the GitHub API."

@@ -270,5 +270,49 @@ export const CERTS: Cert[] = [
   },
 ] as const;
 
+export type Competition = {
+  id: string;
+  event: string;
+  placement: string;
+  role: string;
+  org: string;
+  date: string;
+  href: string;
+  image: string;
+};
+
+export const COMPETITIONS: Competition[] = [
+  {
+    id: "syborg-ctf",
+    event: "Syborg CTF 2026",
+    placement: "Champion",
+    role: "Top Scorer",
+    org: "Syborg Cup, SCC System Builders Organization",
+    date: "2026",
+    href: "https://www.facebook.com/share/p/1CF76HX7K5/",
+    image: "/awards/syborg.jpg",
+  },
+  {
+    id: "provincial-cyberhunt",
+    event: "Provincial Cyberhunt League 2026",
+    placement: "Champion",
+    role: "Top Scorer",
+    org: "DICT HackForGov, JHCSC Pagadian City",
+    date: "Sep 2026",
+    href: "https://www.facebook.com/share/p/18NthGi1Vr/",
+    image: "/awards/provincial.jpg",
+  },
+  {
+    id: "provincial-cyberhunt-alt",
+    event: "Provincial Cyberhunt League 2026",
+    placement: "Champion",
+    role: "Top Scorer",
+    org: "Team SCC CCS Red Lions",
+    date: "Sep 2026",
+    href: "https://www.facebook.com/share/p/1DheMcbjRJ/",
+    image: "/awards/provincial-2.jpg",
+  },
+];
+
 export type Project = (typeof PROJECTS)[number];
 export type ProjectEntry = Project & { hidden?: boolean };

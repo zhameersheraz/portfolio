@@ -1,5 +1,5 @@
 ﻿import Link from "next/link";
-import { ArrowUpRight, MapPin, Trophy } from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { SITE } from "@/lib/config";
 import { SerialConsole } from "@/components/serial-console";
 
@@ -85,18 +85,6 @@ export function Hero() {
           {/* Signature */}
           <div className="min-w-0 space-y-3 lg:pt-4">
             <SerialConsole />
-
-            <div className="flex items-start gap-3 rounded-lg border border-border bg-card p-4">
-              <Trophy className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
-              <div>
-                <p className="text-display-sm text-[0.95rem] text-foreground">
-                  Provincial Champion
-                </p>
-                <p className="mt-0.5 text-sm leading-snug text-muted-foreground">
-                  DICT Cyberhunt League 2026, Sep 16. Team SCC CCS Red Lions.
-                </p>
-              </div>
-            </div>
 
             <ul className="flex flex-wrap items-center gap-2">
               {STACK.map((s) => (
