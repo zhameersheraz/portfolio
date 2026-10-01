@@ -53,11 +53,20 @@ export const metadata: Metadata = {
     title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.description,
     siteName: SITE.name,
+    images: [
+      {
+        url: "/og.png",
+        width: 760,
+        height: 428,
+        alt: "esp32sec flash-crypto readout",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.description,
+    images: ["/og.png"],
   },
   robots: {
     index: true,

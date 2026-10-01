@@ -96,11 +96,25 @@ function ProjectCard({
           href={project.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="link-underline"
-        >
+          className="link-underline"        >
           {project.title}
         </a>
       </h3>
+
+      {"media" in project && project.media ? (
+        <div className="mt-5 overflow-hidden rounded-md border border-border bg-secondary">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={project.media as string}
+            alt={`${project.title} running`}
+            width={760}
+            height={428}
+            loading="lazy"
+            decoding="async"
+            className="w-full"
+          />
+        </div>
+      ) : null}
 
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground text-pretty">
         {project.summary}
