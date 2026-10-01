@@ -261,8 +261,8 @@ export const COMPETITIONS: Competition[] = [
     org: "Team KELZploit, DICT HackForGov",
     date: "Sep 16, 2026",
     photos: [
-      { src: "/awards/provincial.jpg", href: "https://www.facebook.com/share/p/18NthGi1Vr/" },
-      { src: "/awards/provincial-2.jpg", href: "https://www.facebook.com/share/p/1DheMcbjRJ/" },
+      { src: "/awards/provincial.jpg", href: "https://www.facebook.com/share/p/1DheMcbjRJ/" },
+      { src: "/awards/provincial-2.jpg", href: "https://www.facebook.com/share/p/18NthGi1Vr/" },
     ],
   },
 ];
