@@ -62,7 +62,7 @@ export const PROJECTS = [
   },
   {
     slug: "noctis",
-    title: "Noctis: Lunar Grand Prix",
+    title: "Noctis GP: Lunar Night Grand Prix",
     repo: "zhameersheraz/Noctis-GP",
     href: "https://github.com/zhameersheraz/Noctis-GP",
     demo: "https://zhameersheraz.github.io/Noctis-GP/",
@@ -78,6 +78,7 @@ export const PROJECTS = [
     ],
     language: "TypeScript",
     featured: true,
+    art: "/art/noctis.jpg",
   },
   {
     slug: "cloud-security",

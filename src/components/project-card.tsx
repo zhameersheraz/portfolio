@@ -72,17 +72,20 @@ function ProjectCard({
   return (
     <article className="panel panel-hover group relative flex flex-col overflow-hidden">
       {"art" in project && project.art ? (
-        <div className="relative h-48 overflow-hidden bg-background">
+        // A fixed neutral stage rather than a full-bleed fade. Two of these are
+        // light-paper illustrations and one is a dark game screenshot, so they
+        // need the same ground to sit on instead of bleeding into the card at
+        // a different tone per theme.
+        <div className="relative h-48 overflow-hidden bg-secondary">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={project.art as string}
             alt=""
-            width={1800}
-            height={928}
+            width={1600}
+            height={1000}
             decoding="async"
-            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
           />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-card from-55% to-transparent" />
         </div>
       ) : null}
 
