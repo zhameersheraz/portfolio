@@ -234,32 +234,6 @@
     @apply font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground;
   }
 
-  /* Inverted band. One per page, used where the content deserves the shift.
-     It inverts RELATIVE to the active mode: near-black on paper, lifted slate
-     on ink. Hardcoding near-black here made it vanish in dark mode. */
-  .band-ink {
-    background: hsl(222 16% 6%);
-    color: hsl(40 12% 96%);
-  }
-  .band-ink .eyebrow,
-  .band-ink .text-muted-foreground {
-    color: hsl(220 8% 62%);
-  }
-  .band-ink .border-border {
-    border-color: hsl(220 10% 20%);
-  }
-
-  .dark .band-ink {
-    background: hsl(220 12% 13%);
-    color: hsl(40 12% 96%);
-  }
-  .dark .band-ink .eyebrow,
-  .dark .band-ink .text-muted-foreground {
-    color: hsl(220 8% 60%);
-  }
-  .dark .band-ink .border-border {
-    border-color: hsl(220 10% 22%);
-  }
 
   .link-underline {
     @apply relative inline-block;
