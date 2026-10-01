@@ -58,7 +58,7 @@ export const PROJECTS = [
     categories: ["Hardware Security", "IoT Security", "Firmware Analysis", "Open Source"],
     language: "Python",
     featured: true,
-    art: "/art/circuit.jpg",
+    art: "/art/esp32sec.jpg",
   },
   {
     slug: "noctis",
@@ -91,7 +91,7 @@ export const PROJECTS = [
     categories: ["Cloud Security", "Cybersecurity", "Cheatsheet"],
     language: "HTML",
     featured: true,
-    art: "/art/cloud.jpg",
+    art: "/art/cloud-security.jpg",
   },
 ] as const;
 
