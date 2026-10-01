@@ -1,7 +1,7 @@
 ﻿import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { SITE } from "@/lib/config";
-import { FaultPlate } from "@/components/fault-plate";
+import { ThreatGlobe } from "@/components/threat-globe";
 
 const STACK = [
   { name: "GitHub", href: "https://github.com/zhameersheraz" },
@@ -82,13 +82,13 @@ export function Hero() {
           {/* Signature */}
           <div className="min-w-0">
             <div className="panel overflow-hidden">
-              <FaultPlate />
+              <ThreatGlobe />
               <div className="border-t border-border p-6">
                 <p className="font-mono text-[11px] tracking-tight text-muted-foreground">
-                  plate boundary · fault zone
+                  threat surface · live routes
                 </p>
                 <p className="mt-2 text-sm leading-snug text-muted-foreground">
-                  Everything interesting happens where a system splits.
+                  Drag it. Every node is a host, every arc is a route someone is watching.
                 </p>
               </div>
             </div>
