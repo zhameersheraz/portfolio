@@ -36,7 +36,7 @@ export function About() {
         </div>
         <div className="space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
           <p className="text-pretty">Hi, I&apos;m <span className="text-foreground">Zhameer</span>. I split most days between class, a terminal, and a notebook where I write up whatever I just figured out so I stop forgetting it.</p>
-          <p className="text-pretty">My hobby-with-delusions-of-utility is running through CTF challenges on <span className="text-foreground">picoCTF</span>, <span className="text-foreground">TryHackMe</span>, and <span className="text-foreground">CyberTalents</span>. Writeups end up on GitHub because future-me forgets everything, and someone else might be stuck on the same box.</p>
+          <p className="text-pretty">My hobby-with-delusions-of-utility is running through CTF challenges. Writeups end up on GitHub because future-me forgets everything, and someone else might be stuck on the same box.</p>
           <p className="text-pretty">Outside of security I tinker with Python and JS, try to keep a static site or two alive, and slowly work through networking fundamentals. I&apos;m not hiring myself out as a pentester yet. I&apos;m still earning the right to call myself one.</p>
         </div>
       </div>

@@ -2,6 +2,7 @@
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { SITE } from "@/lib/config";
 import { SerialConsole } from "@/components/serial-console";
+import { HeroField } from "@/components/hero-field";
 
 const STACK = [
   { name: "GitHub", href: "https://github.com/zhameersheraz" },
@@ -12,8 +13,9 @@ const STACK = [
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
-      <div className="signal-bloom absolute inset-0 -z-10" aria-hidden />
-      <div className="stipple absolute inset-0 -z-10" aria-hidden />
+      <div className="absolute inset-0 -z-10" aria-hidden>
+        <HeroField />
+      </div>
 
       <div className="container-wide pt-28 pb-14 md:pt-40 md:pb-20">
         <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:gap-20">
