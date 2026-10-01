@@ -1,4 +1,4 @@
-﻿import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { COMPETITIONS } from "@/lib/config";
 import { Reveal } from "@/components/reveal";
 import { AwardPhoto } from "@/components/award-photo";
@@ -17,40 +17,53 @@ export function Competitions() {
         </h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground text-pretty md:text-base">
           Placed first in both, and finished top of the individual scoreboard in
-          each. Team SCC CCS Red Lions.
+          each. Tap a photo to open the post.
         </p>
       </Reveal>
 
-      <div className="mt-12 grid gap-5 md:grid-cols-3">
+      <div className="mt-12 grid gap-6 md:grid-cols-2">
         {COMPETITIONS.map((c, i) => (
-          <Reveal key={c.id} delay={i * 100}>
-            <a
-              href={c.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block h-full overflow-hidden rounded-lg border border-border bg-card transition-colors hover:border-foreground/30"
-            >
-              <AwardPhoto src={c.image} alt={`${c.event} team photo`} />
+          <Reveal key={c.id} delay={i * 110}>
+            <div className="panel h-full overflow-hidden">
+              {/* Photos sit side by side inside one card. Each keeps its own
+                  link so the two provincial posts stay separately citable. */}
+              <div
+                className={`grid gap-1.5 ${c.photos.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}
+              >
+                {c.photos.map((p) => (
+                  <a
+                    key={p.src}
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/ph relative block overflow-hidden bg-secondary"
+                    aria-label={`Open the post for ${c.event}`}
+                  >
+                    <AwardPhoto src={p.src} alt={`${c.event} team photo`} />
+                    <span className="pointer-events-none absolute inset-0 bg-foreground/0 transition-colors duration-300 group-hover/ph:bg-foreground/10" />
+                  </a>
+                ))}
+              </div>
 
-              <div className="p-5">
+              <div className="p-7 md:p-8">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-display-sm text-[0.95rem] leading-snug text-foreground">
+                  <h3 className="text-display-sm text-lg leading-snug text-foreground">
                     {c.event}
                   </h3>
                   <ArrowUpRight
-                    className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground"
                     aria-hidden
                   />
                 </div>
 
-                <p className="mt-1.5 text-xs text-muted-foreground">{c.org}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{c.org}</p>
 
-                <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-4">
+                <dl className="mt-6 grid grid-cols-2 gap-4">
                   <div>
                     <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                       Placement
                     </dt>
-                    <dd className="mt-1 font-mono text-sm text-foreground">
+                    <dd className="mt-1.5 font-mono text-sm text-foreground">
                       {c.placement}
                     </dd>
                   </div>
@@ -58,17 +71,17 @@ export function Competitions() {
                     <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                       Individual
                     </dt>
-                    <dd className="mt-1 font-mono text-sm text-accent">
+                    <dd className="mt-1.5 font-mono text-sm text-accent">
                       {c.role}
                     </dd>
                   </div>
                 </dl>
 
-                <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                   {c.date}
                 </p>
               </div>
-            </a>
+            </div>
           </Reveal>
         ))}
       </div>

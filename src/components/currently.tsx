@@ -7,7 +7,7 @@ const NOW = [
 export function Currently() {
   return (
     <section className="container-wide py-16">
-      <div className="rounded-lg border border-border bg-card/40 p-6">
+      <div className="panel p-7 md:p-8">
         <div className="mb-4 flex items-center gap-2">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />

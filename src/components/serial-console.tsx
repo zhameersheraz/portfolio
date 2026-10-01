@@ -82,7 +82,7 @@ export function SerialConsole() {
   const complete = bodyTyped.split("\n").slice(0, -1).filter(Boolean);
 
   return (
-    <div className="noise overflow-hidden rounded-lg border border-border bg-card">
+    <div className="noise overflow-hidden rounded-2xl border border-border bg-card shadow-[0_1px_2px_hsl(var(--shadow)/0.05),0_18px_40px_-22px_hsl(var(--shadow)/0.28)]">
       <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
         <span className="font-mono text-[11px] tracking-tight text-muted-foreground">
           esp32sec · flash-crypto

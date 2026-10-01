@@ -22,7 +22,7 @@ export function About() {
   return (
     <section id="about" className="container-wide section-pad">
       <SectionHeader index="01" label="About" title="Who I am" description="A short version, in case the long version scrolls past you." />
-      <div className="relative mt-10 grid gap-8 rounded-lg border border-border/60 bg-card p-6 shadow-sm shadow-foreground/5 dark:bg-card/40 md:grid-cols-[auto_1fr] md:gap-10 md:p-8 bracket-corner">
+      <div className="panel relative mt-10 grid gap-8 p-7 md:grid-cols-[auto_1fr] md:gap-12 md:p-10 bracket-corner">
         <div className="relative mx-auto flex flex-col items-center md:mx-0 md:items-start">
           <div aria-hidden className="absolute -inset-3 rounded-full bg-gradient-to-br from-foreground/20 via-transparent to-foreground/5 blur-xl dark:from-accent/40 dark:via-transparent dark:to-foreground/20" />
           <div className="relative h-48 w-48 overflow-hidden rounded-full ring-1 ring-foreground/10 shadow-lg shadow-foreground/5 md:h-56 md:w-56">
@@ -42,7 +42,7 @@ export function About() {
       </div>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {HIGHLIGHTS.map(({ icon: Icon, title, body }) => (
-          <div key={title} className="group rounded-lg border border-border bg-card p-5 transition-colors hover:border-foreground/30">
+          <div key={title} className="panel panel-hover p-6">
             <Icon className="h-5 w-5 text-foreground" />
             <h3 className="mt-3 text-sm font-semibold">{title}</h3>
             <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{body}</p>
@@ -67,7 +67,7 @@ export function About() {
               href={cert.link ?? cert.image}
               target="_blank"
               rel="noreferrer"
-              className="group block overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-foreground/30 hover:shadow-md hover:shadow-foreground/5"
+              className="panel panel-hover block overflow-hidden"
             >
               <div
                 className="relative w-full overflow-hidden bg-foreground/5"

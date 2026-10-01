@@ -35,7 +35,11 @@
     --input: 38 14% 86%;
     --ring: 26 88% 40%;
 
-    --radius: 0.5rem;
+    /* Cast shadow, not a hairline. Large radii plus a real soft shadow is what
+       separates a considered surface from a bordered box. */
+    --shadow: 30 25% 18%;
+
+    --radius: 1.25rem;
   }
 
   .dark {
@@ -67,6 +71,8 @@
     --border: 220 10% 17%;
     --input: 220 10% 17%;
     --ring: 32 95% 60%;
+
+    --shadow: 220 40% 2%;
   }
 
   * {
@@ -191,6 +197,28 @@
   .text-display-sm {
     @apply font-display;
     letter-spacing: -0.02em;
+  }
+
+  /* The surface treatment. Two-part shadow: a tight contact shadow so the
+     edge reads as lit, and a wide diffuse one so the card sits above the page.
+     No border, because a border is the cheap way to draw a box. */
+  .panel {
+    @apply rounded-2xl bg-card;
+    box-shadow:
+      0 1px 2px hsl(var(--shadow) / 0.05),
+      0 18px 40px -22px hsl(var(--shadow) / 0.28);
+  }
+
+  .panel-hover {
+    transition:
+      transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+      box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .panel-hover:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 2px 4px hsl(var(--shadow) / 0.06),
+      0 28px 56px -26px hsl(var(--shadow) / 0.34);
   }
 
   /* Utility face for paths, tool names, captured output. */

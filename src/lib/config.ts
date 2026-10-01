@@ -58,7 +58,6 @@ export const PROJECTS = [
     categories: ["Hardware Security", "IoT Security", "Firmware Analysis", "Open Source"],
     language: "Python",
     featured: true,
-    media: "/media/esp32sec-run.gif",
   },
   {
     slug: "cloud-security",
@@ -71,7 +70,6 @@ export const PROJECTS = [
     categories: ["Cloud Security", "Cybersecurity", "Cheatsheet"],
     language: "HTML",
     featured: true,
-    media: "/media/cloud-security-scan.gif",
   },
 ] as const;
 
@@ -238,8 +236,7 @@ export type Competition = {
   role: string;
   org: string;
   date: string;
-  href: string;
-  image: string;
+  photos: { src: string; href: string }[];
 };
 
 export const COMPETITIONS: Competition[] = [
@@ -250,8 +247,9 @@ export const COMPETITIONS: Competition[] = [
     role: "Top Scorer",
     org: "Team Digital Abyss, Syborg Cup",
     date: "Mar 29, 2026",
-    href: "https://www.facebook.com/share/p/1CF76HX7K5/",
-    image: "/awards/syborg.jpg",
+    photos: [
+      { src: "/awards/syborg.jpg", href: "https://www.facebook.com/share/p/1CF76HX7K5/" },
+    ],
   },
   {
     id: "provincial-cyberhunt",
@@ -260,18 +258,10 @@ export const COMPETITIONS: Competition[] = [
     role: "Top Scorer",
     org: "Team KELZploit, DICT HackForGov",
     date: "Sep 16, 2026",
-    href: "https://www.facebook.com/share/p/18NthGi1Vr/",
-    image: "/awards/provincial.jpg",
-  },
-  {
-    id: "provincial-cyberhunt-alt",
-    event: "Provincial Cyberhunt League 2026",
-    placement: "Champion",
-    role: "Top Scorer",
-    org: "Team KELZploit, Zamboanga del Sur",
-    date: "Sep 16, 2026",
-    href: "https://www.facebook.com/share/p/1DheMcbjRJ/",
-    image: "/awards/provincial-2.jpg",
+    photos: [
+      { src: "/awards/provincial.jpg", href: "https://www.facebook.com/share/p/18NthGi1Vr/" },
+      { src: "/awards/provincial-2.jpg", href: "https://www.facebook.com/share/p/1DheMcbjRJ/" },
+    ],
   },
 ];
 

@@ -70,7 +70,7 @@ function ProjectCard({
   const views = useViews(project.slug);
 
   return (
-    <article className="group relative flex flex-col rounded-lg border border-border bg-card p-6 transition-colors hover:border-foreground/30">
+    <article className="panel panel-hover group relative flex flex-col p-7">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-2">
           <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
@@ -101,20 +101,6 @@ function ProjectCard({
         </a>
       </h3>
 
-      {"media" in project && project.media ? (
-        <div className="mt-5 overflow-hidden rounded-md border border-border bg-secondary">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={project.media as string}
-            alt={`${project.title} running`}
-            width={760}
-            height={428}
-            loading="lazy"
-            decoding="async"
-            className="w-full"
-          />
-        </div>
-      ) : null}
 
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground text-pretty">
         {project.summary}

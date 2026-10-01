@@ -15,7 +15,7 @@ export function Skills() {
         {SKILLS.map((group) => (
           <div
             key={group.category}
-            className="card-lift rounded-lg border border-border bg-card p-6"
+            className="panel panel-hover p-7 md:p-8"
           >
             <div className="flex items-baseline justify-between">
               <h3 className="text-sm font-semibold">{group.category}</h3>
