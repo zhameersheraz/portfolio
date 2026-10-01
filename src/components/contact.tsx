@@ -64,7 +64,7 @@ export function Contact() {
   return (
     <section id="contact" className="container-wide py-24">
       <SectionHeader
-        index="05"
+        index="03"
         label="Contact"
         title="Get in touch"
         description="Bug bounty invites, collab, writeup suggestions, or just a hello."

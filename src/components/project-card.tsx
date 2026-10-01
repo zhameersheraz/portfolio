@@ -153,17 +153,22 @@ function ProjectCard({
   );
 }
 
-export function Projects() {
+export function Projects({ bare = false }: { bare?: boolean }) {
   return (
-    <section id="projects" className="container-wide py-24">
-      <SectionHeader
-        index="03"
-        label="Projects"
-        title="Real work, in public"
-        description="The repos that are actually mine. Open-source tools, notes, and small builds. Live stats pulled from the GitHub API."
-      />
+    <section
+      id="projects"
+      className={bare ? "pb-4" : "container-wide py-24"}
+    >
+      {!bare && (
+        <SectionHeader
+          index="02"
+          label="Projects"
+          title="Real work, in public"
+          description="The repos that are actually mine. Open-source tools, notes, and small builds. Live stats pulled from the GitHub API."
+        />
+      )}
 
-      <div className="mt-10 grid gap-4 md:grid-cols-2">
+      <div className={bare ? "grid gap-4 md:grid-cols-2" : "mt-10 grid gap-4 md:grid-cols-2"}>
         {PROJECTS.filter((p) => p.featured && !(p as { hidden?: boolean }).hidden).map((project, i) => (
           <ProjectCard key={project.slug} project={project} index={i} />
         ))}

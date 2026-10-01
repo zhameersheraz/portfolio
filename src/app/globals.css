@@ -4,65 +4,69 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 4%;
+    /* Warm-neutral paper. Barely off-white so light mode is not sterile. */
+    --background: 40 24% 98%;
+    --foreground: 222 20% 10%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 4%;
+    --card: 40 20% 96%;
+    --card-foreground: 222 20% 10%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 4%;
+    --popover: 40 20% 96%;
+    --popover-foreground: 222 20% 10%;
 
-    --primary: 240 10% 4%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 222 20% 10%;
+    --primary-foreground: 40 24% 98%;
 
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 10% 4%;
+    --secondary: 40 14% 92%;
+    --secondary-foreground: 222 20% 10%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 40 14% 92%;
+    --muted-foreground: 222 8% 42%;
 
-    --accent: 142 71% 45%;
-    --accent-foreground: 0 0% 100%;
+    /* One signal colour. Reserved for state, focus, and instrumentation.
+       Darkened on light backgrounds so it clears contrast on paper. */
+    --accent: 26 88% 40%;
+    --accent-foreground: 40 24% 98%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 40 24% 98%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 142 71% 45%;
+    --border: 38 14% 86%;
+    --input: 38 14% 86%;
+    --ring: 26 88% 40%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 240 10% 4%;
-    --foreground: 0 0% 98%;
+    /* Cool near-black, never pure #000. The signal needs something to sit against. */
+    --background: 222 16% 6%;
+    --foreground: 40 12% 96%;
 
-    --card: 240 10% 6%;
-    --card-foreground: 0 0% 98%;
+    --card: 222 14% 9%;
+    --card-foreground: 40 12% 96%;
 
-    --popover: 240 10% 4%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 222 16% 7%;
+    --popover-foreground: 40 12% 96%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 10% 4%;
+    --primary: 40 12% 96%;
+    --primary-foreground: 222 16% 6%;
 
-    --secondary: 240 4% 16%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 222 12% 14%;
+    --secondary-foreground: 40 12% 96%;
 
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 222 12% 14%;
+    --muted-foreground: 220 8% 58%;
 
-    --accent: 142 71% 45%;
-    --accent-foreground: 240 10% 4%;
+    --accent: 32 95% 60%;
+    --accent-foreground: 222 16% 6%;
 
-    --destructive: 0 63% 50%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 63% 52%;
+    --destructive-foreground: 40 12% 96%;
 
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 142 71% 45%;
+    --border: 220 10% 17%;
+    --input: 220 10% 17%;
+    --ring: 32 95% 60%;
   }
 
   * {
@@ -78,14 +82,17 @@
 
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "ss01", "cv11";
   }
 
   ::selection {
     @apply bg-accent/20 text-foreground;
   }
 
-  /* Minimal scrollbar */
+  /* Visible keyboard focus everywhere. Never removed, only shaped. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -110,12 +117,13 @@
     @apply mx-auto w-full max-w-6xl px-6;
   }
 
-  .grid-bg {
-    background-image:
-      linear-gradient(to right, hsl(var(--border) / 0.5) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border) / 0.5) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, black 30%, transparent 75%);
+  /* Soft signal bloom. Replaces the hard grid overlay. */
+  .signal-bloom {
+    background: radial-gradient(
+      ellipse 55% 45% at 78% 12%,
+      hsl(var(--accent) / 0.10),
+      transparent 70%
+    );
   }
 
   .noise {
@@ -127,17 +135,23 @@
     inset: 0;
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
-    opacity: 0.025;
+    opacity: 0.02;
     mix-blend-mode: overlay;
   }
 
+  /* Display face carries the voice. Tracking is tight, not wide. */
   .text-display {
     @apply font-display tracking-tight;
-    font-feature-settings: "ss01";
   }
 
+  /* Utility face for paths, tool names, captured output. */
   .text-mono {
-    @apply font-mono text-xs uppercase tracking-wider;
+    @apply font-mono text-xs;
+  }
+
+  /* Section eyebrow. Reads as instrument labelling, not decoration. */
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground;
   }
 
   .link-underline {
@@ -160,36 +174,26 @@
     text-wrap: pretty;
   }
 
-  .mask-fade-b {
-    mask-image: linear-gradient(to bottom, black 60%, transparent);
-  }
-  .mask-fade-r {
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  }
-
   .perspective-1000 {
     perspective: 1000px;
   }
 }
 
-/* v2.2 decorative bits */
-.bg-dots {
-  background-image: radial-gradient(circle, currentColor 1px, transparent 1.4px);
-  background-size: 22px 22px;
-  color: rgb(var(--muted-foreground) / 0.18);
+section[id] {
+  scroll-margin-top: 5rem;
 }
-.divider-fade {
-  background: linear-gradient(to right, transparent, rgb(var(--border)), transparent);
-  height: 1px;
+
+/* Registration marks on the About card. Instrument detail, not a frame. */
+.bracket-corner {
+  position: relative;
 }
-.bracket-corner { position: relative; }
 .bracket-corner::before,
 .bracket-corner::after {
   content: "";
   position: absolute;
   width: 12px;
   height: 12px;
-  border-color: rgb(var(--muted-foreground) / 0.45);
+  border-color: hsl(var(--accent) / 0.45);
   border-style: solid;
   pointer-events: none;
 }
@@ -204,33 +208,53 @@
   border-width: 0 1px 1px 0;
 }
 
-/* v2.5 motion polish */
-html { scroll-behavior: smooth; }
-section[id] { scroll-margin-top: 5rem; }
-
 .card-lift {
-  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 .card-lift:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px -12px rgb(0 0 0 / .22);
+  box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.22);
 }
 
-.nav-link { position: relative; }
+.nav-link {
+  position: relative;
+}
 .nav-link::after {
   content: "";
   position: absolute;
-  left: 12px; right: 12px; bottom: -2px;
+  left: 12px;
+  right: 12px;
+  bottom: -2px;
   height: 1px;
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 .nav-link.active::after,
-.nav-link:hover::after { transform: scaleX(1); }
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+.nav-link.active {
+  color: hsl(var(--accent));
+}
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .card-lift:hover { transform: none; }
+  html {
+    scroll-behavior: auto;
+  }
+  .card-lift:hover {
+    transform: none;
+  }
+  .console-line {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .console-cursor {
+    animation: none !important;
+    opacity: 1 !important;
+  }
 }

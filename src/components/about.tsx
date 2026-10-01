@@ -54,7 +54,7 @@ export function About() {
           <Award className="h-3.5 w-3.5 text-accent" />
           <span className="text-accent">02</span>
           <span>·</span>
-          <span>Certifications</span>
+          <span className="uppercase tracking-[0.14em]">Certifications</span>
         </div>
         <h3 className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">Course completions and role certifications</h3>
         <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">Course completions and role certifications from Cisco, IBM, HackerRank, Coursera, and freeCodeCamp.</p>
@@ -102,9 +102,9 @@ export function SectionHeader({ index, label, title, description }: { index: str
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-3 text-mono text-muted-foreground">
-        <span className="text-accent">{index}</span><span>·</span><span>{label}</span>
+        <span className="text-accent">{index}</span><span>·</span><span className="uppercase tracking-[0.14em]">{label}</span>
       </div>
-      <h2 className="text-display text-3xl font-bold tracking-tight md:text-5xl">{title}</h2>
+      <h2 className="text-display text-3xl font-semibold tracking-tight md:text-5xl">{title}</h2>
       {description && <p className="mt-2 max-w-2xl text-sm text-muted-foreground text-pretty md:text-base">{description}</p>}
     </div>
   );

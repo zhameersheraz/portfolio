@@ -1,159 +1,114 @@
-"use client";
-
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Github, MapPin, Terminal } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowUpRight, MapPin, Trophy } from "lucide-react";
 import { SITE } from "@/lib/config";
+import { SerialConsole } from "@/components/serial-console";
 
-const ThreeScene = dynamic(
-  () =>
-    import("@/components/three/three-scene").then((m) => m.ThreeScene),
-  { ssr: false },
-);
-
-const ROLES = [
-  "Computer Science student",
-  "Self-taught security learner",
-  "Tool builder",
-  "Pentesting apprentice",
-];
-
-const PLATFORMS = [
-  { name: "GitHub", href: "https://github.com/zhameersheraz", src: null },
-  { name: "Kali Linux", href: "https://www.kali.org/", src: null },
-  { name: "Python", href: "https://www.python.org/", src: null },
+const STACK = [
+  { name: "GitHub", href: "https://github.com/zhameersheraz" },
+  { name: "Kali Linux", href: "https://www.kali.org/" },
+  { name: "Python", href: "https://www.python.org/" },
 ];
 
 export function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [text, setText] = useState("");
-  const [phase, setPhase] = useState<"typing" | "pausing" | "deleting">(
-    "typing",
-  );
-
-  useEffect(() => {
-    const current = ROLES[roleIndex];
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (phase === "typing") {
-      if (text.length < current.length) {
-        timeout = setTimeout(
-          () => setText(current.slice(0, text.length + 1)),
-          55,
-        );
-      } else {
-        timeout = setTimeout(() => setPhase("pausing"), 1400);
-      }
-    } else if (phase === "pausing") {
-      timeout = setTimeout(() => setPhase("deleting"), 200);
-    } else if (phase === "deleting") {
-      if (text.length > 0) {
-        timeout = setTimeout(
-          () => setText(current.slice(0, text.length - 1)),
-          28,
-        );
-      } else {
-        setRoleIndex((i) => (i + 1) % ROLES.length);
-        setPhase("typing");
-        return;
-      }
-    }
-
-    return () => clearTimeout(timeout);
-  }, [text, phase, roleIndex]);
-
   return (
     <section className="relative isolate overflow-hidden">
-      <ThreeScene />
-      <div className="grid-bg absolute inset-0 -z-10" aria-hidden />
+      <div className="signal-bloom absolute inset-0 -z-10" aria-hidden />
 
-      <div className="container-wide pt-28 pb-20 md:pt-40 md:pb-28">
-        <div className="flex items-center gap-2 text-mono text-muted-foreground">
-          <span className="inline-flex h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-          <span>Available for collab & freelance security work</span>
-        </div>
+      <div className="container-wide pt-28 pb-12 md:pt-36 md:pb-14">
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+          {/* Voice */}
+          <div className="min-w-0">
+            <p className="eyebrow flex items-center gap-2">
+              <span
+                className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                aria-hidden
+              />
+              <span>Available for collab and freelance security work</span>
+            </p>
 
-        <h1 className="text-display mt-6 max-w-4xl text-balance text-5xl font-bold leading-[1.05] tracking-tight md:text-7xl">
-          {SITE.tagline}
-        </h1>
+            <h1 className="text-display mt-6 text-balance text-[2.6rem] font-semibold leading-[1.02] text-foreground sm:text-6xl lg:text-7xl">
+              {SITE.tagline}
+            </h1>
 
-        <div className="mt-6 flex items-center gap-2 text-base text-muted-foreground md:text-lg">
-          <span className="text-foreground/70">I&apos;m a</span>
-          <span className="font-mono text-foreground">
-            {text}
-            <span className="ml-0.5 inline-block h-5 w-[2px] -mb-0.5 animate-blink bg-foreground" />
-          </span>
-        </div>
+            <p className="mt-7 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+              Computer Science undergraduate in Pagadian City. I break things
+              on Kali, write up how I did it, and turn the useful parts into
+              small Python tools.
+            </p>
 
-        <p className="mt-6 max-w-2xl text-base text-muted-foreground text-pretty md:text-lg">
-          I do CTFs and pick up new things along the way. Slowly working toward being
-          useful with a Kali box and a Python script.
-        </p>
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <Link
+                href="/projects"
+                className="group inline-flex h-10 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-90"
+              >
+                See projects
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex h-10 items-center gap-2 rounded-full border border-border px-5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              >
+                Get in touch
+              </Link>
+            </div>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3">
-          <Link
-            href="/projects"
-            className="group inline-flex h-10 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-90"
-          >
-            See projects
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex h-10 items-center gap-2 rounded-full border border-border bg-card px-5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-          >
-            Get in touch
-          </Link>
-          <a
-            href="https://github.com/zhameersheraz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-10 items-center gap-2 px-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <Github className="h-4 w-4" />
-            <span className="font-mono">@zhameersheraz</span>
-          </a>
-        </div>
+            <dl className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5 text-muted-foreground" aria-hidden />
+                <dd className="text-sm text-muted-foreground">
+                  {SITE.location}
+                </dd>
+              </div>
+              <div>
+                <dd className="text-sm text-muted-foreground">
+                  <span className="font-display text-base font-semibold text-foreground">
+                    27
+                  </span>{" "}
+                  public repos
+                </dd>
+              </div>
+              <div>
+                <dd className="text-sm text-muted-foreground">
+                  <span className="font-display text-base font-semibold text-foreground">
+                    14
+                  </span>{" "}
+                  certifications
+                </dd>
+              </div>
+            </dl>
+          </div>
 
-        <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 text-mono text-muted-foreground">
-          <span className="inline-flex items-center gap-1.5">
-            <MapPin className="h-3.5 w-3.5" /> {SITE.location}
-          </span>
-          <span>·</span>
-          <span>27 public repos</span>
-          <span>·</span>
-          <span className="hidden sm:inline">Stack</span>
-          <ul className="flex flex-wrap items-center gap-3">
-            {PLATFORMS.map((p) => (
-              <li key={p.name}>
-                <a
-                  href={p.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={p.name}
-                  title={p.name}
-                  className="group inline-flex h-7 items-center gap-1.5 rounded-md border border-border bg-card/60 px-2.5 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-foreground/40 hover:text-foreground"
-                >
-                  {p.src ? (
-                    <Image
-                      src={p.src}
-                      alt={p.name}
-                      width={16}
-                      height={16}
-                      className="h-4 w-4 opacity-70 transition-opacity group-hover:opacity-100 dark:invert"
-                    />
-                  ) : (
-                    <Terminal className="h-3.5 w-3.5" />
-                  )}
-                  <span className="font-mono text-[10px] uppercase tracking-wider">
-                    {p.name}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          {/* Signature */}
+          <div className="min-w-0 space-y-3 lg:pt-4">
+            <SerialConsole />
+
+            <div className="flex items-start gap-3 rounded-lg border border-border bg-card p-4">
+              <Trophy className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
+              <div>
+                <p className="font-display text-sm font-semibold tracking-tight text-foreground">
+                  Provincial Champion
+                </p>
+                <p className="mt-0.5 text-sm leading-snug text-muted-foreground">
+                  DICT Cyberhunt League 2026, Sep 16. Team SCC CCS Red Lions.
+                </p>
+              </div>
+            </div>
+
+            <ul className="flex flex-wrap items-center gap-2">
+              {STACK.map((s) => (
+                <li key={s.name}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-7 items-center rounded-md border border-border px-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground transition-colors hover:border-accent/50 hover:text-foreground"
+                  >
+                    {s.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

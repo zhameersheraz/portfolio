@@ -1,19 +1,32 @@
-import { Github, Award, Shield } from "lucide-react";
+import { Github, Award, Shield, Trophy } from "lucide-react";
+
 const STATS = [
-  { icon: Github, value: "10+", label: "Public repos" },
-  { icon: Award, value: "12", label: "Certifications" },
+  { icon: Trophy, value: "1st", label: "Provincial champion" },
+  { icon: Github, value: "27", label: "Public repos" },
+  { icon: Award, value: "14", label: "Certifications" },
   { icon: Shield, value: "60+", label: "CTF challenges" },
 ];
+
 export function StatsStrip() {
   return (
-    <section className="container-wide py-10">
-      <div className="grid grid-cols-3 gap-3 rounded-lg border border-border bg-card/30 p-4 md:gap-6 md:p-6">
+    <section className="container-wide py-8">
+      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-4">
         {STATS.map(({ icon: Icon, value, label }) => (
-          <div key={label} className="flex flex-col items-center gap-1 text-center md:flex-row md:gap-3 md:text-left">
-            <Icon className="h-5 w-5 text-accent md:h-6 md:w-6" />
+          <div
+            key={label}
+            className="flex flex-col gap-1.5 bg-background p-4 md:flex-row md:items-center md:gap-3 md:p-5"
+          >
+            <Icon
+              className="h-4 w-4 shrink-0 text-accent md:h-5 md:w-5"
+              aria-hidden
+            />
             <div>
-              <div className="font-display text-2xl font-bold tracking-tight md:text-3xl">{value}</div>
-              <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground md:text-xs">{label}</div>
+              <div className="font-display text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+                {value}
+              </div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+                {label}
+              </div>
             </div>
           </div>
         ))}

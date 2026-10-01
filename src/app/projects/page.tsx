@@ -17,7 +17,7 @@ export default function ProjectsPage() {
         description="Everything publicly visible on my GitHub. Repos I own or actively maintain."
       />
       <div className="mt-10">
-        <Projects />
+        <Projects bare />
       </div>
     </div>
   );

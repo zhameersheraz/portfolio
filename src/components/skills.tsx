@@ -5,7 +5,7 @@ export function Skills() {
   return (
     <section id="skills" className="container-wide py-24">
       <SectionHeader
-        index="02"
+        index="01"
         label="Skills"
         title="What I work with"
         description="Tools and topics I touch often enough to have opinions about."
