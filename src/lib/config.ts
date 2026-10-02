@@ -93,6 +93,26 @@ export const PROJECTS = [
     featured: true,
     art: "/art/cloud-security.jpg",
   },
+  {
+    slug: "kds-app",
+    title: "KDS - Kitchen Display System",
+    repo: "zhameersheraz/kds-app",
+    href: "https://github.com/zhameersheraz/kds-app",
+    demo: "https://kds-app-5d6v.onrender.com",
+    summary:
+      "Real-time POS-to-Kitchen-Display web app. Orders move from counter to kitchen to table over Socket.IO, with server, kitchen and admin roles, thermal ticket printing, and self-healing SQLite migrations.",
+    tags: ["JavaScript", "React", "Express", "Socket.IO", "SQLite", "Real-time", "RBAC"],
+    categories: [
+      "Full-stack",
+      "Real-time Systems",
+      "Web App",
+      "Authentication",
+      "SQLite",
+    ],
+    language: "JavaScript",
+    featured: true,
+    art: "/art/kds.jpg",
+  },
 ] as const;
 
 export const SKILLS = [
