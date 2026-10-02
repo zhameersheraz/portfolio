@@ -1,5 +1,6 @@
 ﻿import { SKILLS } from "@/lib/config";
 import { SectionHeader } from "@/components/about";
+import { SKILL_ICONS } from "@/components/skill-icons";
 
 export function Skills() {
   return (
@@ -24,14 +25,20 @@ export function Skills() {
               </span>
             </div>
             <ul className="mt-4 flex flex-wrap gap-1.5">
-              {group.items.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-full border border-border bg-background px-2.5 py-1 font-mono text-xs text-foreground/80"
-                >
-                  {item}
-                </li>
-              ))}
+              {group.items.map((item) => {
+                const Icon = SKILL_ICONS[item];
+                return (
+                  <li
+                    key={item}
+                    className="group/chip flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 font-mono text-xs text-foreground/80 transition-colors hover:border-foreground/25 hover:text-foreground"
+                  >
+                    {Icon ? (
+                      <Icon className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-colors group-hover/chip:text-accent" />
+                    ) : null}
+                    {item}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ))}
