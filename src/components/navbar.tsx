@@ -26,11 +26,20 @@ export function Navbar() {
   useEffect(() => setOpen(false), [pathname]);
 
   /**
-   * Rise to the top on the current page, then swap route. The scroll lands at
-   * 0 and the next route renders at 0, so the handover is invisible.
+   * The rise to the top is only animated when it is a real "back to top",
+   * meaning the visitor is already on the page they clicked.
    *
-   * Animating after the swap was tried and is worse: the new route paints once
-   * at scroll 0 before the effect can move it, which flashes.
+   *   Same page      -> animate up, then re-navigate. This is the case that
+   *                     was asking for it. Next.js resets scroll to 0 on a
+   *                     same-route Link, which is why clicking Home while
+   *                     scrolled down used to snap.
+   *
+   *   Different page -> go straight there. The new route renders at scroll 0
+   *                     by definition, so animating the outgoing page first
+   *                     only delays the arrival and reads as a stutter.
+   *
+   * Animating after the swap was tried as well and is worse: the new route
+   * paints once at scroll 0 before the effect can move it, which flashes.
    */
   const go = useCallback(
     (e: ReactMouseEvent<HTMLAnchorElement>, href: string) => {
@@ -38,9 +47,18 @@ export function Navbar() {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
       e.preventDefault();
       setOpen(false);
-      scrollTopThen().then(() => router.push(href));
+
+      const isSamePage = href === "/"
+        ? pathname === "/"
+        : pathname === href || pathname.startsWith(`${href}/`);
+
+      if (isSamePage) {
+        scrollTopThen().then(() => router.push(href));
+      } else {
+        router.push(href);
+      }
     },
-    [router],
+    [pathname, router],
   );
 
   return (
