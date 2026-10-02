@@ -1,17 +1,23 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { MouseEvent as ReactMouseEvent } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { NAV, SITE } from "@/lib/config";
+import { scrollToTop } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Guards against a double click firing two navigations while the scroll
+  // animation is still running.
+  const navigating = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -22,6 +28,26 @@ export function Navbar() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  /**
+   * Rise to the top first, then swap route. Next.js resets scroll instantly on
+   * navigation, so animating after the swap is too late to see anything.
+   */
+  const go = useCallback(
+    (e: ReactMouseEvent<HTMLAnchorElement>, href: string) => {
+      // Leave modified clicks (new tab, download) to the browser.
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      if (navigating.current) return;
+      navigating.current = true;
+      setOpen(false);
+      scrollToTop().then(() => {
+        router.push(href);
+        navigating.current = false;
+      });
+    },
+    [router],
+  );
+
   return (
     <header
       className={cn(
@@ -30,7 +56,12 @@ export function Navbar() {
       )}
     >
       <nav className="container-wide flex h-14 items-center justify-between">
-        <Link href="/" className="group flex items-center gap-2" aria-label={`${SITE.name} home`}>
+        <Link
+          href="/"
+          onClick={(e) => go(e, "/")}
+          className="group flex items-center gap-2"
+          aria-label={`${SITE.name} home`}
+        >
           <span className="text-display-sm text-base">
             <span className="text-accent">Z</span>S
             <span className="text-muted-foreground">.</span>
@@ -44,6 +75,7 @@ export function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  onClick={(e) => go(e, item.href)}
                   className={cn(
                     "nav-link rounded-md px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors",
                     active ? "active text-foreground" : "text-muted-foreground",
@@ -71,7 +103,14 @@ export function Navbar() {
               const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
                 <li key={item.href}>
-                  <Link href={item.href} className={cn("block rounded-md px-3 py-2.5 font-mono text-xs uppercase tracking-wider", active ? "text-foreground" : "text-muted-foreground hover:text-foreground")}>
+                  <Link
+                    href={item.href}
+                    onClick={(e) => go(e, item.href)}
+                    className={cn(
+                      "block rounded-md px-3 py-2.5 font-mono text-xs uppercase tracking-wider",
+                      active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
                     {item.label}
                   </Link>
                 </li>
