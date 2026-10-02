@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { NAV, SITE } from "@/lib/config";
-import { scrollToTop } from "@/lib/scroll";
+import { scrollTopThen } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -15,9 +15,6 @@ export function Navbar() {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  // Guards against a double click firing two navigations while the scroll
-  // animation is still running.
-  const navigating = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -29,21 +26,19 @@ export function Navbar() {
   useEffect(() => setOpen(false), [pathname]);
 
   /**
-   * Rise to the top first, then swap route. Next.js resets scroll instantly on
-   * navigation, so animating after the swap is too late to see anything.
+   * Rise to the top on the current page, then swap route. The scroll lands at
+   * 0 and the next route renders at 0, so the handover is invisible.
+   *
+   * Animating after the swap was tried and is worse: the new route paints once
+   * at scroll 0 before the effect can move it, which flashes.
    */
   const go = useCallback(
     (e: ReactMouseEvent<HTMLAnchorElement>, href: string) => {
       // Leave modified clicks (new tab, download) to the browser.
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
       e.preventDefault();
-      if (navigating.current) return;
-      navigating.current = true;
       setOpen(false);
-      scrollToTop().then(() => {
-        router.push(href);
-        navigating.current = false;
-      });
+      scrollTopThen().then(() => router.push(href));
     },
     [router],
   );
