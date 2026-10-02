@@ -99,6 +99,7 @@ export const PROJECTS = [
     repo: "zhameersheraz/kds-app",
     href: "https://github.com/zhameersheraz/kds-app",
     demo: "https://kds-app-5d6v.onrender.com",
+    demoLabel: "Live Demo",
     summary:
       "Real-time POS-to-Kitchen-Display web app. Orders move from counter to kitchen to table over Socket.IO, with server, kitchen and admin roles, thermal ticket printing, and self-healing SQLite migrations.",
     tags: ["JavaScript", "React", "Express", "Socket.IO", "SQLite", "Real-time", "RBAC"],

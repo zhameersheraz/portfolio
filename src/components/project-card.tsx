@@ -108,7 +108,12 @@ function ProjectCard({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-background transition-opacity hover:opacity-90"
             >
-              Play <ArrowUpRight className="h-3 w-3" aria-hidden />
+              {/* PLAY only fits a game. A web app you open wants a different
+                  word, so the label comes from config and defaults to Play. */}
+              {"demoLabel" in project && project.demoLabel
+                ? (project.demoLabel as string)
+                : "Play"}{" "}
+              <ArrowUpRight className="h-3 w-3" aria-hidden />
             </a>
           ) : null}
           <a
