@@ -12,10 +12,11 @@ export function AwardPhoto({ src, alt }: { src: string; alt: string }) {
   const [failed, setFailed] = useState(false);
 
   return (
-    // Fixed height, not aspect. One photo and two photos must produce the same
-    // strip height, otherwise a one-photo card is twice as tall as a two-photo
-    // one and the row never lines up.
-    <div className="relative h-56 w-full overflow-hidden bg-secondary sm:h-64">
+    // Fixed height, not aspect. Both cards carry two photos, so the strip is
+    // sized to keep a cell near 1.28:1. That is close enough to the 16:9 team
+    // shots that object-cover has almost nothing left to trim, and it still
+    // crops the ceiling and footer off the square ones.
+    <div className="relative h-48 w-full overflow-hidden bg-secondary sm:h-52">
       {!failed && (
         <Image
           src={src}

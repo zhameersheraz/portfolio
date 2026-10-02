@@ -271,6 +271,10 @@ export const COMPETITIONS: Competition[] = [
     date: "Mar 29, 2026",
     photos: [
       { src: "/awards/syborg.jpg", href: "https://www.facebook.com/share/p/1CF76HX7K5/" },
+      {
+        src: "/awards/syborg-3.jpg",
+        href: "https://www.facebook.com/SyBorgSCC/posts/pfbid0gYpek1toLABcBG3cVKy2PxLCfMo3EJ8X9yYEo58btzHA6N2JUR9q2tgL3r9a2k7nl",
+      },
     ],
   },
   {
