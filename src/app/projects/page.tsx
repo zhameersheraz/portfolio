@@ -4,7 +4,7 @@ import { SectionHeader } from "@/components/about";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "All the repos I have shipped or actively maintain.",
+  description: "The public repos I have shipped or actively maintain.",
 };
 
 export default function ProjectsPage() {
@@ -13,8 +13,8 @@ export default function ProjectsPage() {
       <SectionHeader
         index="01"
         label="Projects"
-        title="All projects"
-        description="Everything publicly visible on my GitHub. Repos I own or actively maintain."
+        title="Public projects"
+        description="Everything here is public on my GitHub. Repos I own or actively maintain. Some other work stays private."
       />
       <div className="mt-10">
         <Projects bare />
