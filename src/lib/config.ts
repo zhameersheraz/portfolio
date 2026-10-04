@@ -270,6 +270,15 @@ export const CERTS: Cert[] = [
     link: "https://coursera.org/verify/QZQ1EOI99ZPQ",
     aspect: 1.294,
   },
+  {
+    id: "coursera-chatfuel-chatbot",
+    title: "Create a Lead Generation Messenger Chatbot using Chatfuel",
+    issuer: "Coursera",
+    issued: "Oct 2026",
+    image: "/certs/coursera-chatfuel.png",
+    link: "https://coursera.org/verify/UP6TILEDFOEG",
+    aspect: 1.294,
+  },
 ] as const;
 
 export type Competition = {
