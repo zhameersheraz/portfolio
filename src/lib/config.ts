@@ -279,6 +279,15 @@ export const CERTS: Cert[] = [
     link: "https://coursera.org/verify/UP6TILEDFOEG",
     aspect: 1.294,
   },
+  {
+    id: "coursera-wix-adi",
+    title: "Build an Automated Landing page using AI from Wix ADI",
+    issuer: "Coursera",
+    issued: "Oct 2026",
+    image: "/certs/coursera-wix-adi.png",
+    link: "https://coursera.org/verify/ONYXSYUU5X9J",
+    aspect: 1.294,
+  },
 ] as const;
 
 export type Competition = {
