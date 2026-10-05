@@ -71,7 +71,7 @@ export function Hero() {
               <div>
                 <dd className="text-sm text-muted-foreground">
                   <span className="text-display-sm text-base text-foreground">
-                    16
+                    17
                   </span>{" "}
                   certifications
                 </dd>

@@ -288,6 +288,15 @@ export const CERTS: Cert[] = [
     link: "https://coursera.org/verify/ONYXSYUU5X9J",
     aspect: 1.294,
   },
+  {
+    id: "coursera-wave-accessibility",
+    title: "Test Accessibility of Your Design with WAVE",
+    issuer: "Coursera",
+    issued: "Oct 2026",
+    image: "/certs/coursera-wave-accessibility.png",
+    link: "https://coursera.org/verify/CNTSYOHMAVPO",
+    aspect: 1.294,
+  },
 ] as const;
 
 export type Competition = {
