@@ -3,7 +3,7 @@ import {
   Terminal,
   ShieldCheck,
   Code2,
-  BookOpen,
+  Hammer,
   MapPin,
   GraduationCap,
   Award,
@@ -14,7 +14,7 @@ import { Reveal } from "@/components/reveal";
 const HIGHLIGHTS = [
   { icon: ShieldCheck, title: "Security-first", body: "Hands-on with CTFs, network defense, and reading other people's writeups so I can write better ones." },
   { icon: Code2, title: "Building in public", body: "Small repos that document what I learn. Scriptable, documented, and easy to come back to." },
-  { icon: BookOpen, title: "Still a student", body: "CS undergrad in the Philippines. Learning fundamentals properly before chasing fancier exploits." },
+  { icon: Hammer, title: "Free and open tooling", body: "Kali, VS Code, git, Nmap, Wireshark, Python. Everything here was built and deployed on free or open-source tools. No paid toolchain needed." },
   { icon: Terminal, title: "Linux + Kali", body: "Most of my work happens in a terminal. Comfortable with bash, git, networking basics, and the standard tooling." },
 ];
 
