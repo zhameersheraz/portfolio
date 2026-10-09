@@ -213,11 +213,12 @@
   @supports (-webkit-text-stroke: 1px black) {
     .text-outline {
       color: transparent;
-      /* 1.5px against Inter semibold at 64px. The stroke is the only thing
+      /* 1.25px against Montserrat medium at 45px. The stroke is the only thing
          this element renders, so too thin and the outlined line disappears
          next to the solid one above it, too thick and it reads as a second
-         glyph rather than a lighter echo. */
-      -webkit-text-stroke-width: 1.5px;
+         glyph rather than a lighter echo. The reference is a hairline, and
+         the filled glyph underneath carries the perceived weight. */
+      -webkit-text-stroke-width: 1.25px;
       -webkit-text-stroke-color: hsl(var(--foreground));
     }
   }

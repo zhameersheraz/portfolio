@@ -16,7 +16,7 @@ export function Hero() {
         <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-16">
           {/* Voice */}
           <div className="min-w-0">
-            <p className="eyebrow">[ HELLO, I&apos;M ]</p>
+            <p className="eyebrow text-foreground">[ HELLO, I&apos;M ]</p>
 
             {/* The name is the headline now, so it is the H1. The tagline
                 keeps the voice and stays the loudest line under it, which is
@@ -30,9 +30,9 @@ export function Hero() {
                 because it pairs with the [ HELLO, I'M ] mono label above it.
                 Uppercase is done in CSS so the DOM and screen readers still get
                 the real name. */}
-            <h1 className="font-masthead mt-7 text-[2.1rem] font-medium uppercase leading-[1.08] tracking-[0.01em] sm:text-[2.7rem] lg:text-[2.95rem]">
+            <h1 className="font-masthead mt-7 text-[2rem] font-semibold uppercase leading-[1.1] tracking-[0.05em] sm:text-[2.5rem] lg:text-[2.8rem]">
               <span className="block">Zhameer</span>
-              <span className="text-outline block">Sheraz Tampugao</span>
+              <span className="text-outline block font-medium">Sheraz Tampugao</span>
             </h1>
 
             <p className="text-display mt-7 text-[1.15rem] leading-snug sm:text-[1.35rem]">
@@ -121,7 +121,7 @@ export function Hero() {
               pixels. Do not draw them again here or you get two sets.
               The leftover nav text on the left was painted out first. */}
           <div className="relative min-w-0">
-            <div className="relative mx-auto w-full max-w-[24rem] lg:mx-0 lg:max-w-none lg:w-[135%] lg:-ml-[20%]">
+            <div className="relative mx-auto w-full max-w-[24rem] lg:mx-0 lg:max-w-none lg:w-[120%] lg:-ml-[2%]">
               <Image
                 src="/me-hero.png"
                 alt="Zhameer Sheraz U. Tampugao"
