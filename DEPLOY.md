@@ -5,15 +5,17 @@
 1. Push to GitHub
 2. Import repo on [vercel.com/new](https://vercel.com/new)
 3. Set environment variables:
-   - `RESEND_API_KEY` (**required** for the contact form)
-   - `CONTACT_FROM_EMAIL` (**required**, the verified Resend sender)
-   - `CONTACT_TO_EMAIL` (**required**, usually your own inbox)
+   - `FORMSPREE_FORM_ID` (**required** for the contact form). Create a free form
+     at [formspree.io](https://formspree.io), link your inbox, and use the id
+     from the last path segment of its URL. Free tier is 50 submissions/month.
+   - `RESEND_API_KEY` + `CONTACT_FROM_EMAIL` (optional upgrade; needs a domain
+     you own verified in Resend)
    - `GITHUB_TOKEN` (optional, improves rate limits)
 4. Deploy.
 
-Without the three contact variables the form is live but dead: the endpoint
-answers `502` and tells the visitor it is not configured, rather than pretending
-the message went out. Everything else works with no configuration at all.
+Without a provider key the form is live but dead: the endpoint answers `502` and
+tells the visitor it is not configured, rather than pretending the message went
+out. Everything else works with no configuration at all.
 
 ## Custom domain
 

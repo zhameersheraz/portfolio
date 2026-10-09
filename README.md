@@ -32,16 +32,20 @@ Open http://localhost:3000.
 
 ## Environment variables
 
-The site works without any of them, except the contact form, which needs the
-three Resend variables below to deliver anything.
+The site works without any of them, except the contact form, which needs at least
+one provider key to deliver anything.
 
 | Variable | What it does |
 | --- | --- |
-| `RESEND_API_KEY` | **Required** for the contact form. Without it the endpoint returns `502` |
-| `CONTACT_FROM_EMAIL` | **Required.** The verified Resend sender, e.g. `onboarding@resend.dev` |
-| `CONTACT_TO_EMAIL` | **Required.** Where contact-form messages land (usually your inbox) |
+| `FORMSPREE_FORM_ID` | **Required.** Default provider. Free, no domain of your own, no card |
+| `RESEND_API_KEY` | Optional upgrade. Only works for real senders once you own a domain verified in Resend |
+| `CONTACT_FROM_EMAIL` | Resend only. The verified sender, e.g. `onboarding@yourdomain.com` |
+| `CONTACT_TO_EMAIL` | Resend only. Where messages land (usually your inbox) |
 | `GITHUB_TOKEN` | Bumps GitHub API rate limit from 60 to 5000 req/hr |
 | `NEXT_PUBLIC_SITE_URL` | Used for OG image and sitemap absolute URLs |
+
+If none are set the endpoint returns `502` and tells the visitor the form is not
+configured, rather than reporting a send that never happened.
 
 ## API routes
 
