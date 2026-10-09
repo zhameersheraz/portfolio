@@ -7,6 +7,7 @@ import {
   MapPin,
   GraduationCap,
   Award,
+  ArrowUpRight,
 } from "lucide-react";
 import { CERTS } from "@/lib/config";
 import { Reveal } from "@/components/reveal";
@@ -26,7 +27,7 @@ export function About() {
         <div className="relative mx-auto flex flex-col items-center md:mx-0 md:items-start">
           <div aria-hidden className="absolute -inset-3 rounded-full bg-gradient-to-br from-foreground/20 via-transparent to-foreground/5 blur-xl dark:from-accent/40 dark:via-transparent dark:to-foreground/20" />
           <div className="relative h-48 w-48 overflow-hidden rounded-full ring-1 ring-foreground/10 shadow-lg shadow-foreground/5 md:h-56 md:w-56">
-            <Image src="/me.png" alt="Zhameer Sheraz U. Tampugao" fill priority sizes="(min-width: 768px) 14rem, 12rem" className="object-cover object-[center_15%] saturate-[0.85] contrast-[1.05] brightness-[0.97]" />
+            <Image src="/me-about.jpg" alt="Zhameer Sheraz U. Tampugao" fill priority sizes="(min-width: 768px) 14rem, 12rem" className="object-cover" />
           </div>
           <div className="mt-4 flex items-center justify-center gap-3 text-mono text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><MapPin className="h-3 w-3" /> Philippines</span>
@@ -85,11 +86,21 @@ export function About() {
               <div className="p-4">
                 <div className="flex items-start justify-between gap-2">
                   <h4 className="text-sm font-semibold leading-tight">{cert.title}</h4>
+                  {/* Every cert already links to its issuer's verification
+                      page. The anchor alone gave no hint of it, so the card
+                      now says so rather than relying on the cursor. */}
+                  <ArrowUpRight
+                    className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground"
+                    aria-hidden
+                  />
                 </div>
                 <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
                   <span>{cert.issuer}</span>
                   <span className="text-mono">{cert.issued}</span>
                 </div>
+                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground transition-colors group-hover:text-foreground">
+                  Verify ↗
+                </p>
               </div>
             </a>
           ))}

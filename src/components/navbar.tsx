@@ -74,13 +74,21 @@ export function Navbar() {
           className="group flex items-center gap-3"
           aria-label={`${SITE.name} home`}
         >
-          <span className="text-display text-xl leading-none transition-colors group-hover:text-accent">
+          {/* Bold, and tight. The reference mark is a heavy geometric glyph,
+              not a text run at regular weight, and at 20px regular it read as
+              punctuation. */}
+          <span className="text-display text-[1.35rem] font-bold leading-none tracking-[-0.06em] transition-colors group-hover:text-accent">
             &lt;/&gt;
           </span>
           <span className="hidden h-5 w-px bg-border sm:block" aria-hidden />
           <span className="eyebrow hidden sm:inline">{SITE.navName}</span>
         </Link>
 
+        {/* One right-hand group, not two siblings. With the list and the
+            toggle as separate children, justify-between treated the list as
+            the middle item and centred it, leaving a wide empty gutter on the
+            right. */}
+        <div className="flex items-center gap-1">
         <ul className="hidden items-center gap-1 md:flex">
           {NAV.map((item) => {
             const active = pathname.startsWith(item.href);
@@ -101,7 +109,6 @@ export function Navbar() {
           })}
         </ul>
 
-        <div className="flex items-center gap-3">
           <button
             type="button"
             className="flex h-8 w-8 items-center justify-center md:hidden"

@@ -26,9 +26,10 @@
     --muted: 40 14% 92%;
     --muted-foreground: 222 8% 42%;
 
-    /* One signal colour. Reserved for state, focus, and instrumentation.
-       Darkened on light backgrounds so it clears contrast on paper. */
-    --accent: 26 88% 40%;
+    /* No signal colour. The reference is monochrome end to end, so the accent
+       is simply the foreground: it still carries emphasis, focus rings and
+       hover, it just cannot introduce a hue. */
+    --accent: 222 20% 10%;
     --accent-foreground: 40 24% 98%;
 
     --destructive: 0 72% 45%;
@@ -36,7 +37,7 @@
 
     --border: 38 14% 86%;
     --input: 38 14% 86%;
-    --ring: 26 88% 40%;
+    --ring: 222 20% 10%;
 
     /* Cast shadow, not a hairline. Large radii plus a real soft shadow is what
        separates a considered surface from a bordered box. */

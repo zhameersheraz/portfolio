@@ -35,7 +35,7 @@ export function Hero() {
               <span className="text-outline block font-medium">Sheraz Tampugao</span>
             </h1>
 
-            <p className="text-display mt-7 text-[1.15rem] leading-snug sm:text-[1.35rem]">
+            <p className="text-display mt-7 text-[1.15rem] leading-snug sm:text-[1.25rem] lg:w-[106%] lg:text-[1.25rem]">
               {SITE.tagline}
             </p>
 
