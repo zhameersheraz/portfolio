@@ -25,8 +25,13 @@ export function About() {
       <SectionHeader index="01" label="About" title="Who I am" description="A short version, in case the long version scrolls past you." />
       <div className="panel relative mt-10 grid gap-8 p-7 md:grid-cols-[auto_1fr] md:gap-12 md:p-10 bracket-corner">
         <div className="relative mx-auto flex flex-col items-center md:mx-0 md:items-start">
-          <div aria-hidden className="absolute -inset-3 rounded-full bg-gradient-to-br from-foreground/20 via-transparent to-foreground/5 blur-xl dark:from-accent/40 dark:via-transparent dark:to-foreground/20" />
-          <div className="relative h-48 w-48 overflow-hidden rounded-full ring-1 ring-foreground/10 shadow-lg shadow-foreground/5 md:h-56 md:w-56">
+          {/* No blurred glow behind this and no ring on it. Both were drawing
+              the very edge he was complaining about: the glow dropped the
+              card to 238 and the 1px ring at foreground/10 sat at 230, against
+              a 255 card. Measured across the circle's left edge, outside read
+              238 and inside read 255. A soft shadow alone defines the shape
+              once the photo's own background matches the card. */}
+          <div className="relative h-48 w-48 overflow-hidden rounded-full shadow-[0_20px_45px_-22px_rgba(30,25,18,0.30)] md:h-56 md:w-56">
             <Image src="/me-about.jpg" alt="Zhameer Sheraz U. Tampugao" fill priority unoptimized sizes="(min-width: 768px) 14rem, 12rem" className="object-cover" />
           </div>
           <div className="mt-4 flex items-center justify-center gap-3 text-mono text-muted-foreground">
