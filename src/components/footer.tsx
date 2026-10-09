@@ -9,10 +9,16 @@ export function Footer() {
       <div className="container-wide py-12">
         <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-start">
           <div>
-            <Link href="/" className="inline-flex items-center gap-2">
-              <span className="text-display-sm text-base">
-                <span className="text-accent">Z</span>S<span className="text-muted-foreground">.</span>
+            <Link
+              href="/"
+              className="group inline-flex items-center gap-3"
+              aria-label={`${SITE.name} home`}
+            >
+              <span className="text-display text-lg leading-none transition-colors group-hover:text-accent">
+                &lt;/&gt;
               </span>
+              <span className="h-4 w-px bg-border" aria-hidden />
+              <span className="eyebrow">{SITE.navName}</span>
             </Link>
             <p className="mt-3 max-w-md text-sm text-muted-foreground text-pretty">
               {SITE.description}
