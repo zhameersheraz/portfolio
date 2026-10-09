@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { Menu, X } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { NAV, SITE } from "@/lib/config";
 import { scrollTopThen } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
@@ -102,7 +101,6 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
           <button type="button" className="md:hidden" onClick={() => setOpen((s) => !s)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>

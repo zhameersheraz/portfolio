@@ -1,7 +1,6 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { SITE } from "@/lib/config";
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
     default: `${SITE.name} | ${SITE.tagline}`,
-    template: `%s · ${SITE.name}`,
+    template: `%s Â· ${SITE.name}`,
   },
   description: SITE.description,
   applicationName: SITE.name,
@@ -89,7 +88,7 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrains.variable}`}
     >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
-        <ThemeProvider>
+        
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-md focus:bg-foreground focus:px-3 focus:py-2 focus:text-background"
@@ -101,7 +100,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-        </ThemeProvider>
+        
       </body>
     </html>
   );

@@ -26,8 +26,8 @@ function Brackets() {
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
-      <div className="container-wide pt-28 lg:pb-10 md:pt-40">
-        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-16">
+      <div className="container-wide pt-28 md:pt-40 lg:pb-4">
+        <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-16">
           {/* Voice */}
           <div className="min-w-0">
             <p className="eyebrow flex items-center gap-2">
@@ -112,10 +112,11 @@ export function Hero() {
           </div>
 
           {/* Portrait. Baked with the right edge dissolved into characters,
-              see scripts/ascii_art.py. Inverted on dark so the figure reads
-              as light on near-black instead of a black shirt on a black card. */}
-          <div className="relative min-w-0 pb-8 lg:-mb-24">
-            <div className="relative mx-auto w-full max-w-[26rem] lg:max-w-none">
+              see scripts/ascii_art.py. Sized to run off the bottom of the
+              section the way the reference does, rather than sitting boxed
+              inside the column. */}
+          <div className="relative min-w-0">
+            <div className="relative mx-auto w-full max-w-[24rem] lg:mx-0 lg:max-w-none lg:w-[135%] lg:-ml-[20%]">
               <Brackets />
               <Image
                 src="/me-dissolve.png"
@@ -123,12 +124,15 @@ export function Hero() {
                 width={759}
                 height={735}
                 priority
-                sizes="(min-width: 1024px) 44vw, 90vw"
-                className="w-full select-none dark:invert"
+                sizes="(min-width: 1024px) 50vw, 90vw"
+                className="w-full select-none"
               />
             </div>
 
-            <p className="pointer-events-none absolute -bottom-2 right-0 hidden font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground lg:block">
+            {/* Below the image, not on top of it: the portrait now runs past
+                the right edge of its column and the ASCII region swallows the
+                bottom-right corner. */}
+            <p className="mt-2 hidden text-right font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground lg:block">
               { "{ building. breaking. learning. }" }
             </p>
           </div>
