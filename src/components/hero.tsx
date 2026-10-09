@@ -12,8 +12,15 @@ const STACK = [
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
-      <div className="container-wide pt-28 md:pt-40 lg:pb-4">
-        <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-16">
+      <div className="container-wide pt-28 md:pt-32 lg:pt-40 lg:pb-4">
+        {/* Two columns from md, not lg. Between 768 and 1023 the layout used to
+            be single column, which left the right half of the screen empty and
+            pushed the portrait to about 769px down, below the fold on any normal
+            laptop window. The name drops back to 2rem across that band because a
+            two-column 768px viewport leaves the text about 360px, and
+            "SHERAZ TAMPUGAO" at the sm size needs roughly 400px. Hence the size
+            going down at md and up again at lg. */}
+        <div className="grid grid-cols-1 items-start gap-14 md:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] md:gap-10 lg:gap-16">
           {/* Voice */}
           <div className="min-w-0">
             <p className="eyebrow text-foreground">[ HELLO, I&apos;M ]</p>
@@ -30,7 +37,7 @@ export function Hero() {
                 because it pairs with the [ HELLO, I'M ] mono label above it.
                 Uppercase is done in CSS so the DOM and screen readers still get
                 the real name. */}
-            <h1 className="font-masthead mt-7 text-[2rem] font-semibold uppercase leading-[1.1] tracking-[0.05em] sm:text-[2.5rem] lg:text-[2.8rem]">
+            <h1 className="font-masthead mt-7 text-[2rem] font-semibold uppercase leading-[1.1] tracking-[0.05em] sm:text-[2.5rem] md:text-[2rem] lg:text-[2.8rem]">
               <span className="block">Zhameer</span>
               <span className="text-outline block font-medium">Sheraz Tampugao</span>
             </h1>
@@ -121,7 +128,7 @@ export function Hero() {
               pixels. Do not draw them again here or you get two sets.
               The leftover nav text on the left was painted out first. */}
           <div className="relative min-w-0">
-            <div className="relative mx-auto w-full max-w-[24rem] lg:mx-0 lg:max-w-none lg:w-[120%] lg:-ml-[2%]">
+            <div className="relative mx-auto w-full max-w-[24rem] md:mx-0 md:max-w-none md:w-full lg:w-[120%] lg:-ml-[2%]">
               <Image
                 src="/me-hero.png"
                 alt="Zhameer Sheraz U. Tampugao"
