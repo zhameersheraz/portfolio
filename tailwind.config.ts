@@ -16,6 +16,7 @@ const config: Config = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
         display: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
+        masthead: ["var(--font-montserrat)", "var(--font-inter)", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

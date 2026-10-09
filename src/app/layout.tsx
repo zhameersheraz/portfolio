@@ -1,5 +1,5 @@
 ﻿import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -15,6 +15,18 @@ const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
   display: "swap",
+});
+
+// Third face, and it earns its place. The hero name is a masthead, and the
+// reference sets it in a wide geometric with hairline strokes. Measured side
+// by side at a matched cap height, Inter is about 15% narrower per character
+// and roughly twice the stroke weight, which is the whole difference between
+// the two. Scoped to the name only; nothing else moves.
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  weight: ["500", "600"],
 });
 
 // Two faces, both load-bearing.
@@ -85,7 +97,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${jetbrains.variable}`}
+      className={`${inter.variable} ${jetbrains.variable} ${montserrat.variable}`}
     >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         

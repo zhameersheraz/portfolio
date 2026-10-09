@@ -30,7 +30,7 @@ export function Hero() {
                 because it pairs with the [ HELLO, I'M ] mono label above it.
                 Uppercase is done in CSS so the DOM and screen readers still get
                 the real name. */}
-            <h1 className="mt-7 font-sans text-[2.15rem] font-semibold uppercase leading-[1.06] tracking-[0.005em] sm:text-[2.85rem] lg:text-[3.3rem]">
+            <h1 className="font-masthead mt-7 text-[2.1rem] font-medium uppercase leading-[1.08] tracking-[0.01em] sm:text-[2.7rem] lg:text-[2.95rem]">
               <span className="block">Zhameer</span>
               <span className="text-outline block">Sheraz Tampugao</span>
             </h1>
