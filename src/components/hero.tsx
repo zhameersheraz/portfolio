@@ -1,7 +1,7 @@
-﻿import Link from "next/link";
+﻿import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { SITE } from "@/lib/config";
-import { ThreatGlobe } from "@/components/threat-globe";
 
 const STACK = [
   { name: "GitHub", href: "https://github.com/zhameersheraz" },
@@ -9,11 +9,25 @@ const STACK = [
   { name: "Python", href: "https://www.python.org/" },
 ];
 
+// Four L-shaped corner marks. Purely decorative, so they are aria-hidden.
+function Brackets() {
+  const base =
+    "pointer-events-none absolute h-5 w-5 border-foreground/25 transition-colors dark:border-foreground/20";
+  return (
+    <>
+      <span aria-hidden className={`${base} left-0 top-0 border-l border-t`} />
+      <span aria-hidden className={`${base} right-0 top-0 border-r border-t`} />
+      <span aria-hidden className={`${base} bottom-0 left-0 border-b border-l`} />
+      <span aria-hidden className={`${base} bottom-0 right-0 border-b border-r`} />
+    </>
+  );
+}
+
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
-      <div className="container-wide pt-28 pb-14 md:pt-40 md:pb-20">
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-center lg:gap-20">
+      <div className="container-wide pt-28 lg:pb-10 md:pt-40">
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-16">
           {/* Voice */}
           <div className="min-w-0">
             <p className="eyebrow flex items-center gap-2">
@@ -77,36 +91,46 @@ export function Hero() {
                 </dd>
               </div>
             </dl>
-          </div>
 
-          {/* Signature */}
-          <div className="min-w-0">
-            <div className="panel overflow-hidden">
-              <ThreatGlobe />
-              <div className="border-t border-border p-6">
-                <p className="font-mono text-[11px] tracking-tight text-muted-foreground">
-                  threat surface · live routes
-                </p>
-                <p className="mt-2 text-sm leading-snug text-muted-foreground">
-                  Drag it. Every node is a host, every arc is a route someone is watching.
-                </p>
-              </div>
-            </div>
-
-            <ul className="mt-4 flex flex-wrap items-center gap-2">
+            <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-l border-border pl-4">
               {STACK.map((s) => (
                 <li key={s.name}>
                   <a
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-7 items-center rounded-md border border-border px-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground transition-colors hover:border-accent/50 hover:text-foreground"
+                    className="group inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-foreground"
                   >
+                    <span className="text-accent" aria-hidden>
+                      &gt;
+                    </span>
                     {s.name}
                   </a>
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Portrait. Baked with the right edge dissolved into characters,
+              see scripts/ascii_art.py. Inverted on dark so the figure reads
+              as light on near-black instead of a black shirt on a black card. */}
+          <div className="relative min-w-0 pb-8 lg:-mb-24">
+            <div className="relative mx-auto w-full max-w-[26rem] lg:max-w-none">
+              <Brackets />
+              <Image
+                src="/me-dissolve.png"
+                alt="Zhameer Sheraz U. Tampugao"
+                width={759}
+                height={735}
+                priority
+                sizes="(min-width: 1024px) 44vw, 90vw"
+                className="w-full select-none dark:invert"
+              />
+            </div>
+
+            <p className="pointer-events-none absolute -bottom-2 right-0 hidden font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground lg:block">
+              { "{ building. breaking. learning. }" }
+            </p>
           </div>
         </div>
       </div>
