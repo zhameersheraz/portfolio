@@ -32,7 +32,9 @@ export function Contact() {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid, isSubmitting },
+    setValue,
+    getValues,
+    formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -72,7 +74,20 @@ export function Contact() {
 
       <div className="mt-10 grid gap-8 md:grid-cols-[1.4fr_1fr]">
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={(e) => {
+            // Chrome autofill writes into the DOM without firing the change
+            // events react-hook-form listens for, so its copy of the values
+            // stays empty and its resolver rejects a visibly filled form.
+            // Pull the real values back in before validating.
+            const fd = new FormData(e.currentTarget);
+            for (const key of ["name", "email", "subject", "message", "website"] as const) {
+              const v = fd.get(key);
+              if (typeof v === "string" && v !== getValues(key)) {
+                setValue(key, v, { shouldValidate: true });
+              }
+            }
+            void handleSubmit(onSubmit)(e);
+          }}
           noValidate
           className="rounded-lg border border-border bg-card p-6 md:p-8"
         >
@@ -148,7 +163,7 @@ export function Contact() {
             </p>
             <button
               type="submit"
-              disabled={!isValid || isSubmitting || status.kind === "sending"}
+              disabled={isSubmitting || status.kind === "sending"}
               className="group inline-flex h-10 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {status.kind === "sending" ? (
