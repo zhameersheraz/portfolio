@@ -1,6 +1,12 @@
 /**
  * Email service. Uses Resend if RESEND_API_KEY is set,
  * otherwise logs to stdout so the form is testable in dev.
+ *
+ * The stdout fallback used to fire in production too, and it returned
+ * { ok: true }. The endpoint then answered 200 with { id: "dev-noop" }, so the
+ * form showed "Sent." to every visitor while nothing was ever delivered and
+ * nothing arrived in the inbox. Absent credentials are now a hard failure in
+ * production; only a genuine local dev server keeps the logging shortcut.
  */
 
 type ContactPayload = {
@@ -9,6 +15,9 @@ type ContactPayload = {
   subject?: string;
   message: string;
 };
+
+const NOT_CONFIGURED =
+  "Contact form is not configured. Set RESEND_API_KEY, CONTACT_FROM_EMAIL and CONTACT_TO_EMAIL.";
 
 export async function sendContactEmail(payload: ContactPayload): Promise<{
   ok: boolean;
@@ -20,6 +29,10 @@ export async function sendContactEmail(payload: ContactPayload): Promise<{
   const to = process.env.CONTACT_TO_EMAIL ?? "owner@localhost";
 
   if (!apiKey) {
+    if (process.env.NODE_ENV === "production") {
+      console.error("[contact] " + NOT_CONFIGURED);
+      return { ok: false, error: NOT_CONFIGURED };
+    }
     console.log("[contact] no RESEND_API_KEY, logging instead:");
     console.log({
       from,

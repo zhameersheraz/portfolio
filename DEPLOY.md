@@ -5,13 +5,15 @@
 1. Push to GitHub
 2. Import repo on [vercel.com/new](https://vercel.com/new)
 3. Set environment variables:
-   - `RESEND_API_KEY` (optional)
-   - `CONTACT_FROM_EMAIL` (optional)
-   - `CONTACT_TO_EMAIL` (optional)
+   - `RESEND_API_KEY` (**required** for the contact form)
+   - `CONTACT_FROM_EMAIL` (**required**, the verified Resend sender)
+   - `CONTACT_TO_EMAIL` (**required**, usually your own inbox)
    - `GITHUB_TOKEN` (optional, improves rate limits)
 4. Deploy.
 
-That's it. The contact form, GitHub stats, view counter, and 3D scene all work out of the box.
+Without the three contact variables the form is live but dead: the endpoint
+answers `502` and tells the visitor it is not configured, rather than pretending
+the message went out. Everything else works with no configuration at all.
 
 ## Custom domain
 
