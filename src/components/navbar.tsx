@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
-import { Menu, X } from "lucide-react";
+import { X } from "lucide-react";
 import { NAV, SITE } from "@/lib/config";
 import { scrollTopThen } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
@@ -71,18 +71,19 @@ export function Navbar() {
         <Link
           href="/"
           onClick={(e) => go(e, "/")}
-          className="group flex items-center gap-2"
+          className="group flex items-center gap-3"
           aria-label={`${SITE.name} home`}
         >
-          <span className="text-display-sm text-base">
-            <span className="text-accent">Z</span>S
-            <span className="text-muted-foreground">.</span>
+          <span className="text-display text-xl leading-none transition-colors group-hover:text-accent">
+            &lt;/&gt;
           </span>
+          <span className="hidden h-5 w-px bg-border sm:block" aria-hidden />
+          <span className="eyebrow hidden sm:inline">{SITE.navName}</span>
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
           {NAV.map((item) => {
-            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            const active = pathname.startsWith(item.href);
             return (
               <li key={item.href}>
                 <Link
@@ -101,8 +102,16 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
-          <button type="button" className="md:hidden" onClick={() => setOpen((s) => !s)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          <button
+            type="button"
+            className="flex h-8 w-8 items-center justify-center md:hidden"
+            onClick={() => setOpen((s) => !s)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+          >
+            {/* The reference draws the toggle as a rule, not a glyph box.
+                It becomes an X once the drawer is up. */}
+            {open ? <X className="h-5 w-5" /> : <span className="block h-px w-7 bg-foreground" aria-hidden />}
           </button>
         </div>
       </nav>
@@ -111,7 +120,7 @@ export function Navbar() {
         <div className="border-t border-border bg-background md:hidden">
           <ul className="container-wide flex flex-col py-2">
             {NAV.map((item) => {
-              const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              const active = pathname.startsWith(item.href);
               return (
                 <li key={item.href}>
                   <Link

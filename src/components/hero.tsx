@@ -16,22 +16,21 @@ export function Hero() {
         <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-16">
           {/* Voice */}
           <div className="min-w-0">
-            <p className="eyebrow flex items-center gap-2">
-              <span
-                className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                aria-hidden
-              />
-              <span>Available for collab and freelance security work</span>
-            </p>
+            <p className="eyebrow">[ HELLO, I&apos;M ]</p>
 
-            {/* No text-balance here: balanced wrapping fights a monospace
-                face and produces a ragged five-line rag. Natural wrap reads
-                cleaner. */}
-            <h1 className="text-display mt-7 text-[2.4rem] font-bold sm:text-[3rem] lg:text-[3.75rem]">
-              {SITE.tagline}
+            {/* The name is the headline now, so it is the H1. The tagline
+                keeps the voice and stays the loudest line under it, which is
+                why it holds a display size rather than body size. */}
+            <h1 className="text-display mt-7 text-[2.15rem] font-bold tracking-[-0.02em] sm:text-[3rem] lg:text-[3.55rem]">
+              <span className="block">Zhameer</span>
+              <span className="text-outline block font-semibold">Sheraz Tampugao</span>
             </h1>
 
-            <p className="mt-8 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="text-display mt-7 text-[1.15rem] leading-snug sm:text-[1.35rem]">
+              {SITE.tagline}
+            </p>
+
+            <p className="mt-6 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
               Computer Science undergraduate in Pagadian City. I break things
               on Kali, write up how I did it, and turn the useful parts into
               small Python tools.
@@ -95,6 +94,17 @@ export function Hero() {
                 </li>
               ))}
             </ul>
+
+            {/* Moved out of the eyebrow when that slot became [ HELLO, I'M ].
+                It is the one line on the page that asks for work, so it stays
+                lit rather than being folded into the surrounding meta. */}
+            <p className="mt-6 flex items-center gap-2">
+              <span
+                className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                aria-hidden
+              />
+              <span className="eyebrow">Available for collab and freelance security work</span>
+            </p>
           </div>
 
           {/* Portrait. Cropped from the mockup, so the corner brackets and the

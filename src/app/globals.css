@@ -202,6 +202,25 @@
     letter-spacing: -0.02em;
   }
 
+  /* Outlined display type, for the second line of the hero name. Stroke-only
+     so it reads as a lighter echo of the line above it instead of a second
+     headline competing with it.
+     The solid fallback is not optional: -webkit-text-stroke makes the fill
+     transparent, so on an engine without it the text would render as nothing. */
+  .text-outline {
+    color: hsl(var(--foreground));
+  }
+  @supports (-webkit-text-stroke: 1px black) {
+    .text-outline {
+      color: transparent;
+      /* 1px, not more. The display face is JetBrains Mono, and its stems are
+         already heavy at 56px: a thicker stroke reads as a second outline
+         around the glyph rather than a lighter echo of it. */
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: hsl(var(--foreground));
+    }
+  }
+
   /* The surface treatment. Two-part shadow: a tight contact shadow so the
      edge reads as lit, and a wide diffuse one so the card sits above the page.
      No border, because a border is the cheap way to draw a box. */

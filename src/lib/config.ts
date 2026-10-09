@@ -5,6 +5,9 @@
 
 export const SITE = {
   name: "Zhameer Sheraz U. Tampugao",
+  // Navbar and hero. Drops the middle initial: the mark already has to fit
+  // next to the </> at 11px, and the hero sets it at display size.
+  navName: "Zhameer Sheraz Tampugao",
   handle: "zhameer",
   role: "Computer Science Student",
   tagline:
@@ -39,8 +42,9 @@ export const SOCIAL = [
   },
 ] as const;
 
+// Home is deliberately absent. The </> mark in the navbar is the home link,
+// so a fourth item next to it would be a second door to the same room.
 export const NAV = [
-  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
   { label: "Contact", href: "/contact" },
