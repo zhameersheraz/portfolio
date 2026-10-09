@@ -21,9 +21,18 @@ export function Hero() {
             {/* The name is the headline now, so it is the H1. The tagline
                 keeps the voice and stays the loudest line under it, which is
                 why it holds a display size rather than body size. */}
-            <h1 className="text-display mt-7 text-[2.15rem] font-bold tracking-[-0.02em] sm:text-[3rem] lg:text-[3.55rem]">
+            {/* Sans, not the JetBrains Mono the rest of the display type
+                uses. The reference sets the name in a geometric sans and keeps
+                mono for the labels, and the mixed texture is the point: a
+                monospace name at 64px reads as a terminal readout, and the
+                outline lands lumpy because the stems are already heavy.
+                Caps because at display size the name reads as a masthead, and
+                because it pairs with the [ HELLO, I'M ] mono label above it.
+                Uppercase is done in CSS so the DOM and screen readers still get
+                the real name. */}
+            <h1 className="mt-7 font-sans text-[2.15rem] font-semibold uppercase leading-[1.06] tracking-[0.005em] sm:text-[2.85rem] lg:text-[3.3rem]">
               <span className="block">Zhameer</span>
-              <span className="text-outline block font-semibold">Sheraz Tampugao</span>
+              <span className="text-outline block">Sheraz Tampugao</span>
             </h1>
 
             <p className="text-display mt-7 text-[1.15rem] leading-snug sm:text-[1.35rem]">

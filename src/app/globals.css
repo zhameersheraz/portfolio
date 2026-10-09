@@ -213,10 +213,11 @@
   @supports (-webkit-text-stroke: 1px black) {
     .text-outline {
       color: transparent;
-      /* 1px, not more. The display face is JetBrains Mono, and its stems are
-         already heavy at 56px: a thicker stroke reads as a second outline
-         around the glyph rather than a lighter echo of it. */
-      -webkit-text-stroke-width: 1px;
+      /* 1.5px against Inter semibold at 64px. The stroke is the only thing
+         this element renders, so too thin and the outlined line disappears
+         next to the solid one above it, too thick and it reads as a second
+         glyph rather than a lighter echo. */
+      -webkit-text-stroke-width: 1.5px;
       -webkit-text-stroke-color: hsl(var(--foreground));
     }
   }
