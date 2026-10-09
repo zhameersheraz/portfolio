@@ -27,7 +27,7 @@ export function About() {
         <div className="relative mx-auto flex flex-col items-center md:mx-0 md:items-start">
           <div aria-hidden className="absolute -inset-3 rounded-full bg-gradient-to-br from-foreground/20 via-transparent to-foreground/5 blur-xl dark:from-accent/40 dark:via-transparent dark:to-foreground/20" />
           <div className="relative h-48 w-48 overflow-hidden rounded-full ring-1 ring-foreground/10 shadow-lg shadow-foreground/5 md:h-56 md:w-56">
-            <Image src="/me-about.jpg" alt="Zhameer Sheraz U. Tampugao" fill priority sizes="(min-width: 768px) 14rem, 12rem" className="object-cover" />
+            <Image src="/me-about.jpg" alt="Zhameer Sheraz U. Tampugao" fill priority unoptimized sizes="(min-width: 768px) 14rem, 12rem" className="object-cover" />
           </div>
           <div className="mt-4 flex items-center justify-center gap-3 text-mono text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><MapPin className="h-3 w-3" /> Philippines</span>
