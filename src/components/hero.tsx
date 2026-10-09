@@ -9,20 +9,6 @@ const STACK = [
   { name: "Python", href: "https://www.python.org/" },
 ];
 
-// Four L-shaped corner marks. Purely decorative, so they are aria-hidden.
-function Brackets() {
-  const base =
-    "pointer-events-none absolute h-5 w-5 border-foreground/25 transition-colors dark:border-foreground/20";
-  return (
-    <>
-      <span aria-hidden className={`${base} left-0 top-0 border-l border-t`} />
-      <span aria-hidden className={`${base} right-0 top-0 border-r border-t`} />
-      <span aria-hidden className={`${base} bottom-0 left-0 border-b border-l`} />
-      <span aria-hidden className={`${base} bottom-0 right-0 border-b border-r`} />
-    </>
-  );
-}
-
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
@@ -111,30 +97,22 @@ export function Hero() {
             </ul>
           </div>
 
-          {/* Portrait. Baked with the right edge dissolved into characters,
-              see scripts/ascii_art.py. Sized to run off the bottom of the
-              section the way the reference does, rather than sitting boxed
-              inside the column. */}
+          {/* Portrait. Cropped from the mockup, so the corner brackets and the
+              { building. breaking. learning. } marker are already in the
+              pixels. Do not draw them again here or you get two sets.
+              The leftover nav text on the left was painted out first. */}
           <div className="relative min-w-0">
             <div className="relative mx-auto w-full max-w-[24rem] lg:mx-0 lg:max-w-none lg:w-[135%] lg:-ml-[20%]">
-              <Brackets />
               <Image
-                src="/me-dissolve.png"
+                src="/me-hero.png"
                 alt="Zhameer Sheraz U. Tampugao"
-                width={759}
-                height={735}
+                width={1280}
+                height={1203}
                 priority
                 sizes="(min-width: 1024px) 50vw, 90vw"
                 className="w-full select-none"
               />
             </div>
-
-            {/* Below the image, not on top of it: the portrait now runs past
-                the right edge of its column and the ASCII region swallows the
-                bottom-right corner. */}
-            <p className="mt-2 hidden text-right font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground lg:block">
-              { "{ building. breaking. learning. }" }
-            </p>
           </div>
         </div>
       </div>
