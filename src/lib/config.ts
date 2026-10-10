@@ -5,9 +5,11 @@
 
 export const SITE = {
   name: "Zhameer Sheraz U. Tampugao",
-  // Navbar and hero. Drops the middle initial: the mark already has to fit
-  // next to the </> at 11px, and the hero sets it at display size.
-  navName: "Zhameer Sheraz Tampugao",
+  // Navbar and footer brand. This is the handle, not the legal name: the hero
+  // already sets the full name at display size about 300px below the navbar,
+  // and repeating it in small type read as a stutter. The footer's copyright
+  // line still carries SITE.name, so the full name is on every page.
+  navName: "zham",
   handle: "zhameer",
   role: "Computer Science Student",
   tagline:
