@@ -18,11 +18,19 @@ export function Reveal({
   children,
   as: Tag = "div",
   delay = 0,
+  immediate = false,
   className = "",
 }: {
   children: ReactNode;
   as?: ElementType;
   delay?: number;
+  /**
+   * Play on mount instead of on scroll. Anything already above the fold takes
+   * the early-out below and appears instantly without animating, which is right
+   * for a section the reader has not scrolled to yet and wrong for the hero,
+   * where the point is that the page assembles itself as it loads.
+   */
+  immediate?: boolean;
   className?: string;
 }) {
   const ref = useRef<HTMLElement | null>(null);
@@ -39,10 +47,12 @@ export function Reveal({
     }
 
     // Already in view on first paint (above the fold): show without animating.
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.92) {
-      setShown(true);
-      return;
+    if (!immediate) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.92) {
+        setShown(true);
+        return;
+      }
     }
 
     const io = new IntersectionObserver(
@@ -58,7 +68,7 @@ export function Reveal({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [immediate]);
 
   // createElement instead of <Tag ...>. A dynamic tag typed as ElementType
   // collapses its JSX props to `never` under this TS config, so JSX fails to
