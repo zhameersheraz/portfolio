@@ -140,7 +140,7 @@ export function Hero() {
                   className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
                   aria-hidden
                 />
-                <span className="eyebrow">Available for collab and freelance security work</span>
+                <span className="eyebrow">Available for collab and freelance cybersecurity work</span>
               </p>
             </Reveal>
           </div>
