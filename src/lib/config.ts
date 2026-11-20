@@ -54,6 +54,34 @@ export const NAV = [
 
 export const PROJECTS = [
   {
+    slug: "ubimap",
+    title: "UbiMap - NASA-guided ube rotation planning",
+    repo: "zhameersheraz/ubimap",
+    href: "https://github.com/zhameersheraz/ubimap",
+    demo: "https://ubimap.pages.dev",
+    demoLabel: "Live App",
+    summary:
+      "NASA Earth observation data turned into ube rotation advice for smallholder farmers in Zamboanga del Sur. Tap a field on live MODIS satellite imagery and the app scores every grid cell for ube suitability, then compares at least three rotation strategies against the one the farmer already uses. Answers in Bisaya, Filipino or English. Built for NASA Space Apps Challenge 2026, Field Shift track.",
+    tags: [
+      "NASA",
+      "Geospatial",
+      "React",
+      "Vite",
+      "Space Apps",
+      "Agriculture",
+    ],
+    categories: [
+      "NASA Space Apps",
+      "Geospatial",
+      "Data Visualisation",
+      "Full-stack",
+      "Agriculture",
+    ],
+    language: "JavaScript",
+    featured: true,
+    art: "/art/ubimap.jpg",
+  },
+  {
     slug: "esp32sec",
     title: "esp32sec - ESP32 Security Toolkit",
     repo: "zhameersheraz/esp32sec",
@@ -93,6 +121,60 @@ export const PROJECTS = [
     language: "Python",
     featured: true,
     art: "/art/cfg-visualizer.jpg",
+  },
+  {
+    slug: "aquascout-site",
+    title: "AQUASCOUT - Fire and smoke detection for Android",
+    repo: "zhameersheraz/aquascout-site",
+    href: "https://github.com/zhameersheraz/aquascout-site",
+    demo: "https://aquascout.vercel.app",
+    demoLabel: "Live Site",
+    summary:
+      "Marketing site for the AQUASCOUT Android app, with a live detection-loop demo running inside the page. A 3.3 MB YOLOv8n model watches for fire or smoke on the phone's own camera and texts your emergency contact with a GPS pin, so nothing is uploaded and it still works with no signal.",
+    tags: [
+      "Android",
+      "YOLOv8",
+      "On-device AI",
+      "Edge ML",
+      "Static Site",
+      "Marketing",
+    ],
+    categories: [
+      "On-device AI",
+      "Edge ML",
+      "Android",
+      "Static Site",
+      "Marketing",
+    ],
+    language: "HTML",
+    featured: true,
+    art: "/art/aquascout-site.jpg",
+  },
+  {
+    slug: "trash-sorter",
+    title: "Trash Sorter - AI waste classifier",
+    repo: "zhameersheraz/trash-sorter",
+    href: "https://github.com/zhameersheraz/trash-sorter",
+    demo: "https://trash-sorter.enjeanearz.workers.dev/",
+    demoLabel: "Live Demo",
+    summary:
+      "Point a camera at a piece of waste and a Teachable Machine model sorts it into recycling, compost or general, with a confidence score for every class. Runs entirely in the browser on TensorFlow.js, so there is no server and no build step. Built with my Information Systems group.",
+    tags: [
+      "TensorFlow.js",
+      "Teachable Machine",
+      "Computer Vision",
+      "Edge ML",
+      "Static Site",
+    ],
+    categories: [
+      "Edge ML",
+      "Computer Vision",
+      "Static Site",
+      "Group Project",
+    ],
+    language: "JavaScript",
+    featured: true,
+    art: "/art/trash-sorter.jpg",
   },
   {
     slug: "noctis",
@@ -178,7 +260,7 @@ export const SKILLS = [
 ] as const;
 
 export const STATS = {
-  repos: 27,
+  repos: 30,
   githubHandle: "zhameersheraz",
 } as const;
 

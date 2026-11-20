@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { SITE } from "@/lib/config";
 import { BinaryRain } from "@/components/binary-rain";
+import { HeroOrbit } from "@/components/hero-orbit";
 import { Reveal } from "@/components/reveal";
 
 const STACK = [
@@ -95,7 +96,7 @@ export function Hero() {
               <div>
                 <dd className="text-sm text-muted-foreground">
                   <span className="text-display-sm text-base text-foreground">
-                    27
+                    30
                   </span>{" "}
                   public repos
                 </dd>
@@ -156,6 +157,7 @@ export function Hero() {
               step. */}
           <div className="relative min-w-0">
             <div className="relative mx-auto w-full max-w-[24rem] md:mx-0 md:max-w-none md:w-full lg:w-[120%] lg:-ml-[2%]">
+              <HeroOrbit />
               <Image
                 src="/me-hero.png"
                 alt="Zhameer Sheraz U. Tampugao"

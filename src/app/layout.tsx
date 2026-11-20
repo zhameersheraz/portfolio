@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { Preloader } from "@/components/preloader";
 import { SITE } from "@/lib/config";
 
 const inter = Inter({
@@ -107,6 +108,7 @@ export default function RootLayout({
           >
             Skip to content
           </a>
+          <Preloader />
           <Navbar />
           <main id="main" className="relative">
             {children}
