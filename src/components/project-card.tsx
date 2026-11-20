@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Star, GitFork, Eye, ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/about";
-import { PROJECTS } from "@/lib/config";
+import { PROJECTS, PROJECT_GROUPS, type ProjectEntry } from "@/lib/config";
 import { formatNumber, cn } from "@/lib/utils";
 
 type RepoStats = {
@@ -76,7 +76,15 @@ function ProjectCard({
         // light-paper illustrations and one is a dark game screenshot, so they
         // need the same ground to sit on instead of bleeding into the card at
         // a different tone per theme.
-        <div className="relative h-48 overflow-hidden bg-secondary">
+        //
+        // 40 units, not 48. Eight of these stack down the page, and the
+        // artwork is a teaser for the repo link rather than the content, so
+        // it was taking more vertical space than it had earned.
+        //
+        // The hairline matters: two of the screenshots have a white
+        // background of their own, and without a rule they ran straight into
+        // the white card and read as no image at all.
+        <div className="relative h-40 overflow-hidden border-b border-border/70 bg-secondary">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={project.art as string}
@@ -84,12 +92,12 @@ function ProjectCard({
             width={1600}
             height={1000}
             decoding="async"
-            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
           />
         </div>
       ) : null}
 
-      <div className="flex flex-1 flex-col p-7">
+      <div className="flex flex-1 flex-col p-6">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-2">
           <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
@@ -138,12 +146,15 @@ function ProjectCard({
       </h3>
 
 
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground text-pretty">
+      {/* Clamped to three lines. The full summary lives in the repo README,
+          which is where someone who wants the detail will go anyway. Eight
+          cards of five-line summaries was the page talking to itself. */}
+      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground text-pretty">
         {project.summary}
       </p>
 
-      <ul className="mt-4 mb-6 flex flex-wrap gap-1.5">
-        {project.categories.slice(0, 4).map((c) => (
+      <ul className="mt-4 mb-5 flex flex-wrap gap-1.5">
+        {project.categories.slice(0, 3).map((c) => (
           <li
             key={c}
             className="rounded-full border border-border bg-background px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-foreground/70"
@@ -151,9 +162,9 @@ function ProjectCard({
             {c}
           </li>
         ))}
-        {project.categories.length > 4 && (
+        {project.categories.length > 3 && (
           <li className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-            +{project.categories.length - 4} more
+            +{project.categories.length - 3}
           </li>
         )}
       </ul>
@@ -194,6 +205,30 @@ function ProjectCard({
 }
 
 export function Projects({ bare = false }: { bare?: boolean }) {
+  const visible = PROJECTS.filter(
+    (p) => p.featured && !(p as { hidden?: boolean }).hidden,
+  );
+  const byslug = new Map(visible.map((p) => [p.slug, p]));
+
+  // Any project not named in a group still has to appear, so the two lists
+  // cannot drift apart and quietly drop a card.
+  const grouped = new Set(PROJECT_GROUPS.flatMap((g) => [...g.slugs]));
+  const orphans = visible.filter((p) => !grouped.has(p.slug));
+
+  const groups = [
+    ...PROJECT_GROUPS.map((g) => ({
+      ...g,
+      items: g.slugs
+        .map((s) => byslug.get(s))
+        .filter((x): x is ProjectEntry => Boolean(x)),
+    })),
+    ...(orphans.length
+      ? [{ id: "other", label: "Other", note: "", items: orphans }]
+      : []),
+  ];
+
+  let counter = 0;
+
   return (
     <section
       id="projects"
@@ -208,13 +243,42 @@ export function Projects({ bare = false }: { bare?: boolean }) {
         />
       )}
 
-      <div className={bare ? "grid gap-4 md:grid-cols-2" : "mt-10 grid gap-4 md:grid-cols-2"}>
-        {PROJECTS.filter((p) => p.featured && !(p as { hidden?: boolean }).hidden).map((project, i) => (
-          <ProjectCard key={project.slug} project={project} index={i} />
-        ))}
+      <div className={bare ? "space-y-12" : "mt-10 space-y-12"}>
+        {groups.map((group) =>
+          group.items.length === 0 ? null : (
+            <section key={group.id} aria-labelledby={`pg-${group.id}`}>
+              <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border pb-3">
+                <h3
+                  id={`pg-${group.id}`}
+                  className="text-display-sm text-[0.95rem] font-medium tracking-tight text-foreground"
+                >
+                  {group.label}
+                </h3>
+                {group.note ? (
+                  <p className="text-xs leading-snug text-muted-foreground">
+                    {group.note}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                {group.items.map((project) => {
+                  const index = counter++;
+                  return (
+                    <ProjectCard
+                      key={project.slug}
+                      project={project}
+                      index={index}
+                    />
+                  );
+                })}
+              </div>
+            </section>
+          ),
+        )}
       </div>
 
-      <p className="mt-8 text-center text-xs text-muted-foreground">
+      <p className="mt-10 text-center text-xs text-muted-foreground">
         More on{" "}
         <a
           href="https://github.com/zhameersheraz"

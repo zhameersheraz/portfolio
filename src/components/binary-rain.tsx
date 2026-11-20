@@ -164,6 +164,13 @@ export function BinaryRain({
           const sy = r * CELL + (CELL >> 1);
           const i = (sy * SAMPLE_W + sx) * 4;
 
+          // The portrait is a cutout, so the background is transparent. Glyphs
+          // on empty background would float in the page with nothing under
+          // them, so a cell only takes a glyph if the photograph is actually
+          // there, and the glyph fades with how solid that part is.
+          const a = data[i + 3] / 255;
+          if (a < 0.55) continue;
+
           const w = envelope(c / cols) * rowEnvelope(r / rows);
           if (w <= 0) continue;
 
@@ -186,7 +193,10 @@ export function BinaryRain({
             y: sy,
             col: `rgb(${data[i]},${data[i + 1]},${data[i + 2]})`,
             ch: GLYPHS[(Math.random() * GLYPHS.length) | 0],
-            alpha: (MIN_ALPHA + Math.random() * (MAX_ALPHA - MIN_ALPHA)) * (0.55 + 0.45 * w),
+            alpha:
+              (MIN_ALPHA + Math.random() * (MAX_ALPHA - MIN_ALPHA)) *
+              (0.55 + 0.45 * w) *
+              a,
             // Staggered down the picture so a change travels downward.
             due: now + r * ROW_STAGGER + Math.random() * TICK_MS * 3,
           });

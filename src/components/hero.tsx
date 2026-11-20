@@ -1,9 +1,7 @@
-﻿import Image from "next/image";
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { SITE } from "@/lib/config";
-import { BinaryRain } from "@/components/binary-rain";
-import { HeroOrbit } from "@/components/hero-orbit";
+import { HeroStage } from "@/components/hero-stage";
 import { Reveal } from "@/components/reveal";
 
 const STACK = [
@@ -151,24 +149,11 @@ export function Hero() {
               pixels. Do not draw them again here or you get two sets.
               The leftover nav text on the left was painted out first.
 
-              The binary field sits on top of the photograph, not under it. It
-              samples the same file, so it stays aligned at every width and at
-              every responsive breakpoint without a second asset to keep in
-              step. */}
+              The stage owns the photograph, the binary field, the glitch layer
+              and the floating cards, and puts all of it inside one 3D space
+              that turns with the pointer. */}
           <div className="relative min-w-0">
-            <div className="relative mx-auto w-full max-w-[24rem] md:mx-0 md:max-w-none md:w-full lg:w-[120%] lg:-ml-[2%]">
-              <HeroOrbit />
-              <Image
-                src="/me-hero.png"
-                alt="Zhameer Sheraz U. Tampugao"
-                width={1280}
-                height={1203}
-                priority
-                sizes="(min-width: 1024px) 50vw, 90vw"
-                className="w-full select-none"
-              />
-              <BinaryRain src="/me-hero.png" />
-            </div>
+            <HeroStage />
           </div>
         </div>
       </div>

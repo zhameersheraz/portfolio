@@ -8,14 +8,18 @@
  * composition does the job a feature list would otherwise do: it says what
  * the person works on without a paragraph of it.
  *
- * Everything here is absolutely positioned inside the portrait wrapper and
- * hidden below lg. The hero was tuned at a 941px viewport and the lower
- * breakpoints are crowded already, so the floating layer only appears where
- * there is room for it.
+ * Every card sits at its own depth with translateZ, inside the stage's
+ * preserve-3d context, so they parallax against the photograph as the stage
+ * turns with the pointer. Depth is the reason the layer reads as objects in a
+ * space rather than as stickers on a picture.
  *
- * Rotation and float live on separate elements on purpose. A single transform
+ * Rotation and drift live on separate elements on purpose. A single transform
  * cannot both rotate and translate, and the animation would win, so the
- * outer box owns the tilt and the inner one owns the drift.
+ * outer box owns the tilt, the middle one owns the depth, and the inner one
+ * owns the drift.
+ *
+ * The whole layer is hidden below lg. The hero was tuned at a 941px viewport
+ * and the lower breakpoints are crowded already.
  */
 
 const ORBIT = [
@@ -24,6 +28,7 @@ const ORBIT = [
     line: "Firmware, hardware, cloud",
     className: "left-[1%] top-[7%]",
     tilt: "-rotate-[7deg]",
+    depth: "translateZ(72px)",
     delay: "0s",
     dur: "7.5s",
   },
@@ -32,6 +37,7 @@ const ORBIT = [
     line: "radare2, binaries, CFGs",
     className: "right-[7%] top-[33%]",
     tilt: "rotate-[5deg]",
+    depth: "translateZ(96px)",
     delay: "-2.2s",
     dur: "8.5s",
   },
@@ -40,6 +46,7 @@ const ORBIT = [
     line: "Full-stack, edge ML",
     className: "left-[7%] bottom-[15%]",
     tilt: "-rotate-[4deg]",
+    depth: "translateZ(46px)",
     delay: "-4.4s",
     dur: "9.5s",
   },
@@ -48,15 +55,18 @@ const ORBIT = [
 export function HeroOrbit() {
   return (
     <>
-      {/* Halo. A very low opacity blur of the foreground colour, which on the
-          warm paper background reads as light falling on the page rather than
-          as a grey shape sitting on it. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 hidden lg:block"
-      >
-        <div className="absolute left-1/2 top-[38%] h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.05] blur-3xl" />
-        <div className="absolute left-[38%] top-[18%] h-[16rem] w-[16rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.035] blur-2xl" />
+      {/* Halo. A very low opacity blur of the foreground colour. On the dark
+          theme this reads as light falling on the page; on the light theme it
+          is barely there, which is the point. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
+        <div
+          className="absolute left-1/2 top-[38%] h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.06] blur-3xl"
+          style={{ transform: "translateZ(-40px) translate(-50%, -50%)" }}
+        />
+        <div
+          className="absolute left-[38%] top-[18%] h-[16rem] w-[16rem] rounded-full bg-foreground/[0.04] blur-2xl"
+          style={{ transform: "translateZ(-60px) translate(-50%, -50%)" }}
+        />
       </div>
 
       {ORBIT.map((card) => (
@@ -65,17 +75,19 @@ export function HeroOrbit() {
           aria-hidden
           className={`pointer-events-none absolute hidden lg:block ${card.className} ${card.tilt}`}
         >
-          <div
-            className="animate-float-slow motion-reduce:animate-none"
-            style={{ animationDelay: card.delay, animationDuration: card.dur }}
-          >
-            <div className="rounded-2xl border border-border/80 bg-card/85 px-4 py-3 shadow-[0_24px_48px_-28px_hsl(var(--shadow)/0.55)] backdrop-blur-md">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
-                {card.label}
-              </p>
-              <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">
-                {card.line}
-              </p>
+          <div className={card.depth}>
+            <div
+              className="animate-float-slow motion-reduce:animate-none"
+              style={{ animationDelay: card.delay, animationDuration: card.dur }}
+            >
+              <div className="rounded-2xl border border-border/80 bg-card/85 px-4 py-3 shadow-[0_24px_48px_-28px_hsl(var(--shadow)/0.75)] backdrop-blur-md">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                  {card.label}
+                </p>
+                <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">
+                  {card.line}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -95,31 +107,31 @@ function Badge() {
     <div
       aria-hidden
       className="pointer-events-none absolute right-[4%] top-[2%] hidden h-[5.5rem] w-[5.5rem] lg:block"
+      style={{ transform: "translateZ(120px)" }}
     >
-      <svg viewBox="0 0 100 100" className="h-full w-full animate-spin-slow motion-reduce:animate-none">
-        <defs>
-          <path
-            id="hero-badge-circle"
-            d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-            fill="none"
-          />
-        </defs>
-        <circle cx="50" cy="50" r="46" fill="none" stroke="hsl(var(--border))" strokeWidth="0.75" />
-        <text
-          fill="hsl(var(--muted-foreground))"
-          fontSize="8.2"
-          letterSpacing="2.6"
-          fontFamily="var(--font-jetbrains), monospace"
-        >
-          <textPath href="#hero-badge-circle" startOffset="0%">
-            SYSTEMS · SECURITY · REVERSING · BUILDING ·
-          </textPath>
-        </text>
-        <path
-          d="M50 42 L54.2 50 L50 58 L45.8 50 Z"
-          fill="hsl(var(--foreground))"
-        />
-      </svg>
+      <div className="animate-spin-slow h-full w-full motion-reduce:animate-none">
+        <svg viewBox="0 0 100 100" className="h-full w-full">
+          <defs>
+            <path
+              id="hero-badge-circle"
+              d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+              fill="none"
+            />
+          </defs>
+          <circle cx="50" cy="50" r="46" fill="none" stroke="hsl(var(--border))" strokeWidth="0.75" />
+          <text
+            fill="hsl(var(--muted-foreground))"
+            fontSize="8.2"
+            letterSpacing="2.6"
+            fontFamily="var(--font-jetbrains), monospace"
+          >
+            <textPath href="#hero-badge-circle" startOffset="0%">
+              SYSTEMS · SECURITY · REVERSING · BUILDING ·
+            </textPath>
+          </text>
+          <path d="M50 42 L54.2 50 L50 58 L45.8 50 Z" fill="hsl(var(--foreground))" />
+        </svg>
+      </div>
     </div>
   );
 }

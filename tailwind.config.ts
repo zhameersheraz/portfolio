@@ -91,6 +91,17 @@ const config: Config = {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
+        "glitch-jitter": {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "20%": { transform: "translate(-1.5px, 1px)" },
+          "40%": { transform: "translate(1.5px, -1px)" },
+          "60%": { transform: "translate(-1px, -1.5px)" },
+          "80%": { transform: "translate(1px, 1.5px)" },
+        },
+        "glitch-sweep": {
+          "0%": { transform: "translateY(-120vh)" },
+          "100%": { transform: "translateY(120vh)" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.6s ease-out forwards",
@@ -101,6 +112,8 @@ const config: Config = {
         "marquee": "marquee 40s linear infinite",
         "float-slow": "float-slow 8s ease-in-out infinite",
         "spin-slow": "spin-slow 26s linear infinite",
+        "glitch-jitter": "glitch-jitter 0.36s steps(2, end) infinite",
+        "glitch-sweep": "glitch-sweep 3.4s cubic-bezier(0.45,0,0.55,1) infinite",
       },
     },
   },

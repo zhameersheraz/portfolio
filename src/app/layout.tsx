@@ -100,6 +100,16 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${jetbrains.variable} ${montserrat.variable}`}
     >
+      <head>
+        {/* Theme has to be settled before the first paint, or the page flashes
+            white on a dark site. This runs synchronously, before the body
+            exists, and only ever touches the class on <html>. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('zham:theme');if(t!=='light'){document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         
           <a

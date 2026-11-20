@@ -8,6 +8,7 @@ import { X } from "lucide-react";
 import { NAV, SITE } from "@/lib/config";
 import { scrollTopThen } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -120,6 +121,12 @@ export function Navbar() {
                 It becomes an X once the drawer is up. */}
             {open ? <X className="h-5 w-5" /> : <span className="block h-px w-7 bg-foreground" aria-hidden />}
           </button>
+
+          {/* Theme switch. Sits inside the nav group so it inherits the fixed
+              header's positioning instead of dropping into the page flow. */}
+          <div className="ml-1 border-l border-border pl-2">
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
 
