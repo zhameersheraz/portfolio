@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Star, GitFork, Eye, ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/about";
-import { PROJECTS, PROJECT_GROUPS, type ProjectEntry } from "@/lib/config";
+import { PROJECTS } from "@/lib/config";
 import { formatNumber, cn } from "@/lib/utils";
 
 type RepoStats = {
@@ -72,19 +72,11 @@ function ProjectCard({
   return (
     <article className="panel panel-hover group relative flex flex-col overflow-hidden">
       {"art" in project && project.art ? (
-        // A fixed neutral stage rather than a full-bleed fade. Two of these are
-        // light-paper illustrations and one is a dark game screenshot, so they
-        // need the same ground to sit on instead of bleeding into the card at
-        // a different tone per theme.
-        //
-        // 40 units, not 48. Eight of these stack down the page, and the
-        // artwork is a teaser for the repo link rather than the content, so
-        // it was taking more vertical space than it had earned.
-        //
-        // The hairline matters: two of the screenshots have a white
-        // background of their own, and without a rule they ran straight into
-        // the white card and read as no image at all.
-        <div className="relative h-40 overflow-hidden border-b border-border/70 bg-secondary">
+        // The thumbnail. A 16 by 10 crop of the screenshot, sized so eight of
+        // them sit on one screen. The hairline matters: two of the
+        // screenshots have a white background of their own, and without a
+        // rule they ran straight into the card and read as no image at all.
+        <div className="relative aspect-[16/10] overflow-hidden border-b border-border/70 bg-secondary">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={project.art as string}
@@ -92,113 +84,87 @@ function ProjectCard({
             width={1600}
             height={1000}
             decoding="async"
-            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
           />
-        </div>
-      ) : null}
-
-      <div className="flex flex-1 flex-col p-6">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-2">
-          <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <span className="text-mono text-muted-foreground">·</span>
-          <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-            {project.language}
-          </span>
-        </div>
-        <div className="flex items-center gap-4">
+          {/* The live demo badge sits on the image so the card body stays
+              free for the title and the one line of description. */}
           {"demo" in project && project.demo ? (
             <a
               href={project.demo as string}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-background transition-opacity hover:opacity-90"
+              onClick={(e) => e.stopPropagation()}
+              className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-background/85 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-foreground backdrop-blur-sm transition-colors hover:bg-background"
             >
-              {/* PLAY only fits a game. A web app you open wants a different
-                  word, so the label comes from config and defaults to Play. */}
               {"demoLabel" in project && project.demoLabel
                 ? (project.demoLabel as string)
-                : "Play"}{" "}
-              <ArrowUpRight className="h-3 w-3" aria-hidden />
+                : "Play"}
+              <ArrowUpRight className="h-2.5 w-2.5" aria-hidden />
             </a>
           ) : null}
+        </div>
+      ) : null}
+
+      <div className="flex flex-1 flex-col p-4">
+        <div className="flex items-center justify-between gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            {String(index + 1).padStart(2, "0")} · {project.language}
+          </span>
           <a
             href={project.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+            aria-label={`${project.title} on GitHub`}
+            className="font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground"
           >
-            ↗ GitHub
+            ↗
           </a>
         </div>
-      </div>
 
-      <h3 className="text-display-sm mt-4 text-lg leading-snug">
-        <a
-          href={project.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link-underline"        >
-          {project.title}
-        </a>
-      </h3>
-
-
-      {/* Clamped to three lines. The full summary lives in the repo README,
-          which is where someone who wants the detail will go anyway. Eight
-          cards of five-line summaries was the page talking to itself. */}
-      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground text-pretty">
-        {project.summary}
-      </p>
-
-      <ul className="mt-4 mb-5 flex flex-wrap gap-1.5">
-        {project.categories.slice(0, 3).map((c) => (
-          <li
-            key={c}
-            className="rounded-full border border-border bg-background px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-foreground/70"
+        <h3 className="text-display-sm mt-2 text-[0.95rem] font-medium leading-snug">
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline"
           >
-            {c}
-          </li>
-        ))}
-        {project.categories.length > 3 && (
-          <li className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-            +{project.categories.length - 3}
-          </li>
-        )}
-      </ul>
+            {project.title}
+          </a>
+        </h3>
 
-      {/* mt-auto pins the footer to the bottom so it aligns across cards of
-          differing summary length, instead of floating mid-card with a void
-          under it. The article is a flex column, so auto margin wins. */}
-      <div className="mt-auto flex items-center gap-4 border-t border-border pt-4 font-mono text-xs text-muted-foreground">
-        <span className="inline-flex items-center gap-1.5">
-          <Star className="h-3.5 w-3.5" />
-          {formatNumber(stats?.stars ?? 0)}
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <GitFork className="h-3.5 w-3.5" />
-          {formatNumber(stats?.forks ?? 0)}
-        </span>
-        <span
-          className={cn(
-            "inline-flex items-center gap-1.5 transition-opacity",
-            views ? "opacity-100" : "opacity-0",
-          )}
-        >
-          <Eye className="h-3.5 w-3.5" />
-          {formatNumber(views ?? 0)}
-        </span>
-        <span className="ml-auto">
-          {stats?.pushed_at
-            ? new Date(stats.pushed_at).toLocaleDateString("en", {
-                month: "short",
-                year: "numeric",
-              })
-            : "recent"}
-        </span>
-      </div>
+        {/* Two lines, then stop. The full summary lives in the repo README,
+            which is where anyone who wants the detail will go anyway. */}
+        <p className="mt-1.5 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground text-pretty">
+          {project.summary}
+        </p>
+
+        <div className="mt-auto flex items-center gap-3 pt-3 font-mono text-[11px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1">
+            <Star className="h-3 w-3" />
+            {formatNumber(stats?.stars ?? 0)}
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <GitFork className="h-3 w-3" />
+            {formatNumber(stats?.forks ?? 0)}
+          </span>
+          <span
+            className={cn(
+              "inline-flex items-center gap-1 transition-opacity",
+              views ? "opacity-100" : "opacity-0",
+            )}
+          >
+            <Eye className="h-3 w-3" />
+            {formatNumber(views ?? 0)}
+          </span>
+          <span className="ml-auto">
+            {stats?.pushed_at
+              ? new Date(stats.pushed_at).toLocaleDateString("en", {
+                  month: "short",
+                  year: "numeric",
+                })
+              : "recent"}
+          </span>
+        </div>
       </div>
     </article>
   );
@@ -208,26 +174,6 @@ export function Projects({ bare = false }: { bare?: boolean }) {
   const visible = PROJECTS.filter(
     (p) => p.featured && !(p as { hidden?: boolean }).hidden,
   );
-  const byslug = new Map(visible.map((p) => [p.slug, p]));
-
-  // Any project not named in a group still has to appear, so the two lists
-  // cannot drift apart and quietly drop a card.
-  const grouped = new Set(PROJECT_GROUPS.flatMap((g) => [...g.slugs]));
-  const orphans = visible.filter((p) => !grouped.has(p.slug));
-
-  const groups = [
-    ...PROJECT_GROUPS.map((g) => ({
-      ...g,
-      items: g.slugs
-        .map((s) => byslug.get(s))
-        .filter((x): x is ProjectEntry => Boolean(x)),
-    })),
-    ...(orphans.length
-      ? [{ id: "other", label: "Other", note: "", items: orphans }]
-      : []),
-  ];
-
-  let counter = 0;
 
   return (
     <section
@@ -243,42 +189,23 @@ export function Projects({ bare = false }: { bare?: boolean }) {
         />
       )}
 
-      <div className={bare ? "space-y-12" : "mt-10 space-y-12"}>
-        {groups.map((group) =>
-          group.items.length === 0 ? null : (
-            <section key={group.id} aria-labelledby={`pg-${group.id}`}>
-              <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border pb-3">
-                <h3
-                  id={`pg-${group.id}`}
-                  className="text-display-sm text-[0.95rem] font-medium tracking-tight text-foreground"
-                >
-                  {group.label}
-                </h3>
-                {group.note ? (
-                  <p className="text-xs leading-snug text-muted-foreground">
-                    {group.note}
-                  </p>
-                ) : null}
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                {group.items.map((project) => {
-                  const index = counter++;
-                  return (
-                    <ProjectCard
-                      key={project.slug}
-                      project={project}
-                      index={index}
-                    />
-                  );
-                })}
-              </div>
-            </section>
-          ),
-        )}
+      {/* A folder grid. Two columns of tall cards made every project the size
+          of a paragraph, and eight of them in a row is a wall. Four columns
+          of small tiles reads the other way round: you can see the whole body
+          of work at once and pick one. */}
+      <div
+        className={
+          bare
+            ? "grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+            : "mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+        }
+      >
+        {visible.map((project, i) => (
+          <ProjectCard key={project.slug} project={project} index={i} />
+        ))}
       </div>
 
-      <p className="mt-10 text-center text-xs text-muted-foreground">
+      <p className="mt-8 text-center text-xs text-muted-foreground">
         More on{" "}
         <a
           href="https://github.com/zhameersheraz"

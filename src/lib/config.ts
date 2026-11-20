@@ -457,33 +457,3 @@ export const COMPETITIONS: Competition[] = [
 
 export type Project = (typeof PROJECTS)[number];
 export type ProjectEntry = Project & { hidden?: boolean };
-
-/**
- * How the projects are grouped on screen.
- *
- * Eight cards in one flat grid is a wall. Three named groups give the page a
- * spine and let the visitor read the shape of the work before reading any of
- * it. The order is deliberate: security first because that is the identity,
- * then the applied and research work, then the things built for the pleasure
- * of building them.
- */
-export const PROJECT_GROUPS = [
-  {
-    id: "security",
-    label: "Security & Reversing",
-    note: "Hardware, binaries, and the tools I write while breaking them.",
-    slugs: ["esp32sec", "cfg-visualizer", "cloud-security"],
-  },
-  {
-    id: "data",
-    label: "Data, NASA & Edge AI",
-    note: "Satellite data and on-device models, most of them running with no server at all.",
-    slugs: ["ubimap", "aquascout-site", "trash-sorter"],
-  },
-  {
-    id: "build",
-    label: "Apps & Games",
-    note: "Full-stack and real-time work, plus a racing game set on the Moon.",
-    slugs: ["kds-app", "noctis"],
-  },
-] as const;

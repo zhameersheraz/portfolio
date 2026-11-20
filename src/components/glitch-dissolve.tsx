@@ -37,16 +37,33 @@ import { useEffect, useRef } from "react";
 
 const SAMPLE_W = 520;
 
-/** Palette drawn from the reference: two cool, one warm, one hot, one paper. */
-const PALETTE = [
-  "rgba(96, 214, 255",  // cyan
-  "rgba(255, 74, 104",  // hot red
-  "rgba(84, 132, 255",  // blue
-  "rgba(255, 168, 64",  // amber, the brand colour
-  "rgba(238, 238, 246", // paper white
+/**
+ * Palette.
+ *
+ * Three tones, not five, and the mix is weighted towards paper. The reference
+ * uses a couple of coloured blocks on an otherwise black image; a full
+ * rainbow across the portrait turns the effect into confetti and stops it
+ * reading as a signal breaking up. Paper carries the shape, the accent
+ * carries the spark, and the cool tone is there so the eye has something
+ * colder to catch.
+ *
+ * Two sets, because the same block that reads as light on a dark page reads
+ * as nothing on a light one. On paper the tones go to ink, burnt amber and a
+ * deep blue instead.
+ */
+const DARK_PALETTE = [
+  "rgba(232, 236, 244",  // paper
+  "rgba(255, 170, 70",   // amber, the brand colour
+  "rgba(110, 200, 240",  // cool
 ] as const;
 
-const PALETTE_WEIGHT = [0.3, 0.2, 0.22, 0.16, 0.12];
+const LIGHT_PALETTE = [
+  "rgba(28, 32, 40",     // ink
+  "rgba(196, 116, 18",   // burnt amber
+  "rgba(42, 92, 190",    // deep blue
+] as const;
+
+const PALETTE_WEIGHT = [0.56, 0.26, 0.18];
 
 type Block = {
   x: number;      // 0..1 across the sample width
@@ -55,7 +72,7 @@ type Block = {
   h: number;      // fraction of height
   vx: number;     // drift per tick
   vy: number;
-  colour: string;
+  tone: number;   // index into the palette, resolved at draw time
   alpha: number;
   due: number;    // next flicker
   born: number;
@@ -181,7 +198,7 @@ export function GlitchDissolve({ src }: { src: string }) {
           const t = c / cols;
           const w = zone(t);
           if (w <= 0) continue;
-          if (Math.random() > w * 0.42) continue;
+          if (Math.random() > w * 0.18) continue;
 
           // Weighted palette pick.
           let roll = Math.random();
@@ -191,7 +208,6 @@ export function GlitchDissolve({ src }: { src: string }) {
             if (roll <= 0) { pick = i; break; }
             pick = i;
           }
-
           const wide = Math.random() < 0.28;
           blocks.push({
             x: t + (Math.random() - 0.5) * 0.03,
@@ -200,8 +216,8 @@ export function GlitchDissolve({ src }: { src: string }) {
             h: wide ? 0.0016 + Math.random() * 0.004 : 0.004 + Math.random() * 0.018,
             vx: 0.0006 + Math.random() * 0.0032,
             vy: (Math.random() - 0.5) * 0.0016,
-            colour: PALETTE[pick],
-            alpha: 0.35 + Math.random() * 0.6,
+            tone: pick,
+            alpha: 0.25 + Math.random() * 0.45,
             due: now + Math.random() * 900,
             born: now,
           });
@@ -221,13 +237,16 @@ export function GlitchDissolve({ src }: { src: string }) {
 
       ctx.clearRect(0, 0, rect.width, rect.height);
 
+      const dark = isDark();
+      const palette = dark ? DARK_PALETTE : LIGHT_PALETTE;
+
       // --- Block field -----------------------------------------------------
       for (const b of blocks) {
         if (now < b.due) {
           // Still draw it, just settled.
         } else {
           b.due = now + 120 + Math.random() * 1600;
-          b.alpha = 0.2 + Math.random() * 0.75;
+          b.alpha = 0.18 + Math.random() * 0.42;
           b.x += b.vx;
           b.y += b.vy;
           if (b.x > 1.02) { b.x = 0.42; b.y = Math.random(); }
@@ -241,7 +260,7 @@ export function GlitchDissolve({ src }: { src: string }) {
         const ph = b.h * rect.height;
 
         ctx.globalAlpha = b.alpha;
-        ctx.fillStyle = `${b.colour},${b.alpha})`;
+        ctx.fillStyle = `${palette[b.tone]},${b.alpha})`;
         ctx.fillRect(px, py, pw, ph);
       }
       ctx.globalAlpha = 1;
@@ -263,8 +282,12 @@ export function GlitchDissolve({ src }: { src: string }) {
         // look of a signal splitting. On paper they replace the band, which is
         // what a print with the plates out of register actually does. Same
         // geometry, both correct for their ground.
-        ctx.globalCompositeOperation = isDark() ? "lighter" : "source-over";
-        ctx.globalAlpha = isDark() ? 0.6 : 0.85;
+        //
+        // Kept at half strength. The channel separation is the part of the
+        // reference worth copying, and it reads at low intensity; at full
+        // strength the tears turn into colour stripes.
+        ctx.globalCompositeOperation = dark ? "lighter" : "source-over";
+        ctx.globalAlpha = dark ? 0.42 : 0.6;
         for (const t of tears) {
           const sy = t.y * sampleH;
           const sh = t.h * sampleH;
