@@ -413,6 +413,17 @@ export const CERTS: Cert[] = [
     link: "https://coursera.org/verify/CNTSYOHMAVPO",
     aspect: 1.294,
   },
+  {
+    id: "poctf-2026",
+    title: "Pointer Overflow CTF 2026 - Participant and Solver",
+    issuer: "University of Wisconsin - Stevens Point",
+    issued: "Nov 2026",
+    image: "/certs/poctf-2026-participant.png",
+    // The serial on the certificate resolves to the organiser's own
+    // verification page, so the card links there rather than to the image.
+    link: "https://pointeroverflowctf.com/verify/POCTF-2026-02781",
+    aspect: 1.294,
+  },
 ] as const;
 
 export type Competition = {

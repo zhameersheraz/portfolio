@@ -101,12 +101,27 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrains.variable} ${montserrat.variable}`}
     >
       <head>
-        {/* Theme has to be settled before the first paint, or the page flashes
-            white on a dark site. This runs synchronously, before the body
-            exists, and only ever touches the class on <html>. */}
+        {/* Theme and intro, both settled before the first paint.
+
+            The intro overlay is rendered in the server HTML, so the decision
+            to show it has to happen here rather than in a React effect. The
+            effect runs after hydration, which is after the browser has
+            already painted the page, so an overlay that mounted on hydration
+            produced the page first and the loader second. Deciding here and
+            setting a class means the overlay is either on screen from the
+            first frame or never on screen at all.
+
+            The skip class hides the overlay with display:none, so a returning
+            visitor gets no flash of it either. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('zham:theme');if(t!=='light'){document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`,
+            __html: `(function(){try{var d=document.documentElement;
+              try{localStorage.setItem('zham:theme',localStorage.getItem('zham:theme')||'dark');}catch(e){}
+              if(localStorage.getItem('zham:theme')!=='light'){d.classList.add('dark');}
+              var seen=Number(localStorage.getItem('zham:intro-seen')||0);
+              if(seen&&(Date.now()-seen)<864e5){d.classList.add('intro-skip');}
+              else{localStorage.setItem('zham:intro-seen',String(Date.now()));}
+            }catch(e){document.documentElement.classList.add('intro-skip');}})();`,
           }}
         />
       </head>

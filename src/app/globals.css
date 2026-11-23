@@ -291,6 +291,15 @@ section[id] {
   scroll-margin-top: 5rem;
 }
 
+/* The intro overlay is in the server HTML so it never flashes the page
+   before the loader appears. When the head script decides the visitor has
+   already seen it today, it sets this class and the overlay is removed from
+   the layout before the first paint, so a returning visitor never sees it
+   at all. */
+html.intro-skip .intro {
+  display: none !important;
+}
+
 /* Registration marks on the About card. Instrument detail, not a frame. */
 .bracket-corner {
   position: relative;

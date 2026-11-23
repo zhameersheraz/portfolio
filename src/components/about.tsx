@@ -63,8 +63,8 @@ export function About() {
           <span>·</span>
           <span className="uppercase tracking-[0.14em]">Certifications</span>
         </div>
-        <h3 className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">Course completions and role certifications</h3>
-        <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">Course completions and role certifications from Cisco, IBM, HackerRank, Coursera, and freeCodeCamp.</p>
+        <h3 className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">Courses, roles and competitions</h3>
+        <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">Course completions, role certifications and a competition certificate. Every card links to its verification page.</p>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CERTS.map((cert) => (

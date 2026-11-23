@@ -5,16 +5,17 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Intro overlay.
  *
- * The page underneath is already rendering while this sits on top of it, so
- * nothing here is on the critical path for the hero image or the LCP. The
- * counter tracks real load signals rather than a fixed timer, so a slow
- * connection shows a slow count and a warm cache finishes quickly.
+ * The overlay is part of the server HTML. It used to mount on hydration
+ * instead, which meant the browser painted the page first and the loader
+ * second, so opening the site showed the site, then the loader, then the
+ * site again. The head script in the document decides whether the intro
+ * plays, before the first paint, and the component only animates what is
+ * already on screen.
  *
- * Storage is localStorage with a timestamp, not sessionStorage. Session
- * storage is per tab, so opening the site in a second tab replayed the whole
- * intro, and a refresh kept it too if the tab was opened fresh. A day-long
- * cooldown in shared storage means once per browser per day, whatever route
- * you came in through.
+ * The page underneath is rendering while this sits on top of it, so nothing
+ * here is on the critical path for the hero image or the LCP. The counter
+ * tracks real load signals rather than a fixed timer, so a slow connection
+ * shows a slow count and a warm cache finishes quickly.
  *
  * A hard ceiling means it can never trap the page. An intro that can get
  * stuck is worse than no intro.
@@ -30,28 +31,21 @@ type Phase = "playing" | "leaving" | "gone";
 const SEGMENTS = 28;
 
 export function Preloader() {
-  const [phase, setPhase] = useState<Phase>("gone");
+  const [phase, setPhase] = useState<Phase>("playing");
   const [pct, setPct] = useState(0);
   const progress = useRef(0);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let fresh = false;
-    try {
-      const seen = Number(localStorage.getItem(KEY) || 0);
-      fresh = !seen || Date.now() - seen > COOLDOWN_MS;
-    } catch {
-      fresh = true;
-    }
-    if (!fresh || reduce) return;
 
-    try {
-      localStorage.setItem(KEY, String(Date.now()));
-    } catch {
-      /* private mode */
+    // The head script already decided. If it said skip, the overlay is hidden
+    // by CSS and all that is left is to take it out of the document.
+    const skipped = document.documentElement.classList.contains("intro-skip");
+    if (skipped || reduce) {
+      setPhase("gone");
+      return;
     }
 
-    setPhase("playing");
     const started = performance.now();
 
     let target = 0.12;
@@ -117,7 +111,7 @@ export function Preloader() {
       role="status"
       aria-live="polite"
       className={[
-        "fixed inset-0 z-[100] overflow-hidden bg-background",
+        "intro fixed inset-0 z-[100] overflow-hidden bg-background",
         "transition-opacity duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
         leaving ? "pointer-events-none opacity-0" : "pointer-events-auto opacity-100",
       ].join(" ")}
