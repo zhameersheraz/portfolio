@@ -9,6 +9,7 @@ import { NAV, SITE } from "@/lib/config";
 import { scrollTopThen } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { SoundToggle } from "@/components/sound-toggle";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -124,7 +125,8 @@ export function Navbar() {
 
           {/* Theme switch. Sits inside the nav group so it inherits the fixed
               header's positioning instead of dropping into the page flow. */}
-          <div className="ml-1 border-l border-border pl-2">
+          <div className="ml-1 flex items-center gap-0.5 border-l border-border pl-2">
+            <SoundToggle />
             <ThemeToggle />
           </div>
         </div>

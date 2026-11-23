@@ -291,6 +291,129 @@ section[id] {
   scroll-margin-top: 5rem;
 }
 
+/* ------------------------------------------------------------------ cursor
+   The native cursor is removed only once the custom pointer has mounted and
+   confirmed it is on a device with a hovering pointer. The class is added
+   from JavaScript, never from the server, so a page that fails to hydrate
+   still has a working cursor.
+
+   Text fields keep the native caret. Replacing the caret on a form is not a
+   flourish, it is a bug. */
+html.has-custom-cursor,
+html.has-custom-cursor a,
+html.has-custom-cursor button,
+html.has-custom-cursor [role="button"],
+html.has-custom-cursor summary,
+html.has-custom-cursor label {
+  cursor: none !important;
+}
+
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor select,
+html.has-custom-cursor [contenteditable="true"] {
+  cursor: auto !important;
+}
+
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid hsl(var(--foreground) / 0.55);
+  border-radius: 9999px;
+  /* difference keeps the ring legible over both the paper and the dark
+     theme without ever having to know which one is underneath. */
+  mix-blend-mode: difference;
+  transition:
+    width 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+    height 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.22s ease,
+    opacity 0.2s ease;
+  will-change: transform;
+}
+
+.cursor-ring.active {
+  width: 44px;
+  height: 44px;
+}
+
+.cursor-ring.text {
+  width: 0;
+  height: 0;
+  opacity: 0 !important;
+}
+
+.cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+.cursor-dot__core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  background: hsl(var(--foreground));
+  border-radius: 9999px;
+  transition:
+    width 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+    height 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+    margin 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.cursor-dot__arm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: hsl(var(--foreground));
+  transition:
+    opacity 0.2s ease,
+    transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.cursor-dot__arm--h {
+  width: 22px;
+  height: 1px;
+  margin: 0 0 0 -11px;
+}
+
+.cursor-dot__arm--v {
+  width: 1px;
+  height: 22px;
+  margin: -11px 0 0 0;
+}
+
+/* Over something interactive the arms retract and the core opens up, so the
+   state change is a shape change rather than a colour change. */
+.cursor-dot.active .cursor-dot__core {
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+}
+
+.cursor-dot.active .cursor-dot__arm--h {
+  opacity: 0;
+  transform: scaleX(0.4);
+}
+
+.cursor-dot.active .cursor-dot__arm--v {
+  opacity: 0;
+  transform: scaleY(0.4);
+}
+
+.cursor-dot.text {
+  opacity: 0 !important;
+}
+
 /* The intro overlay is in the server HTML so it never flashes the page
    before the loader appears. When the head script decides the visitor has
    already seen it today, it sets this class and the overlay is removed from

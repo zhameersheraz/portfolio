@@ -4,6 +4,8 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Preloader } from "@/components/preloader";
+import { Cursor } from "@/components/cursor";
+import { SoundEngine } from "@/components/sound-engine";
 import { SITE } from "@/lib/config";
 
 const inter = Inter({
@@ -134,6 +136,8 @@ export default function RootLayout({
             Skip to content
           </a>
           <Preloader />
+          <Cursor />
+          <SoundEngine />
           <Navbar />
           <main id="main" className="relative">
             {children}
