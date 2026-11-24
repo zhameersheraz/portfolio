@@ -66,7 +66,7 @@ export function Contact() {
   return (
     <section id="contact" className="container-wide section-pad">
       <SectionHeader
-        index="04"
+        index="05"
         label="Contact"
         title="Get in touch"
         description="Bug bounty invites, collab, writeup suggestions, or just a hello."

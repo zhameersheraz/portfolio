@@ -8,7 +8,7 @@ export function Competitions() {
     <section id="competitions" className="container-wide section-pad">
       <Reveal className="flex flex-col gap-2">
         <div className="flex items-center gap-3 text-mono text-muted-foreground">
-          <span className="text-accent">01</span>
+          <span className="text-accent">02</span>
           <span>·</span>
           <span className="uppercase tracking-[0.16em]">Competitions</span>
         </div>

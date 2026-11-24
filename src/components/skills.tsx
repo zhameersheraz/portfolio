@@ -6,7 +6,7 @@ export function Skills() {
   return (
     <section id="skills" className="container-wide section-pad">
       <SectionHeader
-        index="02"
+        index="03"
         label="Skills"
         title="What I work with"
         description="Tools and topics I touch often enough to have opinions about."

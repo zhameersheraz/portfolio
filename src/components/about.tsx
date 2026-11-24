@@ -19,6 +19,37 @@ const HIGHLIGHTS = [
   { icon: Terminal, title: "Linux + Kali", body: "Most of my work happens in a terminal. Comfortable with bash, git, networking basics, and the standard tooling." },
 ];
 
+/**
+ * How the work is actually delivered.
+ *
+ * A hiring manager and a business owner both want to know how the work
+ * happens, not just what came out of it. These are the parts that are true
+ * of every engagement so far, and they are the same whether the client is a
+ * restaurant owner or a hardware vendor.
+ */
+const HOW = [
+  {
+    step: "01",
+    title: "Find the cost first",
+    body: "Before writing anything, I want the number the problem already costs you. A wrong order at P18 a time is a fixable problem. A vague feeling that things are slow is not.",
+  },
+  {
+    step: "02",
+    title: "Ship the smallest thing that works",
+    body: "A working tool beats a plan. Every project here is deployed and usable, not a prototype in a folder waiting for a weekend that never comes.",
+  },
+  {
+    step: "03",
+    title: "No lock in",
+    body: "Everything is open source, runs on free tiers, and can be moved off my infrastructure whenever you want. No accounts, no per-seat fees, no data leaving your device.",
+  },
+  {
+    step: "04",
+    title: "Plain language, no jargon",
+    body: "You get the cost, the trade-off and what I would do next, in the language you already use. Not a security report nobody reads past page one.",
+  },
+];
+
 export function About() {
   return (
     <section id="about" className="container-wide section-pad">
@@ -58,8 +89,29 @@ export function About() {
 
       <div className="mt-12">
         <div className="flex items-center gap-2 text-mono text-muted-foreground">
-          <Award className="h-3.5 w-3.5 text-accent" />
+          <Terminal className="h-3.5 w-3.5 text-accent" />
           <span className="text-accent">02</span>
+          <span>·</span>
+          <span className="uppercase tracking-[0.14em]">How I work</span>
+        </div>
+        <h3 className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">The same four steps every time</h3>
+        <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">Whether the client is a restaurant owner or a hardware vendor, this is the shape of the work.</p>
+
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {HOW.map((h) => (
+            <div key={h.step} className="panel panel-hover p-6">
+              <span className="font-mono text-xs text-accent">{h.step}</span>
+              <h4 className="mt-3 text-sm font-semibold">{h.title}</h4>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{h.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-12">
+        <div className="flex items-center gap-2 text-mono text-muted-foreground">
+          <Award className="h-3.5 w-3.5 text-accent" />
+          <span className="text-accent">03</span>
           <span>·</span>
           <span className="uppercase tracking-[0.14em]">Certifications</span>
         </div>
