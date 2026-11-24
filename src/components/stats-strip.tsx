@@ -3,9 +3,9 @@ import { Reveal } from "@/components/reveal";
 
 const STATS = [
   { icon: Trophy, value: "2x", label: "Championships" },
-  { icon: Github, value: "27", label: "Public repos" },
+  { icon: Github, value: "30", label: "Public repos" },
   { icon: Award, value: "18", label: "Certifications" },
-  { icon: Shield, value: "60+", label: "CTF challenges" },
+  { icon: Shield, value: "1,600+", label: "CTF challenges solved" },
 ];
 
 /**
@@ -43,6 +43,19 @@ export function StatsStrip() {
           </Reveal>
         ))}
       </div>
+
+      {/* The number on its own is a participation count. This line says what
+          the count is actually made of, and why it matters to someone paying
+          for the work rather than to someone reading a resume. */}
+      <Reveal className="mt-6">
+        <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground text-pretty">
+          <span className="text-foreground">1,229 of those have a public
+          writeup.</span> Each one records what the vulnerability actually was,
+          the path in, and the proof it worked. That is the same method that
+          goes into a firmware review, an audit, or any product that has to
+          survive somebody trying to break it.
+        </p>
+      </Reveal>
     </section>
   );
 }
