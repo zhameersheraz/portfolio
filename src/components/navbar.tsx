@@ -16,6 +16,16 @@ export function Navbar() {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // The current anchor, so the nav item for a section can show as active
+  // without both it and its parent page lighting up at once.
+  const [hash, setHash] = useState("");
+
+  useEffect(() => {
+    const onHash = () => setHash(window.location.hash);
+    onHash();
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -41,6 +51,12 @@ export function Navbar() {
    *
    * Animating after the swap was tried as well and is worse: the new route
    * paints once at scroll 0 before the effect can move it, which flashes.
+   *
+   * An anchor link is a third case. Certifications points at a section
+   * inside /about, so on that page the target already exists and the
+   * browser should just scroll to it. Navigating to the bare route first
+   * would send the visitor to the top of About and leave them to find the
+   * certificates themselves.
    */
   const go = useCallback(
     (e: ReactMouseEvent<HTMLAnchorElement>, href: string) => {
@@ -49,11 +65,25 @@ export function Navbar() {
       e.preventDefault();
       setOpen(false);
 
-      const isSamePage = href === "/"
-        ? pathname === "/"
-        : pathname === href || pathname.startsWith(`${href}/`);
+      const [path, hash] = href.split("#");
+      const onSamePath =
+        path === "/"
+          ? pathname === "/"
+          : pathname === path || pathname.startsWith(`${path}/`);
 
-      if (isSamePage) {
+      if (hash) {
+        if (onSamePath) {
+          const target = document.getElementById(hash);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            return;
+          }
+        }
+        router.push(href);
+        return;
+      }
+
+      if (onSamePath) {
         scrollTopThen().then(() => router.push(href));
       } else {
         router.push(href);
@@ -61,6 +91,16 @@ export function Navbar() {
     },
     [pathname, router],
   );
+
+  // A hash that arrives by navigation rather than by a click still has to land
+  // on the right section, and the target may only exist once the new route
+  // has rendered.
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (!hash) return;
+    const target = document.getElementById(hash);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [pathname]);
 
   return (
     <header
@@ -93,7 +133,13 @@ export function Navbar() {
         <div className="flex items-center gap-1">
         <ul className="hidden items-center gap-1 md:flex">
           {NAV.map((item) => {
-            const active = pathname.startsWith(item.href);
+            // An anchor item is only active when its section is the one being
+            // looked at, so About and Certifications never light up together
+            // on the same page.
+            const [path, itemHash] = item.href.split("#");
+            const active = itemHash
+              ? pathname === path && hash === `#${itemHash}`
+              : pathname.startsWith(item.href);
             return (
               <li key={item.href}>
                 <Link
@@ -136,7 +182,10 @@ export function Navbar() {
         <div className="border-t border-border bg-background md:hidden">
           <ul className="container-wide flex flex-col py-2">
             {NAV.map((item) => {
-              const active = pathname.startsWith(item.href);
+              const [path, itemHash] = item.href.split("#");
+              const active = itemHash
+                ? pathname === path && hash === `#${itemHash}`
+                : pathname.startsWith(item.href);
               return (
                 <li key={item.href}>
                   <Link

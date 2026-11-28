@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { COMPETITIONS } from "@/lib/config";
 import { Reveal } from "@/components/reveal";
 import { AwardPhoto } from "@/components/award-photo";
@@ -82,6 +82,16 @@ export function Competitions() {
                 <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                   {c.date}
                 </p>
+
+                {/* Stated plainly rather than implied. Some competitions ban
+                    AI assistance and some allow it, so a reader who does not
+                    know which kind this was has to assume the worse. */}
+                {c.note ? (
+                  <p className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                    <ShieldCheck className="h-3 w-3 shrink-0" aria-hidden />
+                    {c.note}
+                  </p>
+                ) : null}
               </div>
             </div>
           </Reveal>

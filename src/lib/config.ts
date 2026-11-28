@@ -46,9 +46,12 @@ export const SOCIAL = [
 
 // Home is deliberately absent. The </> mark in the navbar is the home link,
 // so a fourth item next to it would be a second door to the same room.
+// Certifications is an anchor into the About page rather than its own route,
+// because the certificates already live in that page's grid.
 export const NAV = [
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
+  { label: "Certifications", href: "/about#certifications" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
@@ -272,6 +275,8 @@ export type Cert = {
   image: string;
   link?: string;
   aspect?: number;
+  /** Short qualifier printed on the card, e.g. the no-AI note. */
+  note?: string;
 };
 
 export const CERTS: Cert[] = [
@@ -420,6 +425,7 @@ export const CERTS: Cert[] = [
     issued: "Nov 2026",
     image: "/certs/redreaper-2026.jpg",
     aspect: 1.414,
+    note: "No AI used in solving",
   },
   {
     id: "poctf-2026",
@@ -431,6 +437,7 @@ export const CERTS: Cert[] = [
     // verification page, so the card links there rather than to the image.
     link: "https://pointeroverflowctf.com/verify/POCTF-2026-02781",
     aspect: 1.294,
+    note: "No AI used in solving",
   },
 ] as const;
 
@@ -442,6 +449,8 @@ export type Competition = {
   org: string;
   date: string;
   photos: { src: string; href: string }[];
+  /** Printed on the card. Used for the no-AI statement. */
+  note?: string;
 };
 
 export const COMPETITIONS: Competition[] = [
@@ -452,6 +461,7 @@ export const COMPETITIONS: Competition[] = [
     role: "Top Scorer",
     org: "Team Digital Abyss, Syborg CTF",
     date: "Mar 29, 2026",
+    note: "No AI used in solving",
     photos: [
       { src: "/awards/syborg.jpg", href: "https://www.facebook.com/share/p/1CF76HX7K5/" },
       {
@@ -467,6 +477,7 @@ export const COMPETITIONS: Competition[] = [
     role: "Top Scorer",
     org: "Team KELZploit, DICT HackForGov",
     date: "Sep 16, 2026",
+    note: "No AI used in solving",
     photos: [
       { src: "/awards/provincial.jpg", href: "https://www.facebook.com/share/p/1DheMcbjRJ/" },
       { src: "/awards/provincial-2.jpg", href: "https://www.facebook.com/share/p/18NthGi1Vr/" },
