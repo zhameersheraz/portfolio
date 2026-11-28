@@ -4,7 +4,7 @@ import { Reveal } from "@/components/reveal";
 const STATS = [
   { icon: Trophy, value: "2x", label: "Championships" },
   { icon: Github, value: "30", label: "Public repos" },
-  { icon: Award, value: "18", label: "Certifications" },
+  { icon: Award, value: "19", label: "Certifications" },
   { icon: Shield, value: "1,600+", label: "CTF challenges solved" },
 ];
 

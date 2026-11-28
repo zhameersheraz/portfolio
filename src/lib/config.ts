@@ -414,6 +414,14 @@ export const CERTS: Cert[] = [
     aspect: 1.294,
   },
   {
+    id: "redreaper-2026",
+    title: "RedReaper Qualification 2026 - Rank 182 of 369 globally",
+    issuer: "Zeraxis",
+    issued: "Nov 2026",
+    image: "/certs/redreaper-2026.jpg",
+    aspect: 1.414,
+  },
+  {
     id: "poctf-2026",
     title: "Pointer Overflow CTF 2026 - Participant and Solver",
     issuer: "University of Wisconsin - Stevens Point",

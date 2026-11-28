@@ -17,7 +17,9 @@ export function Competitions() {
         </h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground text-pretty md:text-base">
           Placed first in both, and finished top of the individual scoreboard in
-          each. Tap a photo to open the post.
+          each. Two months after the second one, RedReaper Qualification 2026
+          put Zeraxis 182nd of 369 teams worldwide, with 8 flags and 710 points.
+          Tap a photo to open the post.
         </p>
       </Reveal>
 
