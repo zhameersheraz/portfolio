@@ -5,43 +5,42 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Custom pointer.
  *
- * This is a viewfinder, not a reticle. Four corner brackets sit around the
- * pointer the way crop marks sit around an image in an editor, with a single
- * hairline dot in the middle so the exact point is never in doubt.
+ * Two separate things, because they answer two different questions.
  *
- * The reason is that a crosshair with a trailing ring is the default look of
- * every "custom cursor" on a developer portfolio. It reads as a stock effect
- * because a trailing ring has nothing to do with the page. Crop marks do:
- * the site is already built out of corner brackets, registration marks and
- * instrument labels, so the pointer is drawn from the same vocabulary as
- * everything else.
+ * The pointer mark is four rounded corner brackets with a hairline dot in the
+ * middle, sitting exactly on the cursor. It answers "where am I" and it never
+ * moves away from the pointer. Crop marks rather than a crosshair, because the
+ * site is already built out of corner brackets, registration marks and
+ * instrument labels.
  *
- * Three details that make it feel made rather than applied:
+ * The target frame is the other half. When the pointer is over something that
+ * can be pressed, a rounded outline glides from the pointer to the edge of
+ * that element and a single dash travels around its perimeter. It answers
+ * "what will I click", and it shows the hit area rather than making you work
+ * it out from a tiny shape change.
  *
- * - Nothing lags. The pointer is the pointer. A delayed second element is
- *   where most of these designs spend their effort and it is the reason they
- *   read as a filter rather than as a cursor.
- * - Over something interactive the whole frame turns 45 degrees and opens up,
- *   so the state change is a shape change rather than a colour change.
- * - Pressing fires a single ring that expands once and dies. It is the
- *   visual half of the click sound, and it gives the press an end point
- *   instead of just a state.
+ * The frame follows the element's real box, so a link gets a frame around the
+ * link text and a card gets a frame around the whole card. Nothing lags and
+ * nothing jumps: the outline is a single element whose box is transitioned,
+ * so it slides and grows rather than teleporting.
  *
- * Over a text field the whole thing gets out of the way and the native text
- * caret comes back. Replacing the caret on a form is not a flourish, it is a
- * bug.
+ * Over a text field both get out of the way and the native caret takes over.
+ * Replacing the caret on a form is not a flourish, it is a bug.
  *
  * Only ever enabled on a device with a real hovering pointer. The native
  * cursor is removed with a class that JavaScript adds only after this
- * component has mounted and confirmed the pointer is fine, so there is never
- * a moment where the page has no cursor at all.
+ * component has mounted and confirmed the pointer is fine, so there is never a
+ * moment where the page has no cursor at all.
  */
-type Variant = "idle" | "active" | "text";
+type Mode = "idle" | "target" | "text";
+
+const OUTSET = 3;
 
 export function Cursor() {
   const pos = useRef<HTMLDivElement | null>(null);
+  const frame = useRef<SVGSVGElement | null>(null);
   const pulse = useRef<HTMLDivElement | null>(null);
-  const [variant, setVariant] = useState<Variant>("idle");
+  const [mode, setMode] = useState<Mode>("idle");
   const [live, setLive] = useState(false);
 
   useEffect(() => {
@@ -52,20 +51,57 @@ export function Cursor() {
     root.classList.add("has-custom-cursor");
     setLive(true);
 
+    /** Move the frame to a box, in page coordinates. */
+    const place = (x: number, y: number, w: number, h: number) => {
+      const el = frame.current;
+      if (!el) return;
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      el.style.width = `${w}px`;
+      el.style.height = `${h}px`;
+    };
+
     const onMove = (e: PointerEvent) => {
       const el = pos.current;
       if (!el) return;
       el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+      // While the pointer is not over a target, the frame collapses back onto
+      // the pointer so there is never a stale outline left over.
+      if (!frame.current?.classList.contains("is-target")) {
+        place(e.clientX - 12, e.clientY - 12, 24, 24);
+      }
     };
 
     const onOver = (e: PointerEvent) => {
       const el = e.target as Element | null;
       if (!el || typeof el.closest !== "function") return;
+
       if (el.closest("input, textarea, select, [contenteditable='true']")) {
-        setVariant("text");
+        setMode("text");
+        frame.current?.classList.remove("is-target");
         return;
       }
-      setVariant(el.closest("a, button, [role='button'], summary, label") ? "active" : "idle");
+
+      const pressable = el.closest(
+        "a, button, [role='button'], summary, label, [data-pressable]",
+      ) as HTMLElement | null;
+
+      if (!pressable) {
+        setMode("idle");
+        frame.current?.classList.remove("is-target");
+        return;
+      }
+
+      const r = pressable.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) {
+        setMode("idle");
+        frame.current?.classList.remove("is-target");
+        return;
+      }
+
+      setMode("target");
+      place(r.left - OUTSET, r.top - OUTSET, r.width + OUTSET * 2, r.height + OUTSET * 2);
+      frame.current?.classList.add("is-target");
     };
 
     const onDown = (e: PointerEvent) => {
@@ -83,6 +119,7 @@ export function Cursor() {
     const onLeave = () => {
       const el = pos.current;
       if (el) el.style.opacity = "0";
+      frame.current?.classList.remove("is-target");
     };
 
     const onEnter = () => {
@@ -110,11 +147,25 @@ export function Cursor() {
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[90]">
-      {/* The press ring. One element, restarted on every press. */}
+      {/* The press ring. One shot, then gone. */}
       <div ref={pulse} className="cursor-pulse" />
 
-      <div ref={pos} className="cursor-pos" style={{ opacity: 0 }}>
-        <div className={`cursor-marks ${variant}`}>
+      {/* The target frame. Lives in page coordinates and is transitioned
+          between boxes, so it slides rather than jumps. */}
+      <svg ref={frame} className="cursor-frame" width={0} height={0}>
+        <rect
+          className="cursor-frame__rect"
+          x={0}
+          y={0}
+          width="100%"
+          height="100%"
+          rx={9}
+        />
+      </svg>
+
+      {/* The pointer mark. Always exactly on the cursor. */}
+      <div ref={pos} className={`cursor-pos ${mode}`} style={{ opacity: 0 }}>
+        <div className="cursor-marks">
           <span className="cursor-mark cursor-mark--tl" />
           <span className="cursor-mark cursor-mark--tr" />
           <span className="cursor-mark cursor-mark--bl" />

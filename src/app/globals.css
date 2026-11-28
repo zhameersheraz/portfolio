@@ -315,8 +315,8 @@ html.has-custom-cursor [contenteditable="true"] {
   cursor: auto !important;
 }
 
-/* The viewfinder. Four corner brackets around the pointer, the way crop
-   marks sit around an image in an editor. */
+/* The pointer mark. Four rounded corner brackets around the cursor, the way
+   crop marks sit around an image in an editor. */
 .cursor-pos {
   position: absolute;
   top: 0;
@@ -331,11 +331,13 @@ html.has-custom-cursor [contenteditable="true"] {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
   mix-blend-mode: difference;
-  transition: transform 0.26s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition:
+    opacity 0.2s ease,
+    transform 0.24s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .cursor-mark {
@@ -345,15 +347,17 @@ html.has-custom-cursor [contenteditable="true"] {
   border-color: hsl(var(--foreground));
   border-style: solid;
   border-width: 0;
+  /* Rounded, not sharp. Sharp right angles read as a drawing of a pointer;
+     rounded ones read as a piece of the interface. */
+  border-radius: 1px 0 0 0;
 }
 
-.cursor-mark--tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
-.cursor-mark--tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
-.cursor-mark--bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
-.cursor-mark--br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+.cursor-mark--tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; border-radius: 3px 0 0 0; }
+.cursor-mark--tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; border-radius: 0 3px 0 0; }
+.cursor-mark--bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; border-radius: 0 0 0 3px; }
+.cursor-mark--br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; border-radius: 0 0 3px 0; }
 
-/* The hairline in the middle. Without it the exact point is ambiguous once
-   the frame opens up. */
+/* The hairline in the middle. Without it the exact point is ambiguous. */
 .cursor-core {
   position: absolute;
   top: 50%;
@@ -364,27 +368,64 @@ html.has-custom-cursor [contenteditable="true"] {
   background: hsl(var(--foreground));
   border-radius: 9999px;
   transition:
-    width 0.26s cubic-bezier(0.22, 0.61, 0.36, 1),
-    height 0.26s cubic-bezier(0.22, 0.61, 0.36, 1),
-    margin 0.26s cubic-bezier(0.22, 0.61, 0.36, 1);
+    width 0.24s cubic-bezier(0.22, 0.61, 0.36, 1),
+    height 0.24s cubic-bezier(0.22, 0.61, 0.36, 1),
+    margin 0.24s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* Over something interactive the frame turns into a diamond and opens up, so
-   the state change is a shape change rather than a colour change. */
-.cursor-marks.active {
-  transform: rotate(45deg) scale(1.24);
-}
-
-.cursor-marks.active .cursor-core {
-  width: 4px;
-  height: 4px;
-  margin: -2px 0 0 -2px;
+/* When the target frame is out, the pointer mark steps back so the two do
+   not draw over each other. */
+.cursor-pos.target .cursor-marks {
+  opacity: 0.35;
+  transform: scale(0.8);
 }
 
 /* Over a text field the pointer gets out of the way entirely and the native
    caret takes over. */
-.cursor-marks.text {
+.cursor-pos.text {
   opacity: 0 !important;
+}
+
+/* The target frame. One element, transitioned between boxes, so it slides
+   from the pointer to the element instead of appearing on it. */
+.cursor-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: visible;
+  opacity: 0;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transition:
+    left 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    top 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    width 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    height 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.22s ease;
+}
+
+.cursor-frame.is-target {
+  opacity: 1;
+}
+
+.cursor-frame__rect {
+  fill: none;
+  stroke: hsl(var(--foreground));
+  stroke-width: 1;
+  stroke-linecap: round;
+  /* One short dash travelling around the perimeter. This is the part that
+     turns, and it is what makes the frame read as alive rather than as a
+     selection rectangle. */
+  stroke-dasharray: 34 260;
+  animation: cursor-march 2.6s linear infinite;
+}
+
+@keyframes cursor-march {
+  to {
+    stroke-dashoffset: -294;
+  }
 }
 
 /* The press ring. One shot, then gone. */
