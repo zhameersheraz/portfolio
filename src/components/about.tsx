@@ -155,15 +155,6 @@ export function About() {
                   <span>{cert.issuer}</span>
                   <span className="text-mono">{cert.issued}</span>
                 </div>
-                {/* Some competitions ban AI assistance and some allow it, so
-                    the card says which this was. Without it a reader has to
-                    assume the worst, and the assumption is wrong. */}
-                {cert.note ? (
-                  <p className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                    <ShieldCheck className="h-3 w-3 shrink-0" aria-hidden />
-                    {cert.note}
-                  </p>
-                ) : null}
                 <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground transition-colors group-hover:text-foreground">
                   Verify ↗
                 </p>

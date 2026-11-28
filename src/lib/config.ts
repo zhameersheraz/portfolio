@@ -275,8 +275,6 @@ export type Cert = {
   image: string;
   link?: string;
   aspect?: number;
-  /** Short qualifier printed on the card, e.g. the no-AI note. */
-  note?: string;
 };
 
 export const CERTS: Cert[] = [
@@ -425,7 +423,6 @@ export const CERTS: Cert[] = [
     issued: "Nov 2026",
     image: "/certs/redreaper-2026.jpg",
     aspect: 1.414,
-    note: "No AI used in solving",
   },
   {
     id: "poctf-2026",
@@ -437,7 +434,6 @@ export const CERTS: Cert[] = [
     // verification page, so the card links there rather than to the image.
     link: "https://pointeroverflowctf.com/verify/POCTF-2026-02781",
     aspect: 1.294,
-    note: "No AI used in solving",
   },
 ] as const;
 
@@ -461,7 +457,7 @@ export const COMPETITIONS: Competition[] = [
     role: "Top Scorer",
     org: "Team Digital Abyss, Syborg CTF",
     date: "Mar 29, 2026",
-    note: "No AI used in solving",
+    note: "No AI used",
     photos: [
       { src: "/awards/syborg.jpg", href: "https://www.facebook.com/share/p/1CF76HX7K5/" },
       {
@@ -477,7 +473,7 @@ export const COMPETITIONS: Competition[] = [
     role: "Top Scorer",
     org: "Team KELZploit, DICT HackForGov",
     date: "Sep 16, 2026",
-    note: "No AI used in solving",
+    note: "No AI used",
     photos: [
       { src: "/awards/provincial.jpg", href: "https://www.facebook.com/share/p/1DheMcbjRJ/" },
       { src: "/awards/provincial-2.jpg", href: "https://www.facebook.com/share/p/18NthGi1Vr/" },
