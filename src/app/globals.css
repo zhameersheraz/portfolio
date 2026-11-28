@@ -315,103 +315,106 @@ html.has-custom-cursor [contenteditable="true"] {
   cursor: auto !important;
 }
 
-.cursor-ring {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30px;
-  height: 30px;
-  border: 1px solid hsl(var(--foreground) / 0.55);
-  border-radius: 9999px;
-  /* difference keeps the ring legible over both the paper and the dark
-     theme without ever having to know which one is underneath. */
-  mix-blend-mode: difference;
-  transition:
-    width 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
-    height 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
-    border-color 0.22s ease,
-    opacity 0.2s ease;
-  will-change: transform;
-}
-
-.cursor-ring.active {
-  width: 44px;
-  height: 44px;
-}
-
-.cursor-ring.text {
-  width: 0;
-  height: 0;
-  opacity: 0 !important;
-}
-
-.cursor-dot {
+/* The viewfinder. Four corner brackets around the pointer, the way crop
+   marks sit around an image in an editor. */
+.cursor-pos {
   position: absolute;
   top: 0;
   left: 0;
   width: 0;
   height: 0;
-  mix-blend-mode: difference;
   will-change: transform;
+  transition: opacity 0.18s ease;
 }
 
-.cursor-dot__core {
+.cursor-marks {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 5px;
-  height: 5px;
-  margin: -2.5px 0 0 -2.5px;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  mix-blend-mode: difference;
+  transition: transform 0.26s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.cursor-mark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: hsl(var(--foreground));
+  border-style: solid;
+  border-width: 0;
+}
+
+.cursor-mark--tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+.cursor-mark--tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+.cursor-mark--bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+.cursor-mark--br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+
+/* The hairline in the middle. Without it the exact point is ambiguous once
+   the frame opens up. */
+.cursor-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  margin: -1px 0 0 -1px;
   background: hsl(var(--foreground));
   border-radius: 9999px;
   transition:
-    width 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
-    height 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
-    margin 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+    width 0.26s cubic-bezier(0.22, 0.61, 0.36, 1),
+    height 0.26s cubic-bezier(0.22, 0.61, 0.36, 1),
+    margin 0.26s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.cursor-dot__arm {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background: hsl(var(--foreground));
-  transition:
-    opacity 0.2s ease,
-    transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+/* Over something interactive the frame turns into a diamond and opens up, so
+   the state change is a shape change rather than a colour change. */
+.cursor-marks.active {
+  transform: rotate(45deg) scale(1.24);
 }
 
-.cursor-dot__arm--h {
-  width: 22px;
-  height: 1px;
-  margin: 0 0 0 -11px;
+.cursor-marks.active .cursor-core {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
 }
 
-.cursor-dot__arm--v {
-  width: 1px;
-  height: 22px;
-  margin: -11px 0 0 0;
-}
-
-/* Over something interactive the arms retract and the core opens up, so the
-   state change is a shape change rather than a colour change. */
-.cursor-dot.active .cursor-dot__core {
-  width: 9px;
-  height: 9px;
-  margin: -4.5px 0 0 -4.5px;
-}
-
-.cursor-dot.active .cursor-dot__arm--h {
-  opacity: 0;
-  transform: scaleX(0.4);
-}
-
-.cursor-dot.active .cursor-dot__arm--v {
-  opacity: 0;
-  transform: scaleY(0.4);
-}
-
-.cursor-dot.text {
+/* Over a text field the pointer gets out of the way entirely and the native
+   caret takes over. */
+.cursor-marks.text {
   opacity: 0 !important;
+}
+
+/* The press ring. One shot, then gone. */
+.cursor-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border: 1px solid hsl(var(--foreground));
+  border-radius: 9999px;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transform: scale(0.3);
+}
+
+.cursor-pulse--go {
+  animation: cursor-pulse 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cursor-pulse {
+  from {
+    opacity: 0.8;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 0;
+    transform: scale(4.4);
+  }
 }
 
 /* The intro overlay is in the server HTML so it never flashes the page
