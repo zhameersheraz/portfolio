@@ -373,59 +373,28 @@ html.has-custom-cursor [contenteditable="true"] {
     margin 0.24s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* When the target frame is out, the pointer mark steps back so the two do
-   not draw over each other. */
-.cursor-pos.target .cursor-marks {
-  opacity: 0.35;
-  transform: scale(0.8);
+/* Over something pressable the frame turns. It spins slowly and
+   continuously, and the brackets never leave the pointer, so where the
+   pointer is and what it is over are never in doubt. Four seconds a
+   revolution: fast enough to read as movement, slow enough not to be a
+   fidget spinner. */
+.cursor-pos.active .cursor-marks {
+  animation: cursor-spin 4s linear infinite;
+}
+
+@keyframes cursor-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Over a text field the pointer gets out of the way entirely and the native
    caret takes over. */
 .cursor-pos.text {
   opacity: 0 !important;
-}
-
-/* The target frame. One element, transitioned between boxes, so it slides
-   from the pointer to the element instead of appearing on it. */
-.cursor-frame {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  overflow: visible;
-  opacity: 0;
-  mix-blend-mode: difference;
-  pointer-events: none;
-  transition:
-    left 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
-    top 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
-    width 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
-    height 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
-    opacity 0.22s ease;
-}
-
-.cursor-frame.is-target {
-  opacity: 1;
-}
-
-.cursor-frame__rect {
-  fill: none;
-  stroke: hsl(var(--foreground));
-  stroke-width: 1;
-  stroke-linecap: round;
-  /* One short dash travelling around the perimeter. This is the part that
-     turns, and it is what makes the frame read as alive rather than as a
-     selection rectangle. */
-  stroke-dasharray: 34 260;
-  animation: cursor-march 2.6s linear infinite;
-}
-
-@keyframes cursor-march {
-  to {
-    stroke-dashoffset: -294;
-  }
 }
 
 /* The press ring. One shot, then gone. */
